@@ -7,9 +7,10 @@
   --black: #0a0a0a;
   --black-soft: #121212;
   --white: #ffffff;
-  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
-  --font-display: "Italiana", Georgia, serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  /** Текст на тёмном герое и в шапке над фоном — как на референсе */
+  --hero-fg: #ffffff;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
   --header-h: 4.25rem;
 }
 
@@ -80,13 +81,42 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 1.25rem 1.5rem;
   min-height: var(--header-h);
-  color: var(--white);
+  color: var(--hero-fg);
   transition: color 0.25s ease, background 0.25s ease;
 }
 
+@media (min-width: 900px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .site-header__logo {
+    justify-self: start;
+  }
+
+  .site-header__nav {
+    justify-self: center;
+  }
+
+  .site-header__actions {
+    justify-self: end;
+  }
+
+  .site-header__menu-btn {
+    display: none;
+  }
+}
+
 .site-header.is-on-light {
+  color: var(--black);
+}
+
+.site-header.is-on-light .site-header__nav a {
   color: var(--black);
 }
 
@@ -96,9 +126,40 @@ ul {
 
 .site-header__logo {
   font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 3vw, 1.65rem);
-  letter-spacing: 0.08em;
+  font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  color: inherit;
+}
+
+.site-header__nav {
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 1.75rem;
+}
+
+@media (min-width: 900px) {
+  .site-header__nav {
+    display: flex;
+  }
+}
+
+.site-header__nav a {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--hero-fg);
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
+}
+
+.site-header__nav a:hover {
+  opacity: 0.75;
 }
 
 .site-header__actions {
@@ -128,7 +189,7 @@ ul {
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: var(--white);
+  color: var(--hero-fg);
   padding: calc(var(--header-h) + 2rem) 1.5rem 6rem;
 }
 
@@ -158,28 +219,35 @@ ul {
 
 .eyebrow {
   margin: 0 0 1rem;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.42em;
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.38em;
   text-transform: uppercase;
+}
+
+.hero .eyebrow,
+.hero .btn {
+  font-family: var(--font-sans);
 }
 
 .hero__title {
   font-family: var(--font-serif);
   font-size: clamp(3rem, 12vw, 5.75rem);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.02;
   text-transform: uppercase;
   margin-bottom: 1.25rem;
+  color: var(--hero-fg);
 }
 
 .hero__tagline {
-  font-size: clamp(1rem, 3.2vw, 1.125rem);
-  font-weight: 300;
-  line-height: 1.6;
+  font-family: var(--font-sans);
+  font-size: clamp(0.9375rem, 2.8vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.65;
   margin-bottom: 2rem;
-  opacity: 0.92;
+  color: var(--hero-fg);
 }
 
 .hero__ctas {
@@ -194,17 +262,17 @@ ul {
   align-items: center;
   justify-content: center;
   min-height: 2.875rem;
-  padding: 0 1.75rem;
-  font-size: 0.72rem;
+  padding: 0.55rem 2.15rem;
+  font-size: 0.625rem;
   font-weight: 500;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn--ghost {
-  border: 1px solid var(--white);
-  color: var(--white);
+  border: 1px solid var(--hero-fg);
+  color: var(--hero-fg);
   background: transparent;
 }
 
@@ -213,10 +281,13 @@ ul {
 }
 
 .hero__about {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  opacity: 0.8;
+  color: var(--hero-fg);
+  opacity: 0.9;
 }
 
 .hero__about:hover {
@@ -229,7 +300,7 @@ ul {
   left: 50%;
   width: 1px;
   height: 3rem;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.72);
   transform: translateX(-50%);
 }
 
@@ -580,7 +651,7 @@ ul {
 }
 
 .collection-block__overlay-ru.script {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-serif);
   font-style: italic;
   font-weight: 500;
   font-size: clamp(2.75rem, 10vw, 4.25rem);
@@ -646,9 +717,10 @@ ul {
 }
 
 .site-footer__logo {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 5vw, 2.75rem);
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }

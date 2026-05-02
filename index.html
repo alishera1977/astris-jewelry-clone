@@ -126,15 +126,27 @@
           <h2 class="catalog__title font-serif">Избранное</h2>
           <div class="product-grid">
             <article class="product-card">
-              <a class="product-card__media" href="#">
-                <img
-                  src="assets/catalog-fluid-signet.jpg"
-                  alt="Кольцо Fluid Signet — серебряное сигнетное кольцо с волнистой верхней частью на белом фоне."
-                  width="1024"
-                  height="876"
-                  loading="lazy"
-                />
-              </a>
+              <div
+                class="product-card__media product-card__media--spin"
+                data-product-spin
+                tabindex="0"
+                role="img"
+                aria-label="Кольцо Fluid Signet. Перетащите изображение влево или вправо, чтобы повернуть."
+              >
+                <div class="product-card__spin-stage">
+                  <div class="product-card__spin-plane">
+                    <img
+                      src="assets/catalog-fluid-signet.jpg"
+                      alt=""
+                      width="1024"
+                      height="876"
+                      loading="lazy"
+                      draggable="false"
+                    />
+                  </div>
+                  <span class="product-card__spin-hint" aria-hidden="true">Покрутите</span>
+                </div>
+              </div>
               <p class="product-card__cat">Серебро 925</p>
               <h3 class="product-card__name font-serif"><a href="#">Кольцо Fluid Signet</a></h3>
               <div class="product-card__row">

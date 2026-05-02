@@ -24,10 +24,8 @@
   font-family: "Cormorant Garamond", "Didot", "Bodoni 72", serif;
   font-weight: 400;
   color: var(--hero-text);
-}
-
-.hero-title {
-  letter-spacing: 0.18em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .header-nav,
@@ -227,10 +225,8 @@ ul {
 }
 
 .hero__title {
-  font-family: inherit;
   font-size: clamp(3rem, 12vw, 5.75rem);
   line-height: 1.05;
-  text-transform: uppercase;
   margin-bottom: 1.25rem;
 }
 

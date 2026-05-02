@@ -363,70 +363,27 @@ ul {
 }
 
 .editorial {
-  background: var(--bg);
+  padding: clamp(2.25rem, 7vw, 4rem) clamp(1rem, 5vw, 2.5rem) clamp(2.75rem, 8vw, 4.5rem);
+  background: linear-gradient(165deg, var(--bg) 0%, color-mix(in srgb, var(--text-tertiary) 88%, var(--bg)) 18%, var(--text-secondary) 100%);
 }
 
-.editorial__top {
-  height: clamp(140px, 22vw, 220px);
-  background: linear-gradient(to bottom, var(--text-tertiary), var(--text-secondary));
-}
-
-.editorial__visual {
-  position: relative;
-  background: var(--text-tertiary);
-}
-
-.editorial__visual img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  filter: grayscale(20%) contrast(1.05);
-}
-
-.editorial__mark {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 8vw, 3.5rem);
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: var(--fg);
-  pointer-events: none;
-}
-
-.editorial__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 2rem;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem 2.75rem;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-  max-width: 72rem;
+.editorial__inner {
+  max-width: min(72rem, 100%);
   margin: 0 auto;
+  padding: clamp(0.5rem, 2vw, 1.25rem);
+  background: color-mix(in srgb, var(--cream) 35%, transparent);
+  border-radius: 3px;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--dark) 6%, transparent),
+    0 24px 60px color-mix(in srgb, var(--dark) 10%, transparent);
 }
 
-.editorial__meta-note {
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  color: var(--text-tertiary);
-  text-align: right;
-  flex: 1 1 100%;
-}
-
-@media (min-width: 640px) {
-  .editorial__meta-note {
-    flex: 0 0 auto;
-    text-align: right;
-    margin-left: auto;
-  }
+.editorial__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  vertical-align: middle;
 }
 
 .catalog {

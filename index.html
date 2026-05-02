@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="ASTRIS — украшения как символы. Объекты веры, силы и присутствия."
+    />
+    <title>ASTRIS — Jewelry Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Italiana&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" id="site-header" aria-label="Шапка сайта">
+      <a href="#" class="site-header__logo">ASTRIS</a>
+      <div class="site-header__actions">
+        <button type="button" class="icon-btn" aria-label="Корзина">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 7h15l-1.5 9h-12L6 7z" />
+            <path d="M9 7V5a3 3 0 016 0v2" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="icon-btn"
+          id="menu-open"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="site-menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="menu-overlay" id="site-menu" hidden>
+      <div class="menu-overlay__panel">
+        <button type="button" class="menu-overlay__close icon-btn" id="menu-close" aria-label="Закрыть меню">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <p class="menu-overlay__lead">Jewelry as symbols.</p>
+        <p class="menu-overlay__sub">Objects of faith, strength and presence.</p>
+        <nav class="menu-overlay__nav" aria-label="Основное меню">
+          <div class="menu-col">
+            <h2 class="menu-col__title">Каталог</h2>
+            <ul>
+              <li><a href="#">Кольца</a></li>
+              <li><a href="#">Подвески</a></li>
+              <li><a href="#">Серьги</a></li>
+              <li><a href="#">Браслеты</a></li>
+            </ul>
+          </div>
+          <div class="menu-col">
+            <h2 class="menu-col__title">Бренд</h2>
+            <ul>
+              <li><a href="#">Коллекции</a></li>
+              <li><a href="#">О бренде</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Контакты</a></li>
+            </ul>
+          </div>
+          <div class="menu-col">
+            <h2 class="menu-col__title">Контакты</h2>
+            <ul>
+              <li><a href="mailto:contact@astris.ru">contact@astris.ru</a></li>
+              <li><a href="#">@astris.jewelry</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <section class="hero" id="hero" data-header="dark">
+        <div class="hero__bg" role="presentation"></div>
+        <div class="hero__inner">
+          <p class="eyebrow hero__eyebrow">Premium Jewelry</p>
+          <h1 class="hero__title">ASTRIS</h1>
+          <p class="hero__tagline">
+            Украшения как символы.<br />
+            Объекты веры, силы и присутствия.
+          </p>
+          <div class="hero__ctas">
+            <a class="btn btn--ghost" href="#catalog">Смотреть коллекцию</a>
+            <a class="hero__about" href="#about">О бренде</a>
+          </div>
+        </div>
+        <div class="hero__scroll" aria-hidden="true"></div>
+      </section>
+
+      <section class="about" id="about" data-header="light">
+        <div class="about__inner">
+          <h2 class="section-title section-title--dark">Украшение как личный символ</h2>
+          <div class="about__copy">
+            <p>
+              ASTRIS создаёт украшения для тех, кто носит их осознанно — не чтобы произвести впечатление, а чтобы
+              помнить, кто они есть. Каждая вещь — это объект веры, силы и присутствия.
+            </p>
+            <p>
+              Серебро 925 пробы. Натуральные камни. Минималистичная форма, несущая максимальный смысл.
+            </p>
+          </div>
+          <a class="text-link text-link--underline" href="#">Читать историю бренда</a>
+        </div>
+      </section>
+
+      <section class="editorial" aria-label="Образ бренда">
+        <div class="editorial__top"></div>
+        <div class="editorial__visual">
+          <img
+            src="https://images.unsplash.com/photo-1617038260897-41a1f4a8a903?w=1200&q=80"
+            alt="Колье из чёрных бусин"
+            width="1200"
+            height="800"
+            loading="lazy"
+          />
+          <span class="editorial__mark">ASTRIS</span>
+        </div>
+        <div class="editorial__meta" data-header="light">
+          <span>A symbol of your strength</span>
+          <span>A symbol of your faith</span>
+          <span class="editorial__meta-note">Ladoga Text Regular · SmithyXT-Faded</span>
+        </div>
+      </section>
+
+      <section class="catalog" id="catalog" data-header="dark">
+        <div class="catalog__inner">
+          <p class="eyebrow catalog__eyebrow">Новинки</p>
+          <h2 class="catalog__title">Избранное</h2>
+          <div class="product-grid">
+            <article class="product-card">
+              <a class="product-card__media" href="#">
+                <img
+                  src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80"
+                  alt="Подвеска Onyx Ritual"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </a>
+              <p class="product-card__cat">Черный оникс</p>
+              <h3 class="product-card__name"><a href="#">Подвеска Onyx Ritual</a></h3>
+              <div class="product-card__row">
+                <p class="product-card__price">18 500 ₽</p>
+                <button type="button" class="product-card__add" aria-label="Добавить в корзину">+</button>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card__media" href="#">
+                <img
+                  src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&q=80"
+                  alt="Кольцо Faith Signet"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </a>
+              <p class="product-card__cat">Серебро 925</p>
+              <h3 class="product-card__name"><a href="#">Кольцо Faith Signet</a></h3>
+              <div class="product-card__row">
+                <p class="product-card__price">14 900 ₽</p>
+                <button type="button" class="product-card__add" aria-label="Добавить в корзину">+</button>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card__media" href="#">
+                <img
+                  src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80"
+                  alt="Серьги Astris Drop"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </a>
+              <p class="product-card__cat">Серебро 925</p>
+              <h3 class="product-card__name"><a href="#">Серьги Astris Drop</a></h3>
+              <div class="product-card__row">
+                <p class="product-card__price">12 800 ₽</p>
+                <button type="button" class="product-card__add" aria-label="Добавить в корзину">+</button>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card__media" href="#">
+                <img
+                  src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&q=80"
+                  alt="Браслет Strength Chain"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </a>
+              <p class="product-card__cat">Серебро 925</p>
+              <h3 class="product-card__name"><a href="#">Браслет Strength Chain</a></h3>
+              <div class="product-card__row">
+                <p class="product-card__price">16 400 ₽</p>
+                <button type="button" class="product-card__add" aria-label="Добавить в корзину">+</button>
+              </div>
+            </article>
+          </div>
+          <a class="text-link text-link--center text-link--underline text-link--light" href="#">Весь каталог</a>
+        </div>
+      </section>
+
+      <section class="collections-intro" id="collections" data-header="light">
+        <p class="eyebrow collections-intro__eyebrow">Коллекции</p>
+        <h2 class="section-title section-title--dark collections-intro__title">Символы силы</h2>
+        <div class="collections-intro__hero">
+          <img
+            src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=80"
+            alt=""
+            width="1600"
+            height="900"
+            loading="lazy"
+          />
+        </div>
+      </section>
+
+      <section class="collection-block collection-block--ritual" aria-labelledby="coll-ritual">
+        <header class="collection-block__banner" data-header="dark">
+          <div class="collection-block__banner-top">
+            <span class="collection-block__en" id="coll-ritual">Ritual</span>
+          </div>
+          <h2 class="collection-block__ru">Ритуал</h2>
+        </header>
+        <p class="collection-block__lead" data-header="light">Символы повседневного</p>
+        <div class="collection-block__media" data-header="dark">
+          <img
+            src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1400&q=80"
+            alt="Коллекция Ritual"
+            width="1400"
+            height="900"
+            loading="lazy"
+          />
+          <span class="collection-block__watermark" aria-hidden="true">ASTRIS</span>
+        </div>
+      </section>
+
+      <section class="collection-block collection-block--faith" aria-labelledby="coll-faith">
+        <p class="collection-block__lead" id="coll-faith" data-header="light">Объекты убеждений</p>
+        <div class="collection-block__media" data-header="dark">
+          <img
+            src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1400&q=80"
+            alt="Коллекция Faith"
+            width="1400"
+            height="900"
+            loading="lazy"
+          />
+          <div class="collection-block__overlay">
+            <span class="collection-block__overlay-en">Faith</span>
+            <span class="collection-block__overlay-ru">Вера</span>
+          </div>
+          <span class="collection-block__watermark" aria-hidden="true">AS</span>
+        </div>
+      </section>
+
+      <section class="collection-block collection-block--strength" aria-labelledby="coll-strength">
+        <div class="collection-block__media collection-block__media--tall" data-header="dark">
+          <img
+            src="https://images.unsplash.com/photo-1515378960530-7a0d62a0ed4d?w=1400&q=80"
+            alt="Коллекция Strength"
+            width="1400"
+            height="1000"
+            loading="lazy"
+          />
+          <div class="collection-block__overlay collection-block__overlay--left">
+            <span class="collection-block__overlay-en">Strength</span>
+            <span class="collection-block__overlay-ru script">Сила</span>
+          </div>
+          <span class="collection-block__watermark collection-block__watermark--ghost" aria-hidden="true">ASTRIS</span>
+        </div>
+        <p class="collection-block__band" data-header="light">Архивы стойкости</p>
+      </section>
+
+      <section class="quote" data-header="dark">
+        <blockquote class="quote__text">
+          «Украшение — это не то, что ты надеваешь. Это то, что ты помнишь.»
+        </blockquote>
+        <p class="quote__brand">ASTRIS</p>
+      </section>
+
+      <footer class="site-footer" id="contacts" data-header="dark">
+        <div class="site-footer__top">
+          <div>
+            <p class="site-footer__logo">ASTRIS</p>
+            <p class="site-footer__tag">Jewelry as symbols.</p>
+            <p class="site-footer__tag">Objects of faith, strength and presence.</p>
+          </div>
+          <div class="site-footer__cols">
+            <div class="footer-col">
+              <h2 class="footer-col__title">Каталог</h2>
+              <ul>
+                <li><a href="#">Кольца</a></li>
+                <li><a href="#">Подвески</a></li>
+                <li><a href="#">Серьги</a></li>
+                <li><a href="#">Браслеты</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h2 class="footer-col__title">Бренд</h2>
+              <ul>
+                <li><a href="#">Коллекции</a></li>
+                <li><a href="#">О бренде</a></li>
+                <li><a href="#">Журнал</a></li>
+                <li><a href="#">Контакты</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h2 class="footer-col__title">Контакты</h2>
+              <ul>
+                <li><a href="mailto:contact@astris.ru">contact@astris.ru</a></li>
+                <li><a href="#">@astris.jewelry</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <hr class="site-footer__rule" />
+        <div class="site-footer__bottom">
+          <p>© 2025 ASTRIS. Все права защищены.</p>
+          <p>Россия, Москва</p>
+        </div>
+      </footer>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>

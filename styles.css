@@ -397,113 +397,109 @@ ul {
 }
 
 .catalog {
-  background: #f5f5f3;
-  color: #111111;
+  background: #f8f7f4;
+  color: #050505;
 }
 
 .catalog__inner {
-  max-width: 1180px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 80px 56px 140px;
+  padding: 100px 56px 160px;
 }
 
 @media (max-width: 899px) {
   .catalog__inner {
-    padding: 24px;
+    padding: 64px 24px;
   }
 }
 
 .catalog__eyebrow {
-  color: rgba(17, 17, 17, 0.36);
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .catalog__title {
   font-family: var(--font-serif);
   font-size: clamp(2.25rem, 7vw, 3.25rem);
   font-weight: 500;
-  margin: 0.35rem 0 2.75rem;
+  margin: 0.35rem 0 3.25rem;
 }
 
 .product-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 56px;
+  row-gap: 80px;
 }
 
 @media (min-width: 900px) {
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 72px 36px;
+    column-gap: 96px;
+    row-gap: 120px;
   }
 }
 
-.product-card__media {
-  display: block;
-  background: #f5f5f3;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-.product-card__media-frame {
+.product-card__media {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
-  padding: 10%;
-  box-sizing: border-box;
+  height: 360px;
+  margin: 0 0 54px;
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 899px) {
+  .product-card__media {
+    height: min(88vw, 360px);
+  }
 }
 
 .product-card__img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
-  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  mix-blend-mode: multiply;
+  filter: none;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.product-card__media:hover .product-card__img,
-.product-card__media:focus-visible .product-card__img {
+.product-card__media:hover .product-card__img {
   transform: scale(1.035);
 }
 
 .product-card__media:focus-visible {
-  outline: 1px solid rgba(17, 17, 17, 0.25);
-  outline-offset: 4px;
+  outline: 1px solid rgba(5, 5, 5, 0.2);
+  outline-offset: 6px;
 }
 
-.product-card__cat {
-  margin-top: 26px;
-  margin-bottom: 18px;
-  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(17, 17, 17, 0.36);
-}
-
-.product-card__row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.product-card__text {
-  flex: 1;
-  min-width: 0;
+.product-card__meta {
+  max-width: 520px;
+  text-align: left;
 }
 
 .product-card__name {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(30px, 3vw, 42px);
-  line-height: 1.05;
-  font-weight: 400;
-  color: #111111;
-  margin: 0 0 24px;
+  margin: 0 0 22px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(32px, 3vw, 44px);
+  line-height: 1.18;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: #050505;
 }
 
 .product-card__name a {
@@ -513,40 +509,25 @@ ul {
 }
 
 .product-card__name a:hover {
-  opacity: 0.72;
+  opacity: 0.65;
+}
+
+.product-card__cat {
+  margin: 0 0 26px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-size: 24px;
+  line-height: 1.45;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.78);
 }
 
 .product-card__price {
   margin: 0;
-  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
-  font-size: 22px;
-  letter-spacing: 0.02em;
-  color: #111111;
-}
-
-.product-card__add {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  padding: 0;
-  border: 1px solid rgba(17, 17, 17, 0.35);
-  background: transparent;
-  color: #111111;
-  font-family: var(--font-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 24px;
-  font-weight: 300;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-size: 30px;
   line-height: 1;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: background 300ms ease, color 300ms ease, border-color 300ms ease;
-}
-
-.product-card__add:hover {
-  background: #111111;
-  color: #f5f5f3;
-  border-color: #111111;
+  font-weight: 400;
+  color: #050505;
 }
 
 .quote {

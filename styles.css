@@ -440,6 +440,15 @@ ul {
   }
 }
 
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 72px;
+    row-gap: 120px;
+    align-items: start;
+  }
+}
+
 .product-card {
   display: grid;
   grid-template-rows: 360px auto;

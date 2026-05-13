@@ -1,0 +1,13 @@
+# Статический сайт: публикация из корня репозитория.
+# Деплой: https://app.netlify.com → Add new site → Import / Deploy manually,
+# либо подключи GitHub и выбери этот репозиторий (build command оставь пустым).
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

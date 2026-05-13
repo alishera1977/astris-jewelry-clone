@@ -75,38 +75,60 @@
     </div>
 
     <main>
-      <section class="hero" id="hero" data-header="dark">
-        <div class="hero__bg" role="presentation"></div>
-        <div class="hero__inner">
-          <p class="eyebrow hero__eyebrow hero-eyebrow">Premium Jewelry</p>
-          <h1 class="hero__title font-serif hero-title">ASTRIS</h1>
-          <p class="hero__tagline hero-subtitle">
-            Украшения как символы.<br />
-            Объекты веры, силы и присутствия.
-          </p>
-          <div class="hero__ctas">
-            <a class="btn btn--ghost hero-button" href="#catalog">Смотреть коллекцию</a>
-            <a class="hero__about" href="#about">О бренде</a>
-          </div>
+      <section class="home-hero" id="hero" data-header="light" aria-label="ASTRIS">
+        <div class="home-hero__media" aria-hidden="true">
+          <img
+            class="home-hero__image"
+            src="images/necklace-hero.jpg?v=3"
+            alt=""
+            width="1920"
+            height="1080"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <div class="home-hero__overlay"></div>
         </div>
-        <div class="hero__scroll" aria-hidden="true"></div>
+        <h1 class="home-hero__logo">ASTRIS</h1>
+        <div class="home-hero__captions">
+          <p class="home-hero__caption">
+            A symbol<br />
+            of your strength
+          </p>
+          <a class="home-hero__cta" href="#catalog">СМОТРЕТЬ КОЛЛЕКЦИЮ</a>
+          <p class="home-hero__caption">
+            A symbol<br />
+            of your faith
+          </p>
+        </div>
       </section>
 
-      <section class="about" id="about" data-header="light" aria-label="О бренде">
-        <div class="about__inner">
-          <div class="about__lead">
-            <p class="about__label">О бренде</p>
-            <h2 class="about__title">Украшение как личный символ</h2>
-          </div>
-          <div class="about__copy">
-            <p>
-              ASTRIS создаёт украшения для тех, кто носит их осознанно — не чтобы произвести впечатление, а чтобы
-              помнить, кто они есть. Каждая вещь — это объект веры, силы и присутствия.
-            </p>
-            <p>
-              Серебро 925 пробы. Натуральные камни. Минималистичная форма, несущая максимальный смысл.
-            </p>
-          </div>
+      <section class="brand-typography-section" id="about" data-header="light" aria-label="Типографический блок бренда">
+        <div class="brand-typography-section__grid">
+          <p class="brand-typography-section__text brand-typography-section__text--left">
+            Ut wisi enim ad minim<br />
+            veniam, quis nostrud<br />
+            exerci tation<br />
+            ullamcorper suscipit<br />
+            lobortis nisl ut<br />
+            aliquip ex ea commodo<br />
+            consequat. Duis autem<br />
+            vel eum dolor in<br />
+            hendrer vulputate veli<br />
+            molestie consequat, vel<br />
+            illum dolore eu feugiat<br />
+            nulla at vero
+          </p>
+          <p class="brand-typography-section__text brand-typography-section__text--center">
+            Lorem ipsum dolor sit amet, consectetuer<br />
+            adipiscing elit, sed<br />
+            diam nonummy nibh euismod tincidunt ut<br />
+            laoreet dolore<br />
+            magna aliquam erat volutpat
+          </p>
+          <p class="brand-typography-section__text brand-typography-section__text--right">
+            Ladoga Text Regular<br />
+            SmithyXT-Faded
+          </p>
         </div>
       </section>
 
@@ -116,7 +138,7 @@
           <h2 class="catalog__title font-serif">Избранное</h2>
           <div class="product-grid">
             <article class="product-card">
-              <a class="product-card__media" href="#">
+              <a class="product-card__media" href="product/fluid-signet/">
                 <img
                   class="product-card__img"
                   src="assets/catalog-fluid-signet.png"
@@ -127,13 +149,13 @@
                 />
               </a>
               <div class="product-card__meta">
-                <h3 class="product-card__name"><a href="#">Кольцо Fluid Signet</a></h3>
+                <h3 class="product-card__name"><a href="product/fluid-signet/">Кольцо Fluid Signet</a></h3>
                 <p class="product-card__cat">Серебро 925</p>
                 <p class="product-card__price">15 600 ₽</p>
               </div>
             </article>
             <article class="product-card">
-              <a class="product-card__media" href="#">
+              <a class="product-card__media" href="product/shield/">
                 <img
                   class="product-card__img"
                   src="assets/catalog-shield-ring.png"
@@ -144,13 +166,13 @@
                 />
               </a>
               <div class="product-card__meta">
-                <h3 class="product-card__name"><a href="#">Кольцо Shield</a></h3>
+                <h3 class="product-card__name"><a href="product/shield/">Кольцо Shield</a></h3>
                 <p class="product-card__cat">Серебро 925</p>
                 <p class="product-card__price">18 500 ₽</p>
               </div>
             </article>
             <article class="product-card">
-              <a class="product-card__media" href="#">
+              <a class="product-card__media" href="product/faith-signet/">
                 <img
                   class="product-card__img"
                   src="assets/catalog-faith-ring.png"
@@ -161,13 +183,13 @@
                 />
               </a>
               <div class="product-card__meta">
-                <h3 class="product-card__name"><a href="#">Кольцо Faith Signet</a></h3>
+                <h3 class="product-card__name"><a href="product/faith-signet/">Кольцо Faith Signet</a></h3>
                 <p class="product-card__cat">Серебро 925 · голубой камень</p>
                 <p class="product-card__price">14 900 ₽</p>
               </div>
             </article>
             <article class="product-card">
-              <a class="product-card__media" href="#">
+              <a class="product-card__media" href="product/astris-drop/">
                 <img
                   class="product-card__img"
                   src="assets/catalog-astris-drop.png"
@@ -178,13 +200,13 @@
                 />
               </a>
               <div class="product-card__meta">
-                <h3 class="product-card__name"><a href="#">Подвеска Astris Drop</a></h3>
+                <h3 class="product-card__name"><a href="product/astris-drop/">Подвеска Astris Drop</a></h3>
                 <p class="product-card__cat">Серебро 925 · подвеска</p>
                 <p class="product-card__price">12 800 ₽</p>
               </div>
             </article>
             <article class="product-card">
-              <a class="product-card__media" href="#">
+              <a class="product-card__media" href="product/soul-free/">
                 <img
                   class="product-card__img"
                   src="assets/catalog-strength-soul-free.png"
@@ -195,13 +217,85 @@
                 />
               </a>
               <div class="product-card__meta">
-                <h3 class="product-card__name"><a href="#">Кольцо Soul Free</a></h3>
+                <h3 class="product-card__name"><a href="product/soul-free/">Кольцо Soul Free</a></h3>
                 <p class="product-card__cat">Серебро 925 · сигнет</p>
                 <p class="product-card__price">16 400 ₽</p>
               </div>
             </article>
           </div>
           <a class="text-link text-link--center text-link--underline" href="#">Весь каталог</a>
+        </div>
+      </section>
+
+      <section class="packaging-section" id="packaging" data-header="light" aria-labelledby="packaging-heading">
+        <div class="packaging-section__top">
+          <div class="packaging-section__heading">
+            <p class="packaging-section__label">УПАКОВКА</p>
+            <h2 class="packaging-section__title" id="packaging-heading">
+              Ритуал<br />
+              распаковки
+            </h2>
+          </div>
+          <p class="packaging-section__text">
+            Каждое изделие приходит в фирменной коробке и крафтовом пакете с авторской графикой — как продолжение
+            личного ритуала.
+          </p>
+        </div>
+        <div
+          class="packaging-section__gallery packaging-carousel"
+          id="packaging-carousel"
+          role="region"
+          aria-roledescription="карусель"
+          aria-label="Упаковка ASTRIS"
+        >
+          <div class="packaging-carousel__viewport" tabindex="0">
+            <div class="packaging-carousel__track">
+              <div class="packaging-carousel__slide">
+                <img
+                  class="packaging-section__image"
+                  src="images/packaging-1.png"
+                  alt="Фирменные пакеты ASTRIS — белый и крафт"
+                  width="1600"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="packaging-carousel__slide">
+                <img
+                  class="packaging-section__image"
+                  src="images/packaging-2.png"
+                  alt="Белый фирменный пакет с текстильными ручками"
+                  width="1600"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="packaging-carousel__slide">
+                <img
+                  class="packaging-section__image"
+                  src="images/packaging-3.png"
+                  alt="Фирменные коробки ASTRIS на мраморной поверхности"
+                  width="1600"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+          <button type="button" class="packaging-carousel__btn packaging-carousel__btn--prev" aria-label="Предыдущее фото">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M14 6l-6 6 6 6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button type="button" class="packaging-carousel__btn packaging-carousel__btn--next" aria-label="Следующее фото">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 6l6 6-6 6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <div class="packaging-carousel__dots" role="tablist" aria-label="Номер слайда"></div>
         </div>
       </section>
 

@@ -91,4 +91,151 @@
       closeMenu();
     }
   });
+
+  function initPackagingCarousel() {
+    var root = document.getElementById("packaging-carousel");
+    if (!root) return;
+    var viewport = root.querySelector(".packaging-carousel__viewport");
+    var track = root.querySelector(".packaging-carousel__track");
+    var slides = root.querySelectorAll(".packaging-carousel__slide");
+    var prevBtn = root.querySelector(".packaging-carousel__btn--prev");
+    var nextBtn = root.querySelector(".packaging-carousel__btn--next");
+    var dotsRoot = root.querySelector(".packaging-carousel__dots");
+    var n = slides.length;
+    if (!viewport || !track || n === 0) return;
+
+    var index = 0;
+    var touchStartX = null;
+
+    function layoutSlides() {
+      var w = viewport.getBoundingClientRect().width;
+      if (!w) return;
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.flex = "0 0 " + w + "px";
+        slides[i].style.width = w + "px";
+        slides[i].style.minWidth = w + "px";
+        slides[i].style.maxWidth = w + "px";
+      }
+      track.style.width = w * n + "px";
+    }
+
+    function goTo(i) {
+      if (i < 0) i = 0;
+      if (i >= n) i = n - 1;
+      index = i;
+      layoutSlides();
+      var w = viewport.getBoundingClientRect().width || viewport.offsetWidth;
+      track.style.transform = "translateX(" + -index * w + "px)";
+      updateDots();
+      updateButtons();
+    }
+
+    function updateButtons() {
+      var atStart = index === 0;
+      var atEnd = index >= n - 1;
+      if (prevBtn) {
+        prevBtn.disabled = atStart;
+        prevBtn.setAttribute("aria-disabled", atStart ? "true" : "false");
+        prevBtn.style.opacity = atStart ? "0.28" : "";
+      }
+      if (nextBtn) {
+        nextBtn.disabled = atEnd;
+        nextBtn.setAttribute("aria-disabled", atEnd ? "true" : "false");
+        nextBtn.style.opacity = atEnd ? "0.28" : "";
+      }
+    }
+
+    function updateDots() {
+      if (!dotsRoot) return;
+      var dots = dotsRoot.querySelectorAll(".packaging-carousel__dot");
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].classList.toggle("packaging-carousel__dot--active", i === index);
+        dots[i].setAttribute("aria-selected", i === index ? "true" : "false");
+      }
+    }
+
+    function buildDots() {
+      if (!dotsRoot) return;
+      dotsRoot.innerHTML = "";
+      for (var d = 0; d < n; d++) {
+        (function (j) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "packaging-carousel__dot";
+          b.setAttribute("role", "tab");
+          b.setAttribute("aria-label", "Слайд " + (j + 1));
+          b.setAttribute("aria-selected", j === 0 ? "true" : "false");
+          if (j === 0) b.classList.add("packaging-carousel__dot--active");
+          b.addEventListener("click", function () {
+            goTo(j);
+          });
+          dotsRoot.appendChild(b);
+        })(d);
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function () {
+        goTo(index - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        goTo(index + 1);
+      });
+    }
+
+    viewport.addEventListener(
+      "touchstart",
+      function (e) {
+        touchStartX = e.touches[0].clientX;
+      },
+      { passive: true }
+    );
+    viewport.addEventListener(
+      "touchend",
+      function (e) {
+        if (touchStartX == null) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        var cur = index;
+        if (dx < -48) goTo(cur + 1);
+        else if (dx > 48) goTo(cur - 1);
+      },
+      { passive: true }
+    );
+
+    viewport.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goTo(index - 1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        goTo(index + 1);
+      }
+    });
+
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        goTo(index);
+      }, 100);
+    });
+
+    buildDots();
+    layoutSlides();
+    goTo(0);
+
+    window.addEventListener("load", function () {
+      layoutSlides();
+      goTo(index);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPackagingCarousel);
+  } else {
+    initPackagingCarousel();
+  }
 })();

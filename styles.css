@@ -367,8 +367,8 @@ ul {
 
   .home-hero {
     position: relative;
-    height: min(680px, 92svh);
-    min-height: min(680px, 92svh);
+    height: 720px;
+    min-height: 720px;
     overflow: hidden;
     background-color: #dcd8d3 !important;
     background-image: url("images/necklace-hero-mobile.png?v=1") !important;
@@ -471,13 +471,13 @@ ul {
 
   .brand-typography-section {
     min-height: auto;
-    padding: 28px 24px 32px;
+    padding: 100px 24px;
     background: #e9e6e2;
   }
 
   .brand-typography-section__grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 48px;
     transform: none;
   }
 
@@ -1620,8 +1620,8 @@ ul {
   }
 
   .home-hero {
-    height: min(640px, 92svh);
-    min-height: min(640px, 92svh);
+    height: min(720px, 100svh);
+    min-height: min(720px, 100svh);
   }
 
   .home-hero__logo,
@@ -1641,11 +1641,7 @@ ul {
   }
 
   .brand-typography-section {
-    padding: 24px 24px 28px;
-  }
-
-  .brand-typography-section__grid {
-    gap: 20px;
+    padding: 80px 24px;
   }
 
   .catalog__inner {

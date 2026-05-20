@@ -363,8 +363,8 @@ ul {
     background-color: #dcd8d3 !important;
     background-image: url("images/necklace-hero-mobile.png?v=1") !important;
     background-repeat: no-repeat !important;
-    background-size: 94% auto !important;
-    background-position: center -10px !important;
+    background-size: 100% auto !important;
+    background-position: center -36px !important;
   }
 
   .home-hero::before,
@@ -395,7 +395,7 @@ ul {
   .home-hero__center-logo,
   .hero-center-logo {
     position: absolute;
-    top: 41%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: clamp(28px, 7.5vw, 32px);
@@ -441,7 +441,7 @@ ul {
   .home-hero__cta {
     position: absolute;
     left: 50%;
-    bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px));
     transform: translateX(-50%);
     min-width: min(250px, calc(100% - 68px));
     width: min(250px, calc(100% - 68px));

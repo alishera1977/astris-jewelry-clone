@@ -257,8 +257,8 @@
         btn.textContent = "Добавлено";
         btn.classList.add("product-card__add--added");
         window.setTimeout(function () {
-          btn.textContent = "Добавить в корзину";
-          btn.classList.remove("product-card__add--added");
+        btn.textContent = "В корзину";
+        btn.classList.remove("product-card__add--added");
         }, 1800);
       });
     });

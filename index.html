@@ -12,26 +12,28 @@
   </head>
   <body>
     <header class="site-header" id="site-header" aria-label="Шапка сайта">
-      <button
-        type="button"
-        class="icon-btn site-header__menu"
-        id="menu-open"
-        aria-label="Открыть меню"
-        aria-expanded="false"
-        aria-controls="site-menu"
-      >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </button>
       <a href="#" class="site-header__logo font-serif logo">ASTRIS</a>
-      <button type="button" class="icon-btn icon-btn--cart site-header__cart" id="cart-open" aria-label="Корзина">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path d="M6 7h15l-1.5 9h-12L6 7z" />
-          <path d="M9 7V5a3 3 0 016 0v2" />
-        </svg>
-        <span class="cart-badge" id="cart-badge" hidden>0</span>
-      </button>
+      <div class="site-header__actions">
+        <button type="button" class="icon-btn icon-btn--cart" id="cart-open" aria-label="Корзина">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 7h15l-1.5 9h-12L6 7z" />
+            <path d="M9 7V5a3 3 0 016 0v2" />
+          </svg>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </button>
+        <button
+          type="button"
+          class="icon-btn"
+          id="menu-open"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="site-menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
     </header>
 
     <div class="menu-overlay" id="site-menu" hidden>
@@ -133,11 +135,8 @@
 
       <section class="catalog" id="catalog" data-header="light">
         <div class="catalog__inner">
-          <div class="catalog__head catalog__head--desktop">
-            <p class="eyebrow catalog__eyebrow">Новинки</p>
-            <h2 class="catalog__title font-serif">Избранное</h2>
-          </div>
-          <p class="catalog__section-label catalog__head--mobile">Украшения</p>
+          <p class="eyebrow catalog__eyebrow">Новинки</p>
+          <h2 class="catalog__title font-serif">Избранное</h2>
           <div class="product-grid">
             <article class="product-card">
               <a class="product-card__media" href="product/fluid-signet/">
@@ -154,7 +153,9 @@
                 <h3 class="product-card__name"><a href="product/fluid-signet/">Кольцо Fluid Signet</a></h3>
                 <p class="product-card__cat">Серебро 925</p>
                 <p class="product-card__price">15 600 ₽</p>
-                <button type="button" class="product-card__add" data-add-to-cart="fluid-signet">В корзину</button>
+                <button type="button" class="product-card__add" data-add-to-cart="fluid-signet">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -172,7 +173,9 @@
                 <h3 class="product-card__name"><a href="product/shield/">Кольцо Shield</a></h3>
                 <p class="product-card__cat">Серебро 925</p>
                 <p class="product-card__price">18 500 ₽</p>
-                <button type="button" class="product-card__add" data-add-to-cart="shield">В корзину</button>
+                <button type="button" class="product-card__add" data-add-to-cart="shield">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -190,7 +193,9 @@
                 <h3 class="product-card__name"><a href="product/faith-signet/">Кольцо Faith Signet</a></h3>
                 <p class="product-card__cat">Серебро 925 · голубой камень</p>
                 <p class="product-card__price">14 900 ₽</p>
-                <button type="button" class="product-card__add" data-add-to-cart="faith-signet">В корзину</button>
+                <button type="button" class="product-card__add" data-add-to-cart="faith-signet">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -208,7 +213,9 @@
                 <h3 class="product-card__name"><a href="product/astris-drop/">Подвеска Astris Drop</a></h3>
                 <p class="product-card__cat">Серебро 925 · подвеска</p>
                 <p class="product-card__price">12 800 ₽</p>
-                <button type="button" class="product-card__add" data-add-to-cart="astris-drop">В корзину</button>
+                <button type="button" class="product-card__add" data-add-to-cart="astris-drop">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -226,11 +233,13 @@
                 <h3 class="product-card__name"><a href="product/soul-free/">Кольцо Soul Free</a></h3>
                 <p class="product-card__cat">Серебро 925 · сигнет</p>
                 <p class="product-card__price">16 400 ₽</p>
-                <button type="button" class="product-card__add" data-add-to-cart="soul-free">В корзину</button>
+                <button type="button" class="product-card__add" data-add-to-cart="soul-free">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
           </div>
-          <a class="text-link text-link--center text-link--underline catalog__more-link" href="#">Весь каталог</a>
+          <a class="text-link text-link--center text-link--underline" href="#">Весь каталог</a>
         </div>
       </section>
 
@@ -371,41 +380,6 @@
         </div>
       </footer>
     </main>
-
-    <nav class="app-tabbar" aria-label="Навигация приложения">
-      <a class="app-tabbar__item" href="#hero">
-        <svg class="app-tabbar__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-          <path d="M12 3l1.4 4.3h4.5l-3.6 2.6 1.4 4.3L12 11.6 8.3 14.2l1.4-4.3L6.1 7.3h4.5L12 3z" />
-        </svg>
-        <span class="app-tabbar__label">Новинки</span>
-      </a>
-      <a class="app-tabbar__item app-tabbar__item--active" href="#catalog" aria-current="page">
-        <svg class="app-tabbar__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" />
-          <path d="M20 20l-4-4" />
-        </svg>
-        <span class="app-tabbar__label">Каталог</span>
-      </a>
-      <a class="app-tabbar__item" href="#">
-        <svg class="app-tabbar__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-          <path d="M12 20s-6.5-4.5-6.5-9a6.5 6.5 0 1113 0c0 4.5-6.5 9-6.5 9z" />
-        </svg>
-        <span class="app-tabbar__label">Избранное</span>
-      </a>
-      <a class="app-tabbar__item" href="#">
-        <svg class="app-tabbar__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-          <circle cx="12" cy="8" r="3.5" />
-          <path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" />
-        </svg>
-        <span class="app-tabbar__label">Профиль</span>
-      </a>
-      <a class="app-tabbar__item" href="#contacts">
-        <svg class="app-tabbar__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-          <path d="M6 12h12M12 6v12" />
-        </svg>
-        <span class="app-tabbar__label">Еще</span>
-      </a>
-    </nav>
 
     <script src="data/products.js"></script>
     <script src="data/cart.js"></script>

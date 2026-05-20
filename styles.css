@@ -395,7 +395,7 @@ ul {
   .home-hero__center-logo,
   .hero-center-logo {
     position: absolute;
-    top: 44%;
+    top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: clamp(28px, 7.5vw, 32px);

@@ -50,8 +50,21 @@
   }
   text(titleEl, product.name);
   text(descEl, product.description || "");
-  text(buttonEl, "ЗАКАЗАТЬ — " + product.price);
+  text(buttonEl, "ДОБАВИТЬ В КОРЗИНУ — " + product.price);
   document.title = product.name + " — ASTRIS";
+
+  if (buttonEl && window.ASTRIS_CART) {
+    buttonEl.addEventListener("click", function () {
+      window.ASTRIS_CART.addItem(product);
+      var label = "ДОБАВИТЬ В КОРЗИНУ — " + product.price;
+      buttonEl.textContent = "ДОБАВЛЕНО В КОРЗИНУ";
+      buttonEl.classList.add("product-detail-button--added");
+      window.setTimeout(function () {
+        buttonEl.textContent = label;
+        buttonEl.classList.remove("product-detail-button--added");
+      }, 1800);
+    });
+  }
 
   if (specsEl) {
     var rows = buildSpecs(product);

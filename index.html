@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta
       name="description"
       content="ASTRIS — украшения как символы. Объекты веры, силы и присутствия."
@@ -14,11 +14,12 @@
     <header class="site-header" id="site-header" aria-label="Шапка сайта">
       <a href="#" class="site-header__logo font-serif logo">ASTRIS</a>
       <div class="site-header__actions">
-        <button type="button" class="icon-btn" aria-label="Корзина">
+        <button type="button" class="icon-btn icon-btn--cart" id="cart-open" aria-label="Корзина">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path d="M6 7h15l-1.5 9h-12L6 7z" />
             <path d="M9 7V5a3 3 0 016 0v2" />
           </svg>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
         </button>
         <button
           type="button"
@@ -76,7 +77,7 @@
 
     <main>
       <section class="home-hero" id="hero" data-header="light" aria-label="ASTRIS">
-        <div class="home-hero__media" aria-hidden="true">
+        <div class="home-hero__media home-hero__media--desktop-only" aria-hidden="true">
           <img
             class="home-hero__image"
             src="images/necklace-hero.jpg?v=3"
@@ -152,6 +153,9 @@
                 <h3 class="product-card__name"><a href="product/fluid-signet/">Кольцо Fluid Signet</a></h3>
                 <p class="product-card__cat">Серебро 925</p>
                 <p class="product-card__price">15 600 ₽</p>
+                <button type="button" class="product-card__add" data-add-to-cart="fluid-signet">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -169,6 +173,9 @@
                 <h3 class="product-card__name"><a href="product/shield/">Кольцо Shield</a></h3>
                 <p class="product-card__cat">Серебро 925</p>
                 <p class="product-card__price">18 500 ₽</p>
+                <button type="button" class="product-card__add" data-add-to-cart="shield">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -186,6 +193,9 @@
                 <h3 class="product-card__name"><a href="product/faith-signet/">Кольцо Faith Signet</a></h3>
                 <p class="product-card__cat">Серебро 925 · голубой камень</p>
                 <p class="product-card__price">14 900 ₽</p>
+                <button type="button" class="product-card__add" data-add-to-cart="faith-signet">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -203,6 +213,9 @@
                 <h3 class="product-card__name"><a href="product/astris-drop/">Подвеска Astris Drop</a></h3>
                 <p class="product-card__cat">Серебро 925 · подвеска</p>
                 <p class="product-card__price">12 800 ₽</p>
+                <button type="button" class="product-card__add" data-add-to-cart="astris-drop">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
             <article class="product-card">
@@ -220,6 +233,9 @@
                 <h3 class="product-card__name"><a href="product/soul-free/">Кольцо Soul Free</a></h3>
                 <p class="product-card__cat">Серебро 925 · сигнет</p>
                 <p class="product-card__price">16 400 ₽</p>
+                <button type="button" class="product-card__add" data-add-to-cart="soul-free">
+                  Добавить в корзину
+                </button>
               </div>
             </article>
           </div>
@@ -349,6 +365,8 @@
       </footer>
     </main>
 
+    <script src="data/products.js"></script>
+    <script src="data/cart.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

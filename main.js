@@ -238,4 +238,35 @@
   } else {
     initPackagingCarousel();
   }
+
+  function initCatalogAddButtons() {
+    if (!window.ASTRIS_CART || !window.PRODUCTS) return;
+
+    document.querySelectorAll("[data-add-to-cart]").forEach(function (btn) {
+      if (btn.dataset.cartBound) return;
+      btn.dataset.cartBound = "1";
+
+      var slug = btn.getAttribute("data-add-to-cart");
+      var product = window.PRODUCTS.find(function (entry) {
+        return entry.slug === slug;
+      });
+      if (!product) return;
+
+      btn.addEventListener("click", function () {
+        window.ASTRIS_CART.addItem(product);
+        btn.textContent = "Добавлено";
+        btn.classList.add("product-card__add--added");
+        window.setTimeout(function () {
+          btn.textContent = "Добавить в корзину";
+          btn.classList.remove("product-card__add--added");
+        }, 1800);
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCatalogAddButtons);
+  } else {
+    initCatalogAddButtons();
+  }
 })();

@@ -499,9 +499,10 @@ ul {
   .product-grid,
   .products-grid,
   .catalog-grid {
-    grid-template-columns: 1fr !important;
-    gap: 72px;
-    row-gap: 72px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    column-gap: 14px;
+    row-gap: 48px;
+    gap: 48px 14px;
     max-width: 100%;
   }
 
@@ -509,40 +510,57 @@ ul {
     width: 100%;
     max-width: 100%;
     min-height: auto;
-    grid-template-rows: 300px auto;
-    row-gap: 42px;
+    grid-template-rows: 200px auto;
+    row-gap: 14px;
   }
 
   .product-card__media,
   .product-media {
-    height: 300px;
+    height: 200px;
     width: 100%;
     max-width: 100%;
   }
 
   .product-card__img,
   .product-card img {
-    max-width: 82%;
-    max-height: 260px;
+    max-width: 90%;
+    max-height: 170px;
     width: auto;
     height: auto;
     object-fit: contain;
   }
 
+  .product-card__meta {
+    max-width: 100%;
+  }
+
   .product-card__name,
   .product-title,
   .product-card h3 {
-    font-size: clamp(1.75rem, 8vw, 2rem);
-    line-height: 1.05;
+    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+    line-height: 1.08;
+    margin-bottom: 10px;
+  }
+
+  .product-card__cat {
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    margin-bottom: 8px;
   }
 
   .product-card__price,
   .product-price {
-    font-size: 20px;
+    font-size: 15px;
   }
 
   .product-card__add {
+    width: 100%;
     max-width: 100%;
+    min-height: 2.25rem;
+    margin-top: 0.85rem;
+    padding: 0 6px;
+    font-size: 7px;
+    letter-spacing: 0.12em;
   }
 
   .packaging-section {
@@ -1687,26 +1705,38 @@ ul {
   }
 
   .product-grid {
-    gap: 64px;
-    row-gap: 64px;
+    column-gap: 12px;
+    row-gap: 40px;
+    gap: 40px 12px;
   }
 
   .product-card {
-    grid-template-rows: 280px auto;
-    row-gap: 1.5rem;
+    grid-template-rows: 180px auto;
+    row-gap: 12px;
   }
 
   .product-card__media {
-    height: 280px;
+    height: 180px;
   }
 
   .product-card__img {
-    max-width: 82%;
-    max-height: 240px;
+    max-width: 92%;
+    max-height: 150px;
   }
 
   .product-card__name {
-    font-size: clamp(1.5rem, 7vw, 1.75rem);
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+    margin-bottom: 8px;
+  }
+
+  .product-card__price {
+    font-size: 14px;
+  }
+
+  .product-card__add {
+    font-size: 6px;
+    letter-spacing: 0.1em;
+    min-height: 2.1rem;
   }
 
   .packaging-section {

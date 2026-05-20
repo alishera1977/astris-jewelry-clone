@@ -361,10 +361,10 @@ ul {
     min-height: 720px;
     overflow: hidden;
     background-color: #c9c6c0 !important;
-    background-image: url("images/necklace-hero.jpg?v=3") !important;
+    background-image: url("images/necklace-hero-mobile.png?v=1") !important;
     background-repeat: no-repeat !important;
     background-size: 100% auto !important;
-    background-position: center 34% !important;
+    background-position: center top !important;
   }
 
   .home-hero::before,
@@ -395,7 +395,7 @@ ul {
   .home-hero__center-logo,
   .hero-center-logo {
     position: absolute;
-    top: 38%;
+    top: 42%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 34px;

@@ -364,7 +364,7 @@ ul {
     background-image: url("images/necklace-hero.jpg?v=3") !important;
     background-repeat: no-repeat !important;
     background-size: 100% auto !important;
-    background-position: center top !important;
+    background-position: center 14% !important;
   }
 
   .home-hero::before,

@@ -364,7 +364,7 @@ ul {
     background-image: url("images/necklace-hero.jpg?v=3") !important;
     background-repeat: no-repeat !important;
     background-size: 100% auto !important;
-    background-position: center 14% !important;
+    background-position: center 26% !important;
   }
 
   .home-hero::before,
@@ -395,7 +395,7 @@ ul {
   .home-hero__center-logo,
   .hero-center-logo {
     position: absolute;
-    top: 34%;
+    top: 36%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 34px;

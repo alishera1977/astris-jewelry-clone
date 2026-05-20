@@ -1053,7 +1053,7 @@ ul {
   top: 36px;
   left: 48px;
   margin: 0;
-  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   line-height: 1;
   font-weight: 300;
@@ -1065,18 +1065,18 @@ ul {
 .packaging-section__title {
   margin: 0;
   max-width: 640px;
-  font-family: "Ladoga", "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-serif);
   font-size: clamp(44px, 4.3vw, 72px);
   line-height: 0.92;
   font-weight: 400;
   letter-spacing: -0.04em;
-  color: #111111;
+  color: var(--dark);
 }
 
 .packaging-section__text {
   max-width: 1120px;
   margin: 26px 0 0;
-  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(18px, 1.35vw, 22px);
   line-height: 1.28;
   font-weight: 300;
@@ -1682,16 +1682,8 @@ ul {
     padding: calc(var(--header-h) + 16px) 18px 28px;
   }
 
-  .packaging-section__label {
-    font-size: clamp(26px, 7.5vw, 32px);
-  }
-
   .packaging-section__hero-img {
     aspect-ratio: 4 / 5.2;
-  }
-
-  .packaging-section__caption--mobile {
-    font-size: 14px;
   }
 
   .quote {
@@ -1713,9 +1705,9 @@ ul {
 /* Упаковка mobile — после базовых стилей секции */
 @media (max-width: 768px) {
   .packaging-section {
-    background: #fcfbf8;
+    background: #f8f7f4;
     padding: calc(var(--header-h) + 20px) 20px 36px;
-    color: #111111;
+    color: var(--dark);
   }
 
   .packaging-section__top {
@@ -1732,15 +1724,15 @@ ul {
     position: static;
     top: auto;
     left: auto;
-    margin: 0 0 0;
+    margin: 0 0 1rem;
     padding: 0;
-    font-family: var(--font-serif);
-    font-size: clamp(30px, 8.2vw, 38px);
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
     font-weight: 400;
     line-height: 1;
-    letter-spacing: 0.26em;
+    letter-spacing: 0.42em;
     text-transform: uppercase;
-    color: #a89472;
+    color: rgba(17, 17, 17, 0.42);
   }
 
   .packaging-section__title--desktop,
@@ -1754,7 +1746,7 @@ ul {
 
   .packaging-section__hero--mobile {
     display: block;
-    margin: 0 0 30px;
+    margin: 0 0 28px;
     padding: 0;
   }
 
@@ -1766,21 +1758,21 @@ ul {
     object-position: center 40%;
     display: block;
     border-radius: 0;
-    filter: saturate(0.92) contrast(0.98);
+    filter: none;
   }
 
   .packaging-section__caption--mobile {
     display: block;
     margin: 0;
     padding: 0 16px;
-    font-family: var(--font-serif);
+    font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.5;
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 300;
+    font-style: normal;
     letter-spacing: 0.01em;
     text-align: center;
-    color: #a89472;
+    color: rgba(17, 17, 17, 0.66);
   }
 }
 

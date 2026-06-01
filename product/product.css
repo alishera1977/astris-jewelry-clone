@@ -63,7 +63,6 @@
   min-height: min(72vh, 600px);
   padding: 0;
   box-sizing: border-box;
-  isolation: isolate;
   background: radial-gradient(
     ellipse 82% 68% at 50% 44%,
     #ffffff 0%,
@@ -98,28 +97,7 @@
   mix-blend-mode: multiply;
 }
 
-.product-detail-page--faith-signet .product-detail-gallery__slide--video {
-  background: #f9f8f6;
-}
-
-.product-detail-page--faith-signet .product-detail-gallery__video-blend--faith {
-  background: #f9f8f6;
-}
-
-.product-detail-page--faith-signet
-  .product-detail-gallery__video-blend--faith
-  .product-detail-video {
-  mix-blend-mode: screen;
-}
-
 .product-detail-gallery__slide--primary .product-detail-gallery__img {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: min(90%, 460px);
-  max-height: min(72vh, 580px);
-  object-fit: contain;
-  object-position: center;
   filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
 }
 

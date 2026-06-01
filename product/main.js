@@ -43,11 +43,6 @@
   var buttonEl = document.querySelector(".product-detail-button");
   var specsEl = document.querySelector(".product-detail-specs");
 
-  if (product.slug === "faith-signet") {
-    var page = document.querySelector(".product-detail-page");
-    if (page) page.classList.add("product-detail-page--faith-signet");
-  }
-
   initProductMedia(product);
 
   function initProductMedia(product) {
@@ -138,9 +133,6 @@
         video.setAttribute("preload", "auto");
         video.setAttribute("aria-label", slide.label);
         blend.appendChild(video);
-        if (product.slug === "faith-signet") {
-          blend.classList.add("product-detail-gallery__video-blend--faith");
-        }
         item.appendChild(blend);
         videos.push(video);
         videoSlideIndex = index;

@@ -19,12 +19,6 @@
     return rows;
   }
 
-  var MEDIA_VERSION = "3";
-
-  function mediaUrl(path) {
-    return "../../" + path + (path.indexOf("?") === -1 ? "?v=" + MEDIA_VERSION : "");
-  }
-
   var products = window.PRODUCTS || [];
   var slug = getSlugFromPath();
   var product = products.find(function (p) {
@@ -143,21 +137,13 @@
         videos.push(video);
         videoSlideIndex = index;
       } else {
-        var host = item;
-        if (slide.primary) {
-          var primaryBlend = document.createElement("div");
-          primaryBlend.className = "product-detail-gallery__primary-blend";
-          host = primaryBlend;
-          item.appendChild(primaryBlend);
-        }
-
         var img = document.createElement("img");
         img.className = "product-detail-gallery__img";
-        img.src = mediaUrl(slide.src);
+        img.src = "../../" + slide.src;
         img.alt = slide.alt;
         img.loading = index === 0 ? "eager" : "lazy";
         img.decoding = "async";
-        host.appendChild(img);
+        item.appendChild(img);
       }
 
       track.appendChild(item);

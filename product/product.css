@@ -69,13 +69,17 @@
   max-width: 72%;
   max-height: 78vh;
   object-fit: contain;
+}
+
+.product-detail-image {
   filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
 }
 
 .product-detail-video {
   background: transparent;
+  filter: none;
+  mix-blend-mode: multiply;
 }
-
 
 .product-detail-info {
   padding: 150px 72px 80px;

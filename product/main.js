@@ -108,20 +108,27 @@
       item.setAttribute("aria-label", String(index + 1) + " из " + slides.length);
 
       if (slide.type === "video") {
+        item.classList.add("product-detail-gallery__slide--video");
+
+        var blend = document.createElement("div");
+        blend.className = "product-detail-gallery__video-blend";
+
         var video = document.createElement("video");
         video.className = "product-detail-video";
         video.src = "../../" + slide.src;
         if (/\.mov$/i.test(slide.src)) {
           video.setAttribute("type", "video/quicktime");
         }
-        video.poster = "../../" + slide.poster;
         video.muted = true;
         video.loop = true;
+        video.autoplay = true;
         video.playsInline = true;
         video.setAttribute("playsinline", "");
+        video.setAttribute("autoplay", "");
         video.setAttribute("preload", "auto");
         video.setAttribute("aria-label", slide.label);
-        item.appendChild(video);
+        blend.appendChild(video);
+        item.appendChild(blend);
         videos.push(video);
       } else {
         var img = document.createElement("img");

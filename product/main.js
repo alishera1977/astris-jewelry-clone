@@ -19,165 +19,10 @@
     return rows;
   }
 
-  var MEDIA_VERSION = "4";
-  var PAGE_BG = [249, 248, 246];
+  var MEDIA_VERSION = "3";
 
   function mediaUrl(path) {
     return "../../" + path + (path.indexOf("?") === -1 ? "?v=" + MEDIA_VERSION : "");
-  }
-
-  function colorDist(a, b) {
-    var dr = a[0] - b[0];
-    var dg = a[1] - b[1];
-    var db = a[2] - b[2];
-    return Math.sqrt(dr * dr + dg * dg + db * db);
-  }
-
-  function colorSpread(rgb) {
-    return Math.max(rgb[0], rgb[1], rgb[2]) - Math.min(rgb[0], rgb[1], rgb[2]);
-  }
-
-  function isVideoBackgroundPixel(rgb, cornerAvg) {
-    var lum = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2];
-    var spread = colorSpread(rgb);
-
-    if (colorDist(rgb, cornerAvg) <= 52) return true;
-    if (lum <= 40 && spread < 28) return true;
-    if (lum >= 188 && spread < 34) return true;
-    return false;
-  }
-
-  function buildVideoBackgroundMask(data, width, height) {
-    var corners = [
-      [0, 0],
-      [width - 1, 0],
-      [0, height - 1],
-      [width - 1, height - 1],
-      [width >> 1, 0],
-      [width >> 1, height - 1],
-      [0, height >> 1],
-      [width - 1, height >> 1],
-    ];
-    var cornerAvg = [0, 0, 0];
-    corners.forEach(function (pt) {
-      var i = (pt[1] * width + pt[0]) * 4;
-      cornerAvg[0] += data[i];
-      cornerAvg[1] += data[i + 1];
-      cornerAvg[2] += data[i + 2];
-    });
-    cornerAvg[0] = Math.round(cornerAvg[0] / corners.length);
-    cornerAvg[1] = Math.round(cornerAvg[1] / corners.length);
-    cornerAvg[2] = Math.round(cornerAvg[2] / corners.length);
-
-    var visited = new Uint8Array(width * height);
-    var queue = [];
-
-    function tryPush(x, y) {
-      if (x < 0 || y < 0 || x >= width || y >= height) return;
-      var idx = y * width + x;
-      if (visited[idx]) return;
-      var i = idx * 4;
-      var rgb = [data[i], data[i + 1], data[i + 2]];
-      if (!isVideoBackgroundPixel(rgb, cornerAvg)) return;
-      visited[idx] = 1;
-      queue.push(idx);
-    }
-
-    for (var x = 0; x < width; x++) {
-      tryPush(x, 0);
-      tryPush(x, height - 1);
-    }
-    for (var y = 0; y < height; y++) {
-      tryPush(0, y);
-      tryPush(width - 1, y);
-    }
-
-    var head = 0;
-    while (head < queue.length) {
-      var idx = queue[head++];
-      var px = idx % width;
-      var py = (idx / width) | 0;
-      tryPush(px - 1, py);
-      tryPush(px + 1, py);
-      tryPush(px, py - 1);
-      tryPush(px, py + 1);
-    }
-
-    for (var i = 0; i < width * height; i++) {
-      if (visited[i]) continue;
-      var p = i * 4;
-      var rgb = [data[p], data[p + 1], data[p + 2]];
-      var lum = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2];
-      var spread = colorSpread(rgb);
-      if (lum >= 205 && spread < 18) visited[i] = 1;
-    }
-
-    return visited;
-  }
-
-  function applyVideoBackgroundMask(data, mask) {
-    for (var idx = 0; idx < mask.length; idx++) {
-      if (!mask[idx]) continue;
-      var i = idx * 4;
-      data[i] = PAGE_BG[0];
-      data[i + 1] = PAGE_BG[1];
-      data[i + 2] = PAGE_BG[2];
-      data[i + 3] = 255;
-    }
-  }
-
-  function setupCreamVideoBackground(video, blend) {
-    var canvas = document.createElement("canvas");
-    canvas.className = "product-detail-video product-detail-video--canvas";
-    canvas.setAttribute("aria-hidden", "true");
-    blend.insertBefore(canvas, video);
-    video.classList.add("product-detail-video--src");
-
-    var mask = null;
-    var rafId = 0;
-    var probe = document.createElement("canvas");
-    var probeCtx = probe.getContext("2d", { willReadFrequently: true });
-
-    function ensureMask() {
-      if (mask || !video.videoWidth) return;
-      probe.width = video.videoWidth;
-      probe.height = video.videoHeight;
-      probeCtx.drawImage(video, 0, 0);
-      var frame = probeCtx.getImageData(0, 0, probe.width, probe.height);
-      mask = buildVideoBackgroundMask(frame.data, probe.width, probe.height);
-    }
-
-    function paint() {
-      rafId = 0;
-      if (!video.videoWidth) return;
-      ensureMask();
-      if (!mask) return;
-
-      var w = video.videoWidth;
-      var h = video.videoHeight;
-      if (canvas.width !== w) {
-        canvas.width = w;
-        canvas.height = h;
-      }
-
-      var ctx = canvas.getContext("2d", { willReadFrequently: true });
-      ctx.drawImage(video, 0, 0, w, h);
-      var frame = ctx.getImageData(0, 0, w, h);
-      applyVideoBackgroundMask(frame.data, mask);
-      ctx.putImageData(frame, 0, 0);
-
-      if (!video.paused && !video.ended) {
-        rafId = window.requestAnimationFrame(paint);
-      }
-    }
-
-    function schedulePaint() {
-      if (!rafId) rafId = window.requestAnimationFrame(paint);
-    }
-
-    video.addEventListener("loadeddata", schedulePaint);
-    video.addEventListener("play", schedulePaint);
-    video.addEventListener("seeked", schedulePaint);
   }
 
   var products = window.PRODUCTS || [];
@@ -283,7 +128,7 @@
 
         var video = document.createElement("video");
         video.className = "product-detail-video";
-        video.src = mediaUrl(slide.src);
+        video.src = "../../" + slide.src;
         if (/\.mov$/i.test(slide.src)) {
           video.setAttribute("type", "video/quicktime");
         }
@@ -294,10 +139,6 @@
         video.setAttribute("preload", "auto");
         video.setAttribute("aria-label", slide.label);
         blend.appendChild(video);
-        if (product.videoBg === "cream") {
-          blend.classList.add("product-detail-gallery__video-blend--processed");
-          setupCreamVideoBackground(video, blend);
-        }
         item.appendChild(blend);
         videos.push(video);
         videoSlideIndex = index;

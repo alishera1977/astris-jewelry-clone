@@ -5,6 +5,7 @@ window.PRODUCTS = [
     price: "15 600 ₽",
     image: "assets/catalog-fluid-signet.png",
     video: "videos/fluid-signet.mp4",
+    gallery: ["assets/fluid-signet-lifestyle.png"],
     description:
       "Скульптурный сигнет с мягким объемом и плавным рельефом. Украшение создано для спокойного ежедневного ношения и тактильного контакта с формой.",
     material: "Серебро 925",

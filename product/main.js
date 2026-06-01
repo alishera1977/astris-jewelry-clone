@@ -60,40 +60,19 @@
       if (/\.mov$/i.test(product.video)) {
         video.setAttribute("type", "video/quicktime");
       }
+      video.poster = "../../" + product.image;
       video.muted = true;
       video.loop = true;
+      video.autoplay = true;
       video.playsInline = true;
       video.setAttribute("playsinline", "");
-      video.setAttribute("preload", "metadata");
+      video.setAttribute("autoplay", "");
+      video.setAttribute("preload", "auto");
       video.setAttribute("aria-label", product.name);
       media.appendChild(video);
 
-      var playHint = document.createElement("button");
-      playHint.type = "button";
-      playHint.className = "product-detail-media__play";
-      playHint.setAttribute("aria-label", "Смотреть видео изделия");
-      playHint.innerHTML =
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
-        '<path d="M9 7.5v9l8-4.5-8-4.5z" fill="currentColor"/></svg>';
-      media.appendChild(playHint);
-
-      function startVideo() {
-        if (media.classList.contains("is-playing")) return;
-        media.classList.add("is-playing");
-        playHint.hidden = true;
-        image.setAttribute("aria-hidden", "true");
-        video.play().catch(function () {});
-      }
-
-      media.addEventListener("click", function (e) {
-        if (media.classList.contains("is-playing")) return;
-        if (
-          e.target.closest(".product-detail-image") ||
-          e.target.closest(".product-detail-media__play")
-        ) {
-          startVideo();
-        }
-      });
+      image.setAttribute("aria-hidden", "true");
+      video.play().catch(function () {});
     }
   }
 

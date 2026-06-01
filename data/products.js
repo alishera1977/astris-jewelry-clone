@@ -44,6 +44,8 @@ window.PRODUCTS = [
     name: "Подвеска Astris Drop",
     price: "12 800 ₽",
     image: "assets/catalog-astris-drop.png",
+    video: "videos/astris-drop.mp4",
+    gallery: ["assets/astris-drop-lifestyle.png"],
     description:
       "Подвеска с вытянутым силуэтом и бирюзовым акцентом. Пластика формы отсылает к раковине и линии воды, сохраняя чистую минималистичность.",
     materials: "Серебро 925",

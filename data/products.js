@@ -2,7 +2,10 @@ window.PRODUCTS = [
   {
     slug: "fluid-signet",
     name: "Кольцо Fluid Signet",
+    shortName: "Fluid Signet",
     price: "15 600 ₽",
+    sizes: [15, 16, 17, 18, 19],
+    defaultSize: 17,
     image: "assets/catalog-fluid-signet.png",
     video: "videos/fluid-signet.mp4",
     gallery: ["assets/fluid-signet-lifestyle.png"],

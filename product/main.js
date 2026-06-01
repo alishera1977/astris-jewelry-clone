@@ -9,48 +9,35 @@
     if (el) el.textContent = value;
   }
 
-  function buildSpecs(product) {
-    var rows = [];
+  function displayName(product) {
+    if (product.shortName) return product.shortName;
+    return product.name
+      .replace(/^Кольцо\s+/i, "")
+      .replace(/^Подвеска\s+/i, "");
+  }
+
+  function parseSizes(product) {
+    if (product.sizes && product.sizes.length) return product.sizes;
+    if (!product.size) return null;
+    var range = String(product.size).match(/(\d{2})\s*[-–]\s*(\d{2})/);
+    if (!range) return null;
+    var from = parseInt(range[1], 10);
+    var to = parseInt(range[2], 10);
+    var list = [];
+    for (var n = from; n <= to; n++) list.push(n);
+    return list;
+  }
+
+  function buildMeta(product) {
+    var items = [];
     var material = product.material || product.materials;
-    if (material) rows.push(["Материал", material]);
-    if (product.stone) rows.push(["Камень", product.stone]);
-    if (product.edition) rows.push(["Тираж", product.edition]);
-    if (product.size) rows.push(["Размер", product.size]);
-    return rows;
+    if (material) items.push(["Материал", material]);
+    if (product.edition) items.push(["Тираж", product.edition]);
+    return items;
   }
 
-  var products = window.PRODUCTS || [];
-  var slug = getSlugFromPath();
-  var product = products.find(function (p) {
-    return p.slug === slug;
-  });
-
-  if (!product) {
-    var title = document.querySelector(".product-detail-title");
-    var desc = document.querySelector(".product-detail-description");
-    text(title, "Товар не найден");
-    text(desc, "Проверьте ссылку или вернитесь в каталог.");
-    var specs = document.querySelector(".product-detail-specs");
-    if (specs) specs.innerHTML = "";
-    var button = document.querySelector(".product-detail-button");
-    if (button) button.style.display = "none";
-    document.title = "Товар не найден — ASTRIS";
-    return;
-  }
-
-  var titleEl = document.querySelector(".product-detail-title");
-  var descEl = document.querySelector(".product-detail-description");
-  var buttonEl = document.querySelector(".product-detail-button");
-  var specsEl = document.querySelector(".product-detail-specs");
-
-  initProductMedia(product);
-
-  function initProductMedia(product) {
-    var media = document.querySelector(".product-detail-media");
-    if (!media) return;
-
+  function buildSlides(product) {
     var slides = [];
-
     if (product.image) {
       slides.push({
         type: "image",
@@ -59,7 +46,6 @@
         primary: true,
       });
     }
-
     (product.gallery || []).forEach(function (src) {
       slides.push({
         type: "image",
@@ -68,7 +54,6 @@
         lifestyle: true,
       });
     });
-
     if (product.video) {
       slides.push({
         type: "video",
@@ -76,50 +61,124 @@
         label: product.name,
       });
     }
+    return slides;
+  }
 
-    if (!slides.length) return;
+  var products = window.PRODUCTS || [];
+  var slug = getSlugFromPath();
+  var product = products.find(function (p) {
+    return p.slug === slug;
+  });
 
-    if (slides.length === 1 && slides[0].type === "image") {
-      var loneImage = document.querySelector(".product-detail-image");
-      if (loneImage) {
-        loneImage.src = "../../" + slides[0].src;
-        loneImage.alt = slides[0].alt;
-      }
+  var titleEl = document.querySelector(".product-detail-title");
+  var priceEl = document.querySelector(".product-detail-price");
+  var descEl = document.querySelector(".product-detail-description");
+  var buttonEl = document.querySelector(".product-detail-button");
+  var metaEl = document.getElementById("product-detail-meta");
+  var sizesWrap = document.getElementById("product-detail-sizes");
+  var sizesList = document.getElementById("product-detail-sizes-list");
+  var stageEl = document.getElementById("product-detail-stage");
+  var thumbsEl = document.getElementById("product-detail-thumbs");
+
+  if (!product) {
+    text(titleEl, "Товар не найден");
+    text(descEl, "Проверьте ссылку или вернитесь в каталог.");
+    if (metaEl) metaEl.innerHTML = "";
+    if (buttonEl) buttonEl.style.display = "none";
+    if (sizesWrap) sizesWrap.hidden = true;
+    if (thumbsEl) thumbsEl.hidden = true;
+    document.title = "Товар не найден — ASTRIS";
+    return;
+  }
+
+  document.body.classList.add("product-page");
+
+  text(titleEl, displayName(product));
+  text(priceEl, product.price);
+  text(descEl, product.description || "");
+  text(buttonEl, "ДОБАВИТЬ В КОРЗИНУ — " + product.price);
+  document.title = product.name + " — ASTRIS";
+
+  initMeta(product);
+  initSizes(product);
+  initProductMedia(product);
+
+  function initMeta(product) {
+    if (!metaEl) return;
+    var items = buildMeta(product);
+    metaEl.innerHTML = "";
+    items.forEach(function (row) {
+      var wrap = document.createElement("div");
+      wrap.className = "product-detail-meta__item";
+      var dt = document.createElement("dt");
+      var dd = document.createElement("dd");
+      dt.textContent = row[0];
+      dd.textContent = row[1];
+      wrap.appendChild(dt);
+      wrap.appendChild(dd);
+      metaEl.appendChild(wrap);
+    });
+  }
+
+  function initSizes(product) {
+    if (!sizesWrap || !sizesList) return;
+    var sizes = parseSizes(product);
+    if (!sizes || !sizes.length) {
+      sizesWrap.hidden = true;
       return;
     }
+    sizesWrap.hidden = false;
+    sizesList.innerHTML = "";
+    var active = product.defaultSize || sizes[Math.floor(sizes.length / 2)];
 
-    media.classList.add("product-detail-media--gallery");
-    media.setAttribute("aria-label", "Фото и видео изделия");
-    media.innerHTML = "";
+    sizes.forEach(function (size) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "product-detail-size";
+      if (size === active) btn.classList.add("is-active");
+      btn.textContent = String(size);
+      btn.setAttribute("aria-pressed", size === active ? "true" : "false");
+      btn.addEventListener("click", function () {
+        sizesList.querySelectorAll(".product-detail-size").forEach(function (el) {
+          el.classList.remove("is-active");
+          el.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.add("is-active");
+        btn.setAttribute("aria-pressed", "true");
+      });
+      sizesList.appendChild(btn);
+    });
+  }
 
-    var gallery = document.createElement("div");
-    gallery.className = "product-detail-gallery";
+  function initProductMedia(product) {
+    if (!stageEl) return;
 
-    var track = document.createElement("div");
-    track.className = "product-detail-gallery__track";
-    track.setAttribute("tabindex", "0");
+    var slides = buildSlides(product);
+    if (!slides.length) return;
 
-    var videos = [];
+    var activeVideo = null;
     var videoSlideIndex = -1;
+    slides.forEach(function (s, i) {
+      if (s.type === "video") videoSlideIndex = i;
+    });
 
-    slides.forEach(function (slide, index) {
-      var item = document.createElement("div");
-      item.className = "product-detail-gallery__slide";
-      if (slide.primary) {
-        item.classList.add("product-detail-gallery__slide--primary");
+    function pauseVideo() {
+      if (activeVideo) {
+        activeVideo.pause();
+        activeVideo = null;
       }
-      if (slide.lifestyle) {
-        item.classList.add("product-detail-gallery__slide--lifestyle");
-      }
-      item.setAttribute("role", "group");
-      item.setAttribute("aria-label", String(index + 1) + " из " + slides.length);
+    }
+
+    function renderStage(index) {
+      var slide = slides[index];
+      pauseVideo();
+      stageEl.innerHTML = "";
+      stageEl.className = "product-detail-stage";
 
       if (slide.type === "video") {
-        item.classList.add("product-detail-gallery__slide--video");
-
+        stageEl.classList.add("is-video");
         var blend = document.createElement("div");
-        blend.className = "product-detail-gallery__video-blend";
-
+        blend.className = "product-detail-stage__video-blend";
         var video = document.createElement("video");
         video.className = "product-detail-video";
         video.src = "../../" + slide.src;
@@ -133,85 +192,70 @@
         video.setAttribute("preload", "auto");
         video.setAttribute("aria-label", slide.label);
         blend.appendChild(video);
-        item.appendChild(blend);
-        videos.push(video);
-        videoSlideIndex = index;
-      } else {
-        var img = document.createElement("img");
-        img.className = "product-detail-gallery__img";
-        img.src = "../../" + slide.src;
-        img.alt = slide.alt;
-        img.loading = index === 0 ? "eager" : "lazy";
-        img.decoding = "async";
-        item.appendChild(img);
+        stageEl.appendChild(blend);
+        activeVideo = video;
+        video.play().catch(function () {});
+        return;
       }
 
-      track.appendChild(item);
-    });
+      if (slide.primary) stageEl.classList.add("is-primary");
+      if (slide.lifestyle) stageEl.classList.add("is-lifestyle");
 
-    gallery.appendChild(track);
+      var img = document.createElement("img");
+      img.className = "product-detail-stage__img";
+      img.src = "../../" + slide.src;
+      img.alt = slide.alt;
+      img.decoding = "async";
+      stageEl.appendChild(img);
+    }
 
-    var dots = document.createElement("div");
-    dots.className = "product-detail-gallery__dots";
-    dots.setAttribute("aria-hidden", "true");
-
-    slides.forEach(function (_, index) {
-      var dot = document.createElement("span");
-      dot.className =
-        "product-detail-gallery__dot" +
-        (index === 0 ? " product-detail-gallery__dot--active" : "");
-      dots.appendChild(dot);
-    });
-
-    gallery.appendChild(dots);
-    media.appendChild(gallery);
-
-    function setActiveIndex(index) {
-      var dotEls = dots.querySelectorAll(".product-detail-gallery__dot");
-      dotEls.forEach(function (dot, i) {
-        dot.classList.toggle("product-detail-gallery__dot--active", i === index);
+    function setActiveThumb(index) {
+      if (!thumbsEl) return;
+      thumbsEl.querySelectorAll(".product-detail-thumb").forEach(function (btn, i) {
+        var on = i === index;
+        btn.classList.toggle("product-detail-thumb--active", on);
+        btn.setAttribute("aria-selected", on ? "true" : "false");
       });
-      videos.forEach(function (video) {
-        if (index === videoSlideIndex) {
-          video.play().catch(function () {});
+    }
+
+    function goTo(index) {
+      if (index < 0 || index >= slides.length) return;
+      renderStage(index);
+      setActiveThumb(index);
+    }
+
+    if (slides.length > 1 && thumbsEl) {
+      thumbsEl.hidden = false;
+      thumbsEl.innerHTML = "";
+
+      slides.forEach(function (slide, index) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "product-detail-thumb";
+        btn.setAttribute("role", "tab");
+        btn.setAttribute("aria-selected", index === 0 ? "true" : "false");
+
+        var thumbImg = document.createElement("img");
+        thumbImg.alt = "";
+        thumbImg.loading = "lazy";
+        if (slide.type === "video") {
+          btn.classList.add("product-detail-thumb--video");
+          thumbImg.src = "../../" + product.image;
         } else {
-          video.pause();
+          thumbImg.src = "../../" + slide.src;
         }
+        btn.appendChild(thumbImg);
+        btn.addEventListener("click", function () {
+          goTo(index);
+        });
+        thumbsEl.appendChild(btn);
       });
+    } else if (thumbsEl) {
+      thumbsEl.hidden = true;
     }
 
-    function readActiveIndex() {
-      var width = track.clientWidth;
-      if (!width) return 0;
-      return Math.min(
-        slides.length - 1,
-        Math.max(0, Math.round(track.scrollLeft / width))
-      );
-    }
-
-    var scrollTimer;
-    track.addEventListener(
-      "scroll",
-      function () {
-        clearTimeout(scrollTimer);
-        scrollTimer = window.setTimeout(function () {
-          setActiveIndex(readActiveIndex());
-        }, 60);
-      },
-      { passive: true }
-    );
-
-    window.addEventListener("resize", function () {
-      setActiveIndex(readActiveIndex());
-    });
-
-    setActiveIndex(0);
+    goTo(0);
   }
-
-  text(titleEl, product.name);
-  text(descEl, product.description || "");
-  text(buttonEl, "ДОБАВИТЬ В КОРЗИНУ — " + product.price);
-  document.title = product.name + " — ASTRIS";
 
   if (buttonEl && window.ASTRIS_CART) {
     buttonEl.addEventListener("click", function () {
@@ -223,22 +267,6 @@
         buttonEl.textContent = label;
         buttonEl.classList.remove("product-detail-button--added");
       }, 1800);
-    });
-  }
-
-  if (specsEl) {
-    var rows = buildSpecs(product);
-    specsEl.innerHTML = "";
-    rows.forEach(function (row) {
-      var wrap = document.createElement("div");
-      wrap.className = "product-detail-spec-row";
-      var dt = document.createElement("dt");
-      var dd = document.createElement("dd");
-      dt.textContent = row[0];
-      dd.textContent = row[1];
-      wrap.appendChild(dt);
-      wrap.appendChild(dd);
-      specsEl.appendChild(wrap);
     });
   }
 })();

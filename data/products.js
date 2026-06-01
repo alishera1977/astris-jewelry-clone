@@ -17,6 +17,8 @@ window.PRODUCTS = [
     name: "Кольцо Shield",
     price: "18 500 ₽",
     image: "assets/catalog-shield-ring.png",
+    video: "videos/shield.mp4",
+    gallery: ["assets/shield-lifestyle.png"],
     description:
       "Широкий серебряный щит с цельным характером и выразительной геометрией. Вещь с акцентом на силу силуэта и ощущение веса на руке.",
     material: "Серебро 925",

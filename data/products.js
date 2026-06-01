@@ -57,6 +57,8 @@ window.PRODUCTS = [
     name: "Кольцо Soul Free",
     price: "16 400 ₽",
     image: "assets/catalog-strength-soul-free.png",
+    video: "videos/soul-free.mp4",
+    gallery: ["assets/soul-free-lifestyle.png"],
     description:
       "Сигнет с гравировкой Soul / Free как личный знак и ежедневное напоминание. Спокойная форма и чистая плоскость подчеркивают смысловую деталь.",
     material: "Серебро 925",

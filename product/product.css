@@ -97,6 +97,31 @@
   mix-blend-mode: multiply;
 }
 
+.product-detail-page--faith-signet .product-detail-gallery__slide--video {
+  background: #f9f8f6;
+}
+
+.product-detail-page--faith-signet .product-detail-gallery__video-blend--faith {
+  background: #f9f8f6;
+}
+
+.product-detail-page--faith-signet
+  .product-detail-gallery__video-blend--faith
+  .product-detail-video--faith-canvas {
+  mix-blend-mode: normal;
+}
+
+.product-detail-page--faith-signet
+  .product-detail-gallery__video-blend--faith
+  .product-detail-video--faith-src {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .product-detail-gallery__slide--primary .product-detail-gallery__img {
   filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
 }

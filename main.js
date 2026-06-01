@@ -239,10 +239,86 @@
     initPackagingCarousel();
   }
 
-  function initCatalogAddButtons() {
+  function productCategoryLabel(product) {
+    if (product.category) return product.category;
+    var label = product.material || product.materials || "Серебро 925";
+    if (product.stone) label += " · " + product.stone.toLowerCase();
+    return label;
+  }
+
+  function buildProductCard(product, assetPrefix) {
+    var prefix = assetPrefix || "";
+    var article = document.createElement("article");
+    article.className = "product-card";
+
+    var mediaLink = document.createElement("a");
+    mediaLink.className = "product-card__media";
+    mediaLink.href = prefix + "product/" + product.slug + "/";
+
+    var img = document.createElement("img");
+    img.className = "product-card__img";
+    img.src = prefix + product.image;
+    img.alt = product.imageAlt || product.name;
+    img.width = 687;
+    img.height = 1024;
+    img.loading = "lazy";
+    mediaLink.appendChild(img);
+
+    var meta = document.createElement("div");
+    meta.className = "product-card__meta";
+
+    var title = document.createElement("h3");
+    title.className = "product-card__name";
+    var titleLink = document.createElement("a");
+    titleLink.href = prefix + "product/" + product.slug + "/";
+    titleLink.textContent = product.name;
+    title.appendChild(titleLink);
+
+    var cat = document.createElement("p");
+    cat.className = "product-card__cat";
+    cat.textContent = productCategoryLabel(product);
+
+    var price = document.createElement("p");
+    price.className = "product-card__price";
+    price.textContent = product.price;
+
+    var addBtn = document.createElement("button");
+    addBtn.type = "button";
+    addBtn.className = "product-card__add";
+    addBtn.setAttribute("data-add-to-cart", product.slug);
+    addBtn.textContent = "Добавить в корзину";
+
+    meta.appendChild(title);
+    meta.appendChild(cat);
+    meta.appendChild(price);
+    meta.appendChild(addBtn);
+
+    article.appendChild(mediaLink);
+    article.appendChild(meta);
+    return article;
+  }
+
+  function renderProductGrid(container, products, assetPrefix) {
+    if (!container || !products) return;
+    container.innerHTML = "";
+    products.forEach(function (product) {
+      container.appendChild(buildProductCard(product, assetPrefix));
+    });
+    initCatalogAddButtons(container);
+  }
+
+  function initFullCatalogPage() {
+    var grid = document.getElementById("catalog-grid");
+    if (!grid || !window.PRODUCTS) return;
+    renderProductGrid(grid, window.PRODUCTS, "../");
+    document.title = "Каталог — ASTRIS";
+  }
+
+  function initCatalogAddButtons(root) {
     if (!window.ASTRIS_CART || !window.PRODUCTS) return;
 
-    document.querySelectorAll("[data-add-to-cart]").forEach(function (btn) {
+    var scope = root || document;
+    scope.querySelectorAll("[data-add-to-cart]").forEach(function (btn) {
       if (btn.dataset.cartBound) return;
       btn.dataset.cartBound = "1";
 
@@ -265,8 +341,12 @@
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initCatalogAddButtons);
+    document.addEventListener("DOMContentLoaded", function () {
+      initCatalogAddButtons();
+      initFullCatalogPage();
+    });
   } else {
     initCatalogAddButtons();
+    initFullCatalogPage();
   }
 })();

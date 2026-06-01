@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Каталог ASTRIS — кольца, подвески и знаковые украшения из серебра."
+    />
+    <title>Каталог — ASTRIS</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <header class="site-header site-header--detail is-on-light" id="site-header" aria-label="Шапка сайта">
+      <a href="../" class="site-header__logo font-serif logo">ASTRIS</a>
+      <div class="site-header__actions">
+        <button type="button" class="icon-btn icon-btn--cart" id="cart-open" aria-label="Корзина">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 7h15l-1.5 9h-12L6 7z" />
+            <path d="M9 7V5a3 3 0 016 0v2" />
+          </svg>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </button>
+        <button
+          type="button"
+          class="icon-btn"
+          id="menu-open"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="site-menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="menu-overlay" id="site-menu" hidden>
+      <div class="menu-overlay__panel">
+        <button type="button" class="menu-overlay__close icon-btn" id="menu-close" aria-label="Закрыть меню">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <p class="menu-overlay__lead">Jewelry as symbols.</p>
+        <p class="menu-overlay__sub">Objects of faith, strength and presence.</p>
+        <nav class="menu-overlay__nav" aria-label="Основное меню">
+          <div class="menu-col">
+            <h2 class="menu-col__title">Каталог</h2>
+            <ul>
+              <li><a href="./">Весь каталог</a></li>
+              <li><a href="../#catalog">Избранное</a></li>
+            </ul>
+          </div>
+          <div class="menu-col">
+            <h2 class="menu-col__title">Бренд</h2>
+            <ul>
+              <li><a href="../">На главную</a></li>
+              <li><a href="../#contacts">Контакты</a></li>
+            </ul>
+          </div>
+          <div class="menu-col">
+            <h2 class="menu-col__title">Контакты</h2>
+            <ul>
+              <li><a href="mailto:contact@astris.ru">contact@astris.ru</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <main class="catalog-page">
+      <section class="catalog" aria-labelledby="catalog-title">
+        <div class="catalog__inner">
+          <p class="eyebrow catalog__eyebrow">ASTRIS</p>
+          <h1 class="catalog__title font-serif" id="catalog-title">Весь каталог</h1>
+          <div class="product-grid" id="catalog-grid"></div>
+          <a class="text-link text-link--center catalog__back" href="../#catalog">← На главную</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="../data/products.js"></script>
+    <script src="../data/cart.js"></script>
+    <script src="../main.js"></script>
+  </body>
+</html>

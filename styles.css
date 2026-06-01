@@ -815,6 +815,21 @@ ul {
   color: var(--hero-text);
 }
 
+.catalog-page {
+  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  min-height: 100vh;
+  background: #f9f8f6;
+}
+
+.catalog-page .catalog__inner {
+  padding-top: 48px;
+}
+
+.catalog-page .catalog__back {
+  display: inline-block;
+  margin-top: 72px;
+}
+
 .catalog {
   background: #f9f8f6;
   color: #111111;

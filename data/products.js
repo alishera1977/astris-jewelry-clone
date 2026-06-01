@@ -1,8 +1,10 @@
+// Новый товар: добавьте объект сюда и создайте product/<slug>/index.html (как у fluid-signet).
 window.PRODUCTS = [
   {
     slug: "fluid-signet",
     name: "Кольцо Fluid Signet",
     price: "15 600 ₽",
+    category: "Серебро 925",
     image: "assets/catalog-fluid-signet.png",
     video: "videos/fluid-signet.mp4",
     gallery: ["assets/fluid-signet-lifestyle.png"],
@@ -16,6 +18,7 @@ window.PRODUCTS = [
     slug: "shield",
     name: "Кольцо Shield",
     price: "18 500 ₽",
+    category: "Серебро 925",
     image: "assets/catalog-shield-ring.png",
     video: "videos/shield.mp4",
     gallery: ["assets/shield-lifestyle.png"],
@@ -29,6 +32,7 @@ window.PRODUCTS = [
     slug: "faith-signet",
     name: "Кольцо Faith Signet",
     price: "14 900 ₽",
+    category: "Серебро 925 · голубой камень",
     image: "assets/catalog-faith-ring.png",
     video: "videos/faith-signet.mp4",
     gallery: ["assets/faith-signet-lifestyle.png"],
@@ -43,6 +47,7 @@ window.PRODUCTS = [
     slug: "astris-drop",
     name: "Подвеска Astris Drop",
     price: "12 800 ₽",
+    category: "Серебро 925 · подвеска",
     image: "assets/catalog-astris-drop.png",
     video: "videos/astris-drop.mp4",
     gallery: ["assets/astris-drop-lifestyle.png"],
@@ -56,6 +61,7 @@ window.PRODUCTS = [
     slug: "soul-free",
     name: "Кольцо Soul Free",
     price: "16 400 ₽",
+    category: "Серебро 925 · сигнет",
     image: "assets/catalog-strength-soul-free.png",
     video: "videos/soul-free.mp4",
     gallery: ["assets/soul-free-lifestyle.png"],

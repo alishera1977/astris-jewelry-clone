@@ -50,18 +50,13 @@
     if (!media) return;
 
     var slides = [];
-    if (product.video) {
-      slides.push({
-        type: "video",
-        src: product.video,
-        poster: product.image,
-        label: product.name,
-      });
-    } else if (product.image) {
+
+    if (product.image) {
       slides.push({
         type: "image",
         src: product.image,
         alt: product.name,
+        primary: true,
       });
     }
 
@@ -69,10 +64,18 @@
       slides.push({
         type: "image",
         src: src,
-        alt: product.name + " — lifestyle",
+        alt: product.name + " — на модели",
         lifestyle: true,
       });
     });
+
+    if (product.video) {
+      slides.push({
+        type: "video",
+        src: product.video,
+        label: product.name,
+      });
+    }
 
     if (!slides.length) return;
 
@@ -97,10 +100,14 @@
     track.setAttribute("tabindex", "0");
 
     var videos = [];
+    var videoSlideIndex = -1;
 
     slides.forEach(function (slide, index) {
       var item = document.createElement("div");
       item.className = "product-detail-gallery__slide";
+      if (slide.primary) {
+        item.classList.add("product-detail-gallery__slide--primary");
+      }
       if (slide.lifestyle) {
         item.classList.add("product-detail-gallery__slide--lifestyle");
       }
@@ -121,15 +128,14 @@
         }
         video.muted = true;
         video.loop = true;
-        video.autoplay = true;
         video.playsInline = true;
         video.setAttribute("playsinline", "");
-        video.setAttribute("autoplay", "");
         video.setAttribute("preload", "auto");
         video.setAttribute("aria-label", slide.label);
         blend.appendChild(video);
         item.appendChild(blend);
         videos.push(video);
+        videoSlideIndex = index;
       } else {
         var img = document.createElement("img");
         img.className = "product-detail-gallery__img";
@@ -166,7 +172,7 @@
         dot.classList.toggle("product-detail-gallery__dot--active", i === index);
       });
       videos.forEach(function (video) {
-        if (index === 0) {
+        if (index === videoSlideIndex) {
           video.play().catch(function () {});
         } else {
           video.pause();
@@ -199,9 +205,7 @@
       setActiveIndex(readActiveIndex());
     });
 
-    if (videos.length) {
-      videos[0].play().catch(function () {});
-    }
+    setActiveIndex(0);
   }
 
   text(titleEl, product.name);

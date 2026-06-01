@@ -4,6 +4,7 @@ window.PRODUCTS = [
     name: "Кольцо Fluid Signet",
     price: "15 600 ₽",
     image: "assets/catalog-fluid-signet.png",
+    video: "videos/fluid-signet.mov",
     description:
       "Скульптурный сигнет с мягким объемом и плавным рельефом. Украшение создано для спокойного ежедневного ношения и тактильного контакта с формой.",
     material: "Серебро 925",

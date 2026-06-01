@@ -30,6 +30,8 @@ window.PRODUCTS = [
     name: "Кольцо Faith Signet",
     price: "14 900 ₽",
     image: "assets/catalog-faith-ring.png",
+    video: "videos/faith-signet.mp4",
+    gallery: ["assets/faith-signet-lifestyle.png"],
     description:
       "Фактурное сигнетное кольцо с камнем в центре композиции. Контраст чеканки и гладкой оправы делает форму глубже и выразительнее.",
     materials: "Серебро 925",

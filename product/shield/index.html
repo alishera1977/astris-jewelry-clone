@@ -7,15 +7,10 @@
     <link rel="stylesheet" href="../../styles.css" />
     <link rel="stylesheet" href="../product.css" />
   </head>
-  <body class="product-page">
-    <header class="site-header site-header--detail site-header--pdp is-on-light" id="site-header" aria-label="Шапка сайта">
+  <body>
+    <header class="site-header site-header--detail is-on-light" id="site-header" aria-label="Шапка сайта">
       <a href="../../" class="site-header__logo font-serif logo">ASTRIS</a>
       <div class="site-header__actions">
-        <a href="../../#catalog" class="icon-btn icon-btn--back" aria-label="Назад в каталог">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M15 6l-6 6 6 6" />
-          </svg>
-        </a>
         <button type="button" class="icon-btn icon-btn--cart" id="cart-open" aria-label="Корзина">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
             <path d="M6 7h15l-1.5 9h-12L6 7z" />
@@ -26,45 +21,17 @@
       </div>
     </header>
     <main class="product-detail-page">
-      <section class="product-detail-media" aria-label="Фото и видео изделия">
-        <div class="product-detail-stage" id="product-detail-stage"></div>
-        <div
-          class="product-detail-thumbs"
-          id="product-detail-thumbs"
-          role="tablist"
-          aria-label="Выбор кадра"
-          hidden
-        ></div>
+      <section class="product-detail-media" aria-label="Изображение изделия">
+        <img class="product-detail-image" src="../../assets/catalog-fluid-signet.png" alt="" width="687" height="1024" />
       </section>
       <section class="product-detail-info" aria-label="Информация о товаре">
-        <h1 class="product-detail-title">Товар</h1>
-        <p class="product-detail-price"></p>
-        <div class="product-detail-sizes" id="product-detail-sizes" hidden>
-          <p class="product-detail-sizes__label">Размер</p>
-          <div class="product-detail-sizes__list" id="product-detail-sizes-list" role="group" aria-label="Размер"></div>
-        </div>
-        <div class="product-detail-meta" id="product-detail-meta"></div>
+        <p class="product-detail-eyebrow">— ЗНАКОВОЕ ИЗДЕЛИЕ</p>
+        <h1 class="product-detail-title">Кольцо Fluid Signet</h1>
         <p class="product-detail-description"></p>
-        <div class="product-detail-accordions">
-          <details class="product-detail-accordion">
-            <summary>Доставка и возврат</summary>
-            <p>
-              Доставка по России — 3–7 рабочих дней. Возврат в течение 14 дней, если изделие
-              сохранило товарный вид.
-            </p>
-          </details>
-          <details class="product-detail-accordion">
-            <summary>Уход за изделием</summary>
-            <p>
-              Храните в сухом месте, избегайте контакта с химией и водой. Протирайте мягкой
-              безворсовой салфеткой.
-            </p>
-          </details>
-        </div>
-      </section>
-      <div class="product-detail-bar">
+        <dl class="product-detail-specs"></dl>
         <button class="product-detail-button" type="button"></button>
-      </div>
+        <a class="product-detail-back" href="../../#catalog">← Назад в каталог</a>
+      </section>
     </main>
     <script src="../../data/products.js"></script>
     <script src="../../data/cart.js"></script>

@@ -98,7 +98,8 @@
 }
 
 .product-detail-gallery__slide--primary .product-detail-gallery__img {
-  filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
+  mix-blend-mode: multiply;
+  filter: none;
 }
 
 .product-detail-gallery__slide--lifestyle .product-detail-gallery__img {
@@ -133,7 +134,8 @@
   max-width: 72%;
   max-height: 78vh;
   object-fit: contain;
-  filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
+  mix-blend-mode: multiply;
+  filter: none;
 }
 
 .product-detail-info {

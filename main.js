@@ -239,7 +239,7 @@
     initPackagingCarousel();
   }
 
-  var CATALOG_ASSET_VERSION = "13";
+  var CATALOG_ASSET_VERSION = "15";
 
   function productCategoryLabel(product) {
     if (product.category) return product.category;

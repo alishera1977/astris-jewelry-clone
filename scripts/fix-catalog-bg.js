@@ -9,6 +9,7 @@ const TARGET = [249, 248, 246];
 const BPP = 4;
 const TRANSPARENT_BG = process.argv.includes("--cream");
 const SOFTEN_METAL = process.argv.includes("--soften");
+const PHOTOGRAPHIC = process.argv.includes("--photographic") || SOFTEN_METAL;
 const NO_GLARE = process.argv.includes("--no-glare");
 
 function paeth(a, b, c) {
@@ -182,6 +183,13 @@ function luminance(rgb) {
 function isBackgroundPixel(rgb, cornerAvg) {
   const lum = luminance(rgb);
   const s = spread(rgb);
+  const mx = Math.max(rgb[0], rgb[1], rgb[2]);
+
+  if (luminance(cornerAvg) < 55) {
+    if (mx < 18) return true;
+    if (lum >= 205 && s < 18) return true;
+    return false;
+  }
 
   if (dist(rgb, cornerAvg) <= 52) return true;
   if (lum <= 40 && s < 28) return true;
@@ -281,51 +289,56 @@ function isColoredStone(r, g, b) {
   return isGreenStone(r, g, b) || isPinkStone(r, g, b);
 }
 
-function isVoidPixel(r, g, b) {
-  const mx = Math.max(r, g, b);
-  const lum = luminance([r, g, b]);
-  const s = spread([r, g, b]);
-  if (mx < 12) return true;
-  if (lum >= 205 && s < 20) return true;
-  return false;
+function liftRgb(r, g, b, targetMax) {
+  const mx = Math.max(r, g, b, 1);
+  const scale = targetMax / mx;
+  return [
+    Math.min(255, Math.round(r * scale)),
+    Math.min(255, Math.round(g * scale)),
+    Math.min(255, Math.round(b * scale)),
+  ];
 }
 
-function preserveGemForeground(data, original, width, height) {
-  const visited = new Uint8Array(width * height);
-  const queue = [];
-
-  for (let i = 0; i < width * height; i++) {
-    const oi = i * BPP;
-    if (original[oi + 3] < 200) continue;
-    if (!isColoredStone(original[oi], original[oi + 1], original[oi + 2])) continue;
-    visited[i] = 1;
-    queue.push(i);
+function neighborMaxLum(data, width, height, idx) {
+  const x = idx % width;
+  const y = (idx / width) | 0;
+  let maxLum = 0;
+  for (let dy = -1; dy <= 1; dy++) {
+    for (let dx = -1; dx <= 1; dx++) {
+      if (!dx && !dy) continue;
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+      const ni = (ny * width + nx) * BPP;
+      if (data[ni + 3] < 10) continue;
+      const lum = luminance([data[ni], data[ni + 1], data[ni + 2]]);
+      if (lum > maxLum) maxLum = lum;
+    }
   }
+  return maxLum;
+}
 
-  let head = 0;
-  while (head < queue.length) {
-    const idx = queue[head++];
-    const oi = idx * BPP;
-    data[oi] = original[oi];
-    data[oi + 1] = original[oi + 1];
-    data[oi + 2] = original[oi + 2];
-    data[oi + 3] = 255;
+function refineDarkPixels(data, width, height) {
+  const total = width * height;
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    if (data[i + 3] < 10) continue;
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+    const mx = Math.max(r, g, b);
+    if (mx >= 36) continue;
 
-    const x = idx % width;
-    const y = (idx / width) | 0;
-    [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]].forEach(function (pt) {
-      const nx = pt[0];
-      const ny = pt[1];
-      if (nx < 0 || ny < 0 || nx >= width || ny >= height) return;
-      const nidx = ny * width + nx;
-      if (visited[nidx]) return;
-      const noi = nidx * BPP;
-      if (original[noi + 3] < 200) return;
-      const rgb = [original[noi], original[noi + 1], original[noi + 2]];
-      if (isVoidPixel(rgb[0], rgb[1], rgb[2])) return;
-      visited[nidx] = 1;
-      queue.push(nidx);
-    });
+    const nearLum = neighborMaxLum(data, width, height, idx);
+    if (nearLum > mx + 16) {
+      const lifted = liftRgb(r, g, b, Math.min(72, 34 + nearLum * 0.42));
+      data[i] = lifted[0];
+      data[i + 1] = lifted[1];
+      data[i + 2] = lifted[2];
+    } else if (mx < 22 && nearLum < 30) {
+      data[i + 3] = 0;
+    }
   }
 }
 
@@ -342,8 +355,29 @@ function removePureBlack(data) {
   }
 }
 
-function compressSmoothGlares(data) {
-  for (let i = 0; i < data.length; i += BPP) {
+function localAvgLum(data, width, height, idx, radius) {
+  const x = idx % width;
+  const y = (idx / width) | 0;
+  let sum = 0;
+  let count = 0;
+  for (let dy = -radius; dy <= radius; dy++) {
+    for (let dx = -radius; dx <= radius; dx++) {
+      const nx = x + dx;
+      const ny = y + dy;
+      if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+      const ni = (ny * width + nx) * BPP;
+      if (data[ni + 3] < 10) continue;
+      sum += luminance([data[ni], data[ni + 1], data[ni + 2]]);
+      count++;
+    }
+  }
+  return count ? sum / count : 0;
+}
+
+function photographicFinish(data, width, height) {
+  const total = width * height;
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
     if (data[i + 3] < 10) continue;
 
     let r = data[i];
@@ -351,28 +385,37 @@ function compressSmoothGlares(data) {
     let b = data[i + 2];
     if (isColoredStone(r, g, b)) continue;
 
-    const lum = luminance([r, g, b]);
-    const s = spread([r, g, b]);
-
-    if (lum > 150 && s <= 14) {
-      const target = 150 + (lum - 150) * 0.3;
-      const scale = target / lum;
-      r = Math.round(r * scale);
-      g = Math.round(g * scale);
-      b = Math.round(b * scale);
+    let lum = luminance([r, g, b]);
+    const avg = localAvgLum(data, width, height, idx, 2);
+    if (lum < 55 && avg > lum + 22 && spread([r, g, b]) < 22) {
+      const t = Math.min(78, avg * 0.58);
+      const scale = t / Math.max(lum, 1);
+      r = Math.min(255, Math.round(r * scale));
+      g = Math.min(255, Math.round(g * scale));
+      b = Math.min(255, Math.round(b * scale));
+      lum = luminance([r, g, b]);
     }
 
-    if (lum > 188) {
-      const target = 188 + (lum - 188) * 0.25;
-      const scale = target / lum;
-      r = Math.round(r * scale);
-      g = Math.round(g * scale);
-      b = Math.round(b * scale);
+    if (lum < 105) {
+      const t = 58 + (lum / 105) * 62;
+      const scale = t / Math.max(lum, 1);
+      r = Math.min(255, Math.round(r * scale));
+      g = Math.min(255, Math.round(g * scale));
+      b = Math.min(255, Math.round(b * scale));
+    } else if (lum > 188) {
+      const cap = 178;
+      const compress = 0.32;
+      r = Math.round(cap + (r - cap) * compress);
+      g = Math.round(cap + (g - cap) * compress);
+      b = Math.round(cap + (b - cap) * compress);
     }
 
-    r = Math.min(r, 176);
-    g = Math.min(g, 176);
-    b = Math.min(b, 178);
+    lum = luminance([r, g, b]);
+    const mid = 128;
+    const contrast = 0.86;
+    r = Math.min(255, Math.max(0, Math.round(mid + (r - mid) * contrast)));
+    g = Math.min(255, Math.max(0, Math.round(mid + (g - mid) * contrast)));
+    b = Math.min(255, Math.max(0, Math.round(mid + (b - mid) * contrast)));
 
     data[i] = r;
     data[i + 1] = g;
@@ -434,18 +477,23 @@ const file = process.argv.find(function (arg) {
   return arg && !arg.startsWith("-") && arg.endsWith(".png");
 });
 if (!file) {
-  console.error("Usage: node scripts/fix-catalog-bg.js <png-path> [--cream] [--soften] [--no-glare]");
+  console.error(
+    "Usage: node scripts/fix-catalog-bg.js <png-path> [--cream] [--soften|--photographic] [--no-glare]"
+  );
   process.exit(1);
 }
 
 const buf = fs.readFileSync(file);
 const { width, height, data } = decodePng(buf);
-const original = Buffer.from(data);
 floodReplaceBg(data, width, height);
-preserveGemForeground(data, original, width, height);
-removePureBlack(data);
-compressSmoothGlares(data);
+if (PHOTOGRAPHIC) {
+  refineDarkPixels(data, width, height);
+  removePureBlack(data);
+} else {
+  removePureBlack(data);
+}
+if (PHOTOGRAPHIC) photographicFinish(data, width, height);
 if (NO_GLARE) removeGlares(data);
-else if (SOFTEN_METAL) softenMetalHighlights(data);
+else if (SOFTEN_METAL && !PHOTOGRAPHIC) softenMetalHighlights(data);
 fs.writeFileSync(file, encodePng(width, height, data));
-console.log("Updated", file);
+console.log("Updated", file, PHOTOGRAPHIC ? "(photographic)" : "");

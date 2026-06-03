@@ -192,6 +192,12 @@ function isBackgroundPixel(rgb, cornerAvg) {
     return false;
   }
 
+  if (luminance(cornerAvg) >= 180) {
+    if (dist(rgb, cornerAvg) <= 68) return true;
+    if (dist(rgb, TARGET) <= 40 && s < 24 && lum >= 140) return true;
+    return false;
+  }
+
   if (dist(rgb, cornerAvg) <= 52) return true;
   if (lum <= 40 && s < 28) return true;
   if (lum >= 188 && s < 34) return true;
@@ -229,7 +235,7 @@ function floodReplaceBg(data, width, height) {
     tryPush(width - 1, y);
   }
 
-  if (luminance(cornerAvg) < 55) {
+  if (luminance(cornerAvg) < 55 || luminance(cornerAvg) >= 180) {
     const seeds = [
       [Math.floor(width * 0.5), Math.floor(height * 0.27)],
       [Math.floor(width * 0.5), Math.floor(height * 0.73)],
@@ -241,12 +247,14 @@ function floodReplaceBg(data, width, height) {
     });
   }
 
-  for (let i = 0; i < width * height; i++) {
-    if (visited[i]) continue;
-    const p = i * BPP;
-    const rgb = [data[p], data[p + 1], data[p + 2]];
-    const lum = luminance(rgb);
-    if (lum >= 205 && spread(rgb) < 18) visited[i] = 1;
+  if (luminance(cornerAvg) < 55) {
+    for (let i = 0; i < width * height; i++) {
+      if (visited[i]) continue;
+      const p = i * BPP;
+      const rgb = [data[p], data[p + 1], data[p + 2]];
+      const lum = luminance(rgb);
+      if (lum >= 205 && spread(rgb) < 18) visited[i] = 1;
+    }
   }
 
   let head = 0;
@@ -275,6 +283,76 @@ function floodReplaceBg(data, width, height) {
     tryPush(x + 1, y);
     tryPush(x, y - 1);
     tryPush(x, y + 1);
+  }
+}
+
+function expandStudioTransparency(data, width, height, cornerAvg) {
+  const total = width * height;
+  for (let pass = 0; pass < 3; pass++) {
+    const scratch = Buffer.alloc(total);
+    for (let idx = 0; idx < total; idx++) {
+      scratch[idx] = data[idx * BPP + 3];
+    }
+    for (let idx = 0; idx < total; idx++) {
+      if (scratch[idx] >= 128) continue;
+      const x = idx % width;
+      const y = (idx / width) | 0;
+      const neighbors = [
+        [x - 1, y],
+        [x + 1, y],
+        [x, y - 1],
+        [x, y + 1],
+      ];
+      neighbors.forEach(function (pt) {
+        const nx = pt[0];
+        const ny = pt[1];
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) return;
+        const ni = (ny * width + nx) * BPP;
+        if (data[ni + 3] < 128) return;
+        const rgb = [data[ni], data[ni + 1], data[ni + 2]];
+        if (isColoredStone(rgb[0], rgb[1], rgb[2])) return;
+        const lum = luminance(rgb);
+        const s = spread(rgb);
+        if (dist(rgb, cornerAvg) <= 72 && s < 34 && lum >= 92 && lum <= 248) {
+          data[ni + 3] = 0;
+        }
+      });
+    }
+  }
+}
+
+function removeStudioFringe(data, width, height, cornerAvg) {
+  const x0 = Math.floor(width * 0.2);
+  const x1 = Math.floor(width * 0.8);
+  const y0 = Math.floor(height * 0.28);
+  const y1 = Math.floor(height * 0.72);
+  const shadowY = Math.floor(height * 0.8);
+
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 10) continue;
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+    const rgb = [r, g, b];
+    const lum = luminance(rgb);
+    const s = spread(rgb);
+    const idx = i / BPP;
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    const isCream =
+      dist(rgb, TARGET) <= 38 && s < 20 && lum >= 218;
+    const inOpening = x >= x0 && x <= x1 && y >= y0 && y <= y1;
+    const inShadow = y >= shadowY;
+
+    if (isCream && (inOpening || inShadow || y < 12 || y > height - 12 || x < 8 || x > width - 8)) {
+      data[i + 3] = 0;
+      continue;
+    }
+
+    if (y >= shadowY && dist(rgb, cornerAvg) <= 68 && s < 32 && lum >= 108 && lum <= 238) {
+      data[i + 3] = 0;
+    }
   }
 }
 
@@ -614,22 +692,46 @@ if (!file) {
 }
 
 const buf = fs.readFileSync(file);
+if (buf[0] === 0xff && buf[1] === 0xd8) {
+  console.error(
+    "JPEG detected — convert first: sips -s format png <file> --out <file>"
+  );
+  process.exit(1);
+}
 const { width, height, data } = decodePng(buf);
+const cornerAvg = sampleCorners(data, width, height).reduce(
+  (acc, c) => [acc[0] + c[0], acc[1] + c[1], acc[2] + c[2]],
+  [0, 0, 0]
+).map((v) => Math.round(v / 8));
+const isStudioBg = luminance(cornerAvg) >= 180;
+
 floodReplaceBg(data, width, height);
-if (CRISP) {
-  refineDarkPixels(data, width, height);
-  removePureBlack(data);
-  crispMetalFinish(data);
-  straightenAlpha(data, width, height);
-} else if (PHOTOGRAPHIC) {
-  refineDarkPixels(data, width, height);
-  removePureBlack(data);
-  photographicFinish(data, width, height);
-} else {
-  removePureBlack(data);
+if (isStudioBg) {
+  expandStudioTransparency(data, width, height, cornerAvg);
+  removeStudioFringe(data, width, height, cornerAvg);
+}
+if (!isStudioBg) {
+  if (CRISP) {
+    refineDarkPixels(data, width, height);
+    removePureBlack(data);
+    crispMetalFinish(data);
+    straightenAlpha(data, width, height);
+  } else if (PHOTOGRAPHIC) {
+    refineDarkPixels(data, width, height);
+    removePureBlack(data);
+    photographicFinish(data, width, height);
+  } else {
+    removePureBlack(data);
+  }
 }
 if (NO_GLARE) removeGlares(data);
 else if (SOFTEN_METAL && !PHOTOGRAPHIC && !CRISP) softenMetalHighlights(data);
 fs.writeFileSync(file, encodePng(width, height, data));
-const mode = CRISP ? "(crisp)" : PHOTOGRAPHIC ? "(photographic)" : "";
+const mode = isStudioBg
+  ? "(studio)"
+  : CRISP
+    ? "(crisp)"
+    : PHOTOGRAPHIC
+      ? "(photographic)"
+      : "";
 console.log("Updated", file, mode);

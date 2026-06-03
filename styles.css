@@ -553,10 +553,6 @@ ul {
     transform: scale(0.62);
   }
 
-  .product-card--old-phalanx .product-card__img {
-    transform: scale(0.62);
-  }
-
   .product-card__meta {
     max-width: 100%;
   }
@@ -968,11 +964,6 @@ ul {
   transform-origin: center center;
 }
 
-.product-card--old-phalanx .product-card__img {
-  transform: scale(0.62);
-  transform-origin: center center;
-}
-
 .product-card video {
   mix-blend-mode: multiply;
   filter: none;
@@ -988,10 +979,6 @@ ul {
   .product-card--old-chrysolite .product-card__img {
     transform: scale(0.62);
   }
-
-  .product-card--old-phalanx .product-card__img {
-    transform: scale(0.62);
-  }
 }
 
 .product-card__media:hover .product-card__img,
@@ -1003,11 +990,6 @@ ul {
 
 .product-card--old-chrysolite .product-card__media:hover .product-card__img,
 .product-card--old-chrysolite .product-card__media:focus-visible .product-card__img {
-  transform: scale(0.642);
-}
-
-.product-card--old-phalanx .product-card__media:hover .product-card__img,
-.product-card--old-phalanx .product-card__media:focus-visible .product-card__img {
   transform: scale(0.642);
 }
 
@@ -1751,10 +1733,6 @@ ul {
   }
 
   .product-card--old-chrysolite .product-card__img {
-    transform: scale(0.62);
-  }
-
-  .product-card--old-phalanx .product-card__img {
     transform: scale(0.62);
   }
 

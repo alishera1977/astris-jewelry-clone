@@ -12,6 +12,7 @@ const SOFTEN_METAL = process.argv.includes("--soften");
 const PHOTOGRAPHIC = process.argv.includes("--photographic") || SOFTEN_METAL;
 const CRISP = process.argv.includes("--crisp");
 const NO_GLARE = process.argv.includes("--no-glare");
+const CLEAN_RING = process.argv.includes("--clean-ring");
 
 function paeth(a, b, c) {
   const p = a + b - c;
@@ -711,6 +712,139 @@ function isMetalPixel(r, g, b) {
   return lum < 205 || s > 24;
 }
 
+function keepLargestOpaqueComponent(data, width, height) {
+  const total = width * height;
+  const labels = new Int32Array(total);
+  const sizes = [];
+  let nextLabel = 1;
+
+  for (let idx = 0; idx < total; idx++) {
+    if (data[idx * BPP + 3] < 128 || labels[idx]) continue;
+
+    const label = nextLabel++;
+    const queue = [idx];
+    labels[idx] = label;
+    let size = 0;
+
+    for (let head = 0; head < queue.length; head++) {
+      const cur = queue[head];
+      size++;
+      const x = cur % width;
+      const y = (cur / width) | 0;
+      const neighbors = [
+        [x - 1, y],
+        [x + 1, y],
+        [x, y - 1],
+        [x, y + 1],
+      ];
+      neighbors.forEach(function (pt) {
+        const nx = pt[0];
+        const ny = pt[1];
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) return;
+        const ni = ny * width + nx;
+        if (labels[ni] || data[ni * BPP + 3] < 128) return;
+        labels[ni] = label;
+        queue.push(ni);
+      });
+    }
+
+    sizes[label] = size;
+  }
+
+  if (nextLabel <= 2) return;
+
+  let bestLabel = 1;
+  for (let label = 2; label < nextLabel; label++) {
+    if (sizes[label] > sizes[bestLabel]) bestLabel = label;
+  }
+
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    if (data[i + 3] < 128) continue;
+    if (labels[idx] !== bestLabel) data[i + 3] = 0;
+  }
+}
+
+function removeWhiteFringe(data, width, height, minLum) {
+  const threshold = minLum == null ? 188 : minLum;
+  const total = width * height;
+  for (let pass = 0; pass < 2; pass++) {
+    const scratch = Buffer.from(data);
+    for (let idx = 0; idx < total; idx++) {
+      const i = idx * BPP;
+      if (scratch[i + 3] < 128) continue;
+      const r = scratch[i];
+      const g = scratch[i + 1];
+      const b = scratch[i + 2];
+      if (isColoredStone(r, g, b)) continue;
+
+      const x = idx % width;
+      const y = (idx / width) | 0;
+      let touchesTrans = false;
+      [
+        [x - 1, y],
+        [x + 1, y],
+        [x, y - 1],
+        [x, y + 1],
+      ].forEach(function (pt) {
+        const nx = pt[0];
+        const ny = pt[1];
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) return;
+        if (scratch[(ny * width + nx) * BPP + 3] < 24) touchesTrans = true;
+      });
+
+      if (!touchesTrans) continue;
+      const lum = luminance([r, g, b]);
+      const s = spread([r, g, b]);
+      if (lum >= threshold && s < 32) data[i + 3] = 0;
+    }
+  }
+}
+
+function clearRingInterior(data, width, height) {
+  const total = width * height;
+  const visited = new Uint8Array(total);
+  const queue = [];
+  const seeds = [
+    [Math.floor(width * 0.5), Math.floor(height * 0.38)],
+    [Math.floor(width * 0.5), Math.floor(height * 0.42)],
+    [Math.floor(width * 0.5), Math.floor(height * 0.46)],
+    [Math.floor(width * 0.46), Math.floor(height * 0.42)],
+    [Math.floor(width * 0.54), Math.floor(height * 0.42)],
+    [Math.floor(width * 0.5), Math.floor(height * 0.52)],
+    [Math.floor(width * 0.5), Math.floor(height * 0.58)],
+  ];
+
+  function tryPush(x, y) {
+    if (x < 0 || y < 0 || x >= width || y >= height) return;
+    const idx = y * width + x;
+    if (visited[idx]) return;
+    const i = idx * BPP;
+    if (data[i + 3] < 20) return;
+    const rgb = [data[i], data[i + 1], data[i + 2]];
+    if (isColoredStone(rgb[0], rgb[1], rgb[2])) return;
+    if (isSolidMetalPixel(rgb[0], rgb[1], rgb[2])) return;
+    visited[idx] = 1;
+    queue.push(idx);
+  }
+
+  seeds.forEach(function (pt) {
+    tryPush(pt[0], pt[1]);
+  });
+
+  for (let head = 0; head < queue.length; head++) {
+    const idx = queue[head];
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    const i = idx * BPP;
+    data[i + 3] = 0;
+    tryPush(x - 1, y);
+    tryPush(x + 1, y);
+    tryPush(x, y - 1);
+    tryPush(x, y + 1);
+  }
+}
+
 function clearRingWindow(data, width, height) {
   const total = width * height;
   const visited = new Uint8Array(total);
@@ -883,7 +1017,7 @@ const file = process.argv.find(function (arg) {
 });
 if (!file) {
   console.error(
-    "Usage: node scripts/fix-catalog-bg.js <png-path> [--cream] [--crisp|--soften|--photographic] [--no-glare]"
+    "Usage: node scripts/fix-catalog-bg.js <png-path> [--cream] [--clean-ring] [--crisp|--soften|--photographic] [--no-glare]"
   );
   process.exit(1);
 }
@@ -902,40 +1036,52 @@ const cornerAvg = sampleCorners(data, width, height).reduce(
 ).map((v) => Math.round(v / 8));
 const isStudioBg = luminance(cornerAvg) >= 180;
 
-floodReplaceBg(data, width, height);
-if (isStudioBg) {
-  expandStudioTransparency(data, width, height, cornerAvg);
-  removeStudioFringe(data, width, height, cornerAvg);
-  balanceStudioMetal(data);
-  removeGlares(data);
-}
-if (!isStudioBg) {
-  if (CRISP) {
-    refineDarkPixels(data, width, height);
-    removePureBlack(data);
-    crispMetalFinish(data);
-    straightenAlpha(data, width, height);
-  } else if (PHOTOGRAPHIC) {
-    refineDarkPixels(data, width, height);
-    removePureBlack(data);
-    photographicFinish(data, width, height);
-  } else {
-    removePureBlack(data);
-    defringeDarkMatte(data, width, height);
-    straightenAlpha(data, width, height);
+if (CLEAN_RING) {
+  removePureBlack(data);
+  defringeDarkMatte(data, width, height);
+  for (let pass = 0; pass < 4; pass++) {
+    removeWhiteFringe(data, width, height, 150);
   }
+  clearRingInterior(data, width, height);
+  removeDetachedFloorShadow(data, width, height);
+} else {
+  floodReplaceBg(data, width, height);
+  if (isStudioBg) {
+    expandStudioTransparency(data, width, height, cornerAvg);
+    removeStudioFringe(data, width, height, cornerAvg);
+    balanceStudioMetal(data);
+    removeGlares(data);
+  }
+  if (!isStudioBg) {
+    if (CRISP) {
+      refineDarkPixels(data, width, height);
+      removePureBlack(data);
+      crispMetalFinish(data);
+      straightenAlpha(data, width, height);
+    } else if (PHOTOGRAPHIC) {
+      refineDarkPixels(data, width, height);
+      removePureBlack(data);
+      photographicFinish(data, width, height);
+    } else {
+      removePureBlack(data);
+      defringeDarkMatte(data, width, height);
+      straightenAlpha(data, width, height);
+    }
+  }
+  if (NO_GLARE) removeGlares(data);
+  else if (SOFTEN_METAL && !PHOTOGRAPHIC && !CRISP) softenMetalHighlights(data);
+  clearRingWindow(data, width, height);
+  removeDetachedFloorShadow(data, width, height);
 }
-if (NO_GLARE) removeGlares(data);
-else if (SOFTEN_METAL && !PHOTOGRAPHIC && !CRISP) softenMetalHighlights(data);
-clearRingWindow(data, width, height);
-removeDetachedFloorShadow(data, width, height);
 clearTransparentRgb(data);
 fs.writeFileSync(file, encodePng(width, height, data));
-const mode = isStudioBg
-  ? "(studio)"
-  : CRISP
-    ? "(crisp)"
-    : PHOTOGRAPHIC
-      ? "(photographic)"
-      : "";
+const mode = CLEAN_RING
+  ? "(clean-ring)"
+  : isStudioBg
+    ? "(studio)"
+    : CRISP
+      ? "(crisp)"
+      : PHOTOGRAPHIC
+        ? "(photographic)"
+        : "";
 console.log("Updated", file, mode);

@@ -273,13 +273,69 @@ function isGreenStone(r, g, b) {
   return g > r + 20 && g > b + 12 && g > 90;
 }
 
+function isPinkStone(r, g, b) {
+  return r > g + 12 && r > b + 12 && r > 75 && g < 170;
+}
+
+function isColoredStone(r, g, b) {
+  return isGreenStone(r, g, b) || isPinkStone(r, g, b);
+}
+
+function isVoidPixel(r, g, b) {
+  const mx = Math.max(r, g, b);
+  const lum = luminance([r, g, b]);
+  const s = spread([r, g, b]);
+  if (mx < 12) return true;
+  if (lum >= 205 && s < 20) return true;
+  return false;
+}
+
+function preserveGemForeground(data, original, width, height) {
+  const visited = new Uint8Array(width * height);
+  const queue = [];
+
+  for (let i = 0; i < width * height; i++) {
+    const oi = i * BPP;
+    if (original[oi + 3] < 200) continue;
+    if (!isColoredStone(original[oi], original[oi + 1], original[oi + 2])) continue;
+    visited[i] = 1;
+    queue.push(i);
+  }
+
+  let head = 0;
+  while (head < queue.length) {
+    const idx = queue[head++];
+    const oi = idx * BPP;
+    data[oi] = original[oi];
+    data[oi + 1] = original[oi + 1];
+    data[oi + 2] = original[oi + 2];
+    data[oi + 3] = 255;
+
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    [[x - 1, y], [x + 1, y], [x, y - 1], [x, y + 1]].forEach(function (pt) {
+      const nx = pt[0];
+      const ny = pt[1];
+      if (nx < 0 || ny < 0 || nx >= width || ny >= height) return;
+      const nidx = ny * width + nx;
+      if (visited[nidx]) return;
+      const noi = nidx * BPP;
+      if (original[noi + 3] < 200) return;
+      const rgb = [original[noi], original[noi + 1], original[noi + 2]];
+      if (isVoidPixel(rgb[0], rgb[1], rgb[2])) return;
+      visited[nidx] = 1;
+      queue.push(nidx);
+    });
+  }
+}
+
 function removePureBlack(data) {
   for (let i = 0; i < data.length; i += BPP) {
     if (data[i + 3] < 10) continue;
     const r = data[i];
     const g = data[i + 1];
     const b = data[i + 2];
-    if (isGreenStone(r, g, b)) continue;
+    if (isColoredStone(r, g, b)) continue;
     if (Math.max(r, g, b) < 28) {
       data[i + 3] = 0;
     }
@@ -345,7 +401,9 @@ if (!file) {
 
 const buf = fs.readFileSync(file);
 const { width, height, data } = decodePng(buf);
+const original = Buffer.from(data);
 floodReplaceBg(data, width, height);
+preserveGemForeground(data, original, width, height);
 removePureBlack(data);
 if (NO_GLARE) removeGlares(data);
 else if (SOFTEN_METAL) softenMetalHighlights(data);

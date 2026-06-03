@@ -94,6 +94,7 @@ window.PRODUCTS = [
     price: "16 800 ₽",
     category: "Серебро 925 · розовый камень",
     image: "assets/catalog-old-phalanx-ring.png",
+    imageClassName: "product-card__media--old-ring",
     imageAlt:
       "Кольцо «old» на фалангу — серебряное кольцо с чеканкой и розовым камнем.",
     video: "videos/old-phalanx.mp4",

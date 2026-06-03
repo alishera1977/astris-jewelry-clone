@@ -239,7 +239,7 @@
     initPackagingCarousel();
   }
 
-  var CATALOG_ASSET_VERSION = "29";
+  var CATALOG_ASSET_VERSION = "30";
 
   function productCategoryLabel(product) {
     if (product.category) return product.category;
@@ -254,7 +254,8 @@
     article.className = "product-card product-card--" + product.slug;
 
     var mediaLink = document.createElement("a");
-    mediaLink.className = "product-card__media";
+    mediaLink.className =
+      "product-card__media" + (product.imageClassName ? " " + product.imageClassName : "");
     mediaLink.href = prefix + "product/" + product.slug + "/";
 
     var img = document.createElement("img");

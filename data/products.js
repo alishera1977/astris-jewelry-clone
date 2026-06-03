@@ -105,4 +105,21 @@ window.PRODUCTS = [
     edition: "Малые партии",
     size: "Под заказ",
   },
+  {
+    slug: "star-orange",
+    name: "Кольцо Star Orange",
+    price: "17 000 ₽",
+    category: "Серебро 925 · оранжевый камень",
+    image: "assets/catalog-star-orange.png",
+    imageAlt:
+      "Кольцо Star Orange — матовое серебряное кольцо со звёздами и оранжевым камнем.",
+    video: "videos/star-orange.mp4",
+    gallery: ["assets/star-orange-lifestyle.png"],
+    description:
+      "Матовое серебряное кольцо с вырезными звёздами и оранжевым камнем. Лёгкий ритм полупрозрачных форм и точечных акцентов делает украшение живым и современным.",
+    material: "Серебро 925",
+    stone: "Оранжевый камень",
+    edition: "Малые партии",
+    size: "Под заказ",
+  },
 ];

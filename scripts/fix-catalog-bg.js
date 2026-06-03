@@ -342,6 +342,44 @@ function removePureBlack(data) {
   }
 }
 
+function compressSmoothGlares(data) {
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 10) continue;
+
+    let r = data[i];
+    let g = data[i + 1];
+    let b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+
+    const lum = luminance([r, g, b]);
+    const s = spread([r, g, b]);
+
+    if (lum > 150 && s <= 14) {
+      const target = 150 + (lum - 150) * 0.3;
+      const scale = target / lum;
+      r = Math.round(r * scale);
+      g = Math.round(g * scale);
+      b = Math.round(b * scale);
+    }
+
+    if (lum > 188) {
+      const target = 188 + (lum - 188) * 0.25;
+      const scale = target / lum;
+      r = Math.round(r * scale);
+      g = Math.round(g * scale);
+      b = Math.round(b * scale);
+    }
+
+    r = Math.min(r, 176);
+    g = Math.min(g, 176);
+    b = Math.min(b, 178);
+
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+  }
+}
+
 function removeGlares(data) {
   for (let i = 0; i < data.length; i += BPP) {
     if (data[i + 3] < 10) continue;
@@ -349,7 +387,7 @@ function removeGlares(data) {
     let r = data[i];
     let g = data[i + 1];
     let b = data[i + 2];
-    if (isGreenStone(r, g, b)) continue;
+    if (isColoredStone(r, g, b)) continue;
 
     const lum = 0.299 * r + 0.587 * g + 0.114 * b;
     if (lum > 198) {
@@ -372,6 +410,7 @@ function softenMetalHighlights(data) {
     let r = data[i];
     let g = data[i + 1];
     let b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
     const lum = 0.299 * r + 0.587 * g + 0.114 * b;
 
     if (lum > 198) {
@@ -405,6 +444,7 @@ const original = Buffer.from(data);
 floodReplaceBg(data, width, height);
 preserveGemForeground(data, original, width, height);
 removePureBlack(data);
+compressSmoothGlares(data);
 if (NO_GLARE) removeGlares(data);
 else if (SOFTEN_METAL) softenMetalHighlights(data);
 fs.writeFileSync(file, encodePng(width, height, data));

@@ -767,7 +767,6 @@ if (!isStudioBg) {
     removePureBlack(data);
     photographicFinish(data, width, height);
   } else {
-    refineDarkPixels(data, width, height);
     removePureBlack(data);
   }
 }

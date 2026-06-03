@@ -239,6 +239,8 @@
     initPackagingCarousel();
   }
 
+  var CATALOG_ASSET_VERSION = "5";
+
   function productCategoryLabel(product) {
     if (product.category) return product.category;
     var label = product.material || product.materials || "Серебро 925";
@@ -257,7 +259,7 @@
 
     var img = document.createElement("img");
     img.className = "product-card__img";
-    img.src = prefix + product.image;
+    img.src = prefix + product.image + "?v=" + CATALOG_ASSET_VERSION;
     img.alt = product.imageAlt || product.name;
     img.width = 687;
     img.height = 1024;

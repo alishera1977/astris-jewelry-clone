@@ -635,23 +635,65 @@ function photographicFinish(data, width, height) {
   }
 }
 
-function clipSpecularGlints(data) {
-  for (let i = 0; i < data.length; i += BPP) {
-    if (data[i + 3] < 128) continue;
-    let r = data[i];
-    let g = data[i + 1];
-    let b = data[i + 2];
+function defringeDarkMatte(data, width, height) {
+  const total = width * height;
+  const scratch = Buffer.alloc(data.length);
+  data.copy(scratch);
+
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    if (scratch[i + 3] < 200) continue;
+
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    let touchesTrans = false;
+    let sr = 0;
+    let sg = 0;
+    let sb = 0;
+    let sc = 0;
+
+    for (let dy = -2; dy <= 2; dy++) {
+      for (let dx = -2; dx <= 2; dx++) {
+        if (!dx && !dy) continue;
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+        const ni = (ny * width + nx) * BPP;
+        if (scratch[ni + 3] < 24) {
+          touchesTrans = true;
+          continue;
+        }
+        if (scratch[ni + 3] < 200) continue;
+        const nr = scratch[ni];
+        const ng = scratch[ni + 1];
+        const nb = scratch[ni + 2];
+        if (isColoredStone(nr, ng, nb)) continue;
+        if (luminance([nr, ng, nb]) > 88) {
+          sr += nr;
+          sg += ng;
+          sb += nb;
+          sc++;
+        }
+      }
+    }
+
+    if (!touchesTrans || !sc) continue;
+
+    const r = scratch[i];
+    const g = scratch[i + 1];
+    const b = scratch[i + 2];
     if (isColoredStone(r, g, b)) continue;
-    const mx = Math.max(r, g, b);
-    if (mx < 236) continue;
-    const cap = 232;
-    const compress = 0.42;
-    r = Math.round(cap + (r - cap) * compress);
-    g = Math.round(cap + (g - cap) * compress);
-    b = Math.round(cap + (b - cap) * compress);
-    data[i] = r;
-    data[i + 1] = g;
-    data[i + 2] = b;
+
+    const lum = luminance([r, g, b]);
+    if (lum >= 95) continue;
+
+    const br = Math.round(sr / sc);
+    const bg = Math.round(sg / sc);
+    const bb = Math.round(sb / sc);
+    const t = lum < 42 ? 0.9 : 0.65;
+    data[i] = Math.round(r * (1 - t) + br * t);
+    data[i + 1] = Math.round(g * (1 - t) + bg * t);
+    data[i + 2] = Math.round(b * (1 - t) + bb * t);
   }
 }
 
@@ -788,8 +830,8 @@ if (!isStudioBg) {
     photographicFinish(data, width, height);
   } else {
     removePureBlack(data);
-    clipSpecularGlints(data);
-    removeGlares(data);
+    defringeDarkMatte(data, width, height);
+    straightenAlpha(data, width, height);
   }
 }
 if (NO_GLARE) removeGlares(data);

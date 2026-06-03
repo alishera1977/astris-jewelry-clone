@@ -71,4 +71,21 @@ window.PRODUCTS = [
     edition: "Малые партии",
     size: "17-21",
   },
+  {
+    slug: "old-chrysolite",
+    name: "Кольцо «old» с хризолитом",
+    price: "17 200 ₽",
+    category: "Серебро 925 · хризолит",
+    image: "assets/catalog-old-chrysolite.png",
+    imageAlt:
+      "Кольцо «old» — серебряное кольцо с открытой рамой, чеканкой и двумя хризолитами.",
+    video: "videos/old-chrysolite.mp4",
+    gallery: ["assets/old-chrysolite-lifestyle.png"],
+    description:
+      "Открытая рама с фактурной чеканкой и двумя хризолитами по краям. Контраст гладкой внутренней поверхности и рельефа снаружи делает форму лёгкой и выразительной.",
+    material: "Серебро 925",
+    stone: "Хризолит",
+    edition: "Малые партии",
+    size: "Под заказ",
+  },
 ];

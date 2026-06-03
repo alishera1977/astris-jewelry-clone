@@ -136,6 +136,15 @@
   filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
 }
 
+.product-detail-page--old-phalanx .product-detail-image,
+.product-detail-page--old-phalanx
+  .product-detail-gallery__slide--primary
+  .product-detail-gallery__img {
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
 .product-detail-info {
   padding: 150px 72px 80px;
   display: flex;

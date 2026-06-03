@@ -964,7 +964,6 @@ ul {
   transform-origin: center center;
 }
 
-.product-card__media--old-ring,
 .product-card__media--old-ring .product-card__img {
   mix-blend-mode: normal !important;
   filter: none !important;
@@ -992,7 +991,6 @@ ul {
     transform: scale(0.62);
   }
 
-  .product-card__media--old-ring,
   .product-card__media--old-ring .product-card__img {
     transform: scale(0.62) !important;
   }
@@ -1758,7 +1756,6 @@ ul {
     transform: scale(0.62);
   }
 
-  .product-card__media--old-ring,
   .product-card__media--old-ring .product-card__img {
     transform: scale(0.62) !important;
   }

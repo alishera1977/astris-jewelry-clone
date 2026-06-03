@@ -95,6 +95,8 @@ window.PRODUCTS = [
     category: "Серебро 925 · розовый камень",
     image: "assets/catalog-old-phalanx-ring.png",
     imageClassName: "product-card__media--old-ring",
+    imageBlend: "normal",
+    imageOpacity: 1,
     imageAlt:
       "Кольцо «old» на фалангу — серебряное кольцо с чеканкой и розовым камнем.",
     video: "videos/old-phalanx.mp4",

@@ -549,7 +549,8 @@ ul {
     object-fit: contain;
   }
 
-  .product-card--old-chrysolite .product-card__img {
+  .product-card--old-chrysolite .product-card__img,
+  .product-card--old-phalanx .product-card__img {
     transform: scale(0.62);
   }
 
@@ -959,7 +960,8 @@ ul {
   filter: drop-shadow(0 18px 22px rgba(17, 17, 17, 0.06));
 }
 
-.product-card--old-chrysolite .product-card__img {
+.product-card--old-chrysolite .product-card__img,
+.product-card--old-phalanx .product-card__img {
   transform: scale(0.62);
   transform-origin: center center;
 }
@@ -976,7 +978,8 @@ ul {
     max-height: 250px;
   }
 
-  .product-card--old-chrysolite .product-card__img {
+  .product-card--old-chrysolite .product-card__img,
+  .product-card--old-phalanx .product-card__img {
     transform: scale(0.62);
   }
 }
@@ -989,7 +992,9 @@ ul {
 }
 
 .product-card--old-chrysolite .product-card__media:hover .product-card__img,
-.product-card--old-chrysolite .product-card__media:focus-visible .product-card__img {
+.product-card--old-chrysolite .product-card__media:focus-visible .product-card__img,
+.product-card--old-phalanx .product-card__media:hover .product-card__img,
+.product-card--old-phalanx .product-card__media:focus-visible .product-card__img {
   transform: scale(0.642);
 }
 
@@ -1732,7 +1737,8 @@ ul {
     max-height: 150px;
   }
 
-  .product-card--old-chrysolite .product-card__img {
+  .product-card--old-chrysolite .product-card__img,
+  .product-card--old-phalanx .product-card__img {
     transform: scale(0.62);
   }
 

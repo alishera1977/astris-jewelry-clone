@@ -1,4 +1,10 @@
 (function () {
+  var MEDIA_ASSET_VERSION = "10";
+
+  function mediaSrc(relativePath) {
+    return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;
+  }
+
   function getSlugFromPath() {
     var path = window.location.pathname.replace(/\/+$/, "");
     var parts = path.split("/").filter(Boolean);
@@ -82,7 +88,7 @@
     if (slides.length === 1 && slides[0].type === "image") {
       var loneImage = document.querySelector(".product-detail-image");
       if (loneImage) {
-        loneImage.src = "../../" + slides[0].src;
+        loneImage.src = mediaSrc(slides[0].src);
         loneImage.alt = slides[0].alt;
       }
       return;
@@ -139,7 +145,7 @@
       } else {
         var img = document.createElement("img");
         img.className = "product-detail-gallery__img";
-        img.src = "../../" + slide.src;
+        img.src = mediaSrc(slide.src);
         img.alt = slide.alt;
         img.loading = index === 0 ? "eager" : "lazy";
         img.decoding = "async";

@@ -220,6 +220,18 @@ function floodReplaceBg(data, width, height) {
     tryPush(width - 1, y);
   }
 
+  if (luminance(cornerAvg) < 55) {
+    const seeds = [
+      [Math.floor(width * 0.5), Math.floor(height * 0.27)],
+      [Math.floor(width * 0.5), Math.floor(height * 0.73)],
+      [Math.floor(width * 0.42), Math.floor(height * 0.5)],
+      [Math.floor(width * 0.58), Math.floor(height * 0.5)],
+    ];
+    seeds.forEach(function (pt) {
+      tryPush(pt[0], pt[1]);
+    });
+  }
+
   for (let i = 0; i < width * height; i++) {
     if (visited[i]) continue;
     const p = i * BPP;
@@ -261,6 +273,19 @@ function isGreenStone(r, g, b) {
   return g > r + 20 && g > b + 12 && g > 90;
 }
 
+function removePureBlack(data) {
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 10) continue;
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (isGreenStone(r, g, b)) continue;
+    if (Math.max(r, g, b) < 28) {
+      data[i + 3] = 0;
+    }
+  }
+}
+
 function removeGlares(data) {
   for (let i = 0; i < data.length; i += BPP) {
     if (data[i + 3] < 10) continue;
@@ -270,20 +295,12 @@ function removeGlares(data) {
     let b = data[i + 2];
     if (isGreenStone(r, g, b)) continue;
 
-    const max = Math.max(r, g, b);
     const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-    if (max <= 168) continue;
-
-    const strength = Math.min(1, (max - 168) / 72);
-    const target = 168;
-    r = Math.round(r + (target - r) * strength * 0.92);
-    g = Math.round(g + (target - g) * strength * 0.92);
-    b = Math.round(b + (target - b) * strength * 0.92);
-
-    if (lum > 190) {
-      r = Math.min(r, 182);
-      g = Math.min(g, 182);
-      b = Math.min(b, 184);
+    if (lum > 198) {
+      const compress = 0.52;
+      r = Math.round(198 + (r - 198) * compress);
+      g = Math.round(198 + (g - 198) * compress);
+      b = Math.round(198 + (b - 198) * compress);
     }
 
     data[i] = r;
@@ -329,6 +346,7 @@ if (!file) {
 const buf = fs.readFileSync(file);
 const { width, height, data } = decodePng(buf);
 floodReplaceBg(data, width, height);
+removePureBlack(data);
 if (NO_GLARE) removeGlares(data);
 else if (SOFTEN_METAL) softenMetalHighlights(data);
 fs.writeFileSync(file, encodePng(width, height, data));

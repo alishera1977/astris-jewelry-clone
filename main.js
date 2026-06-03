@@ -239,7 +239,7 @@
     initPackagingCarousel();
   }
 
-  var CATALOG_ASSET_VERSION = "31";
+  var CATALOG_ASSET_VERSION = "33";
 
   function productCategoryLabel(product) {
     if (product.category) return product.category;
@@ -254,8 +254,7 @@
     article.className = "product-card product-card--" + product.slug;
 
     var mediaLink = document.createElement("a");
-    mediaLink.className =
-      "product-card__media" + (product.imageClassName ? " " + product.imageClassName : "");
+    mediaLink.className = "product-card__media";
     mediaLink.href = prefix + "product/" + product.slug + "/";
 
     var img = document.createElement("img");
@@ -265,14 +264,6 @@
     img.width = 687;
     img.height = 1024;
     img.loading = "lazy";
-    if (product.imageBlend) {
-      img.style.mixBlendMode = product.imageBlend;
-      img.style.objectFit = "contain";
-      img.style.objectPosition = "center center";
-    }
-    if (product.imageOpacity != null) {
-      img.style.opacity = String(product.imageOpacity);
-    }
     mediaLink.appendChild(img);
 
     var meta = document.createElement("div");

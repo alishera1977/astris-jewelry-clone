@@ -136,10 +136,6 @@
   filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
 }
 
-.product-detail-page--old-phalanx .product-detail-image {
-  filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12)) contrast(0.9) brightness(1.06);
-}
-
 .product-detail-info {
   padding: 150px 72px 80px;
   display: flex;

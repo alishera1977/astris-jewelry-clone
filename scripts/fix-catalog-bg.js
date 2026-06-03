@@ -10,6 +10,7 @@ const BPP = 4;
 const TRANSPARENT_BG = process.argv.includes("--cream");
 const SOFTEN_METAL = process.argv.includes("--soften");
 const PHOTOGRAPHIC = process.argv.includes("--photographic") || SOFTEN_METAL;
+const CRISP = process.argv.includes("--crisp");
 const NO_GLARE = process.argv.includes("--no-glare");
 
 function paeth(a, b, c) {
@@ -374,6 +375,135 @@ function localAvgLum(data, width, height, idx, radius) {
   return count ? sum / count : 0;
 }
 
+function crispMetalFinish(data) {
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 10) continue;
+
+    let r = data[i];
+    let g = data[i + 1];
+    let b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+
+    const lum = luminance([r, g, b]);
+    if (lum > 212) {
+      const cap = 198;
+      const compress = 0.48;
+      r = Math.round(cap + (r - cap) * compress);
+      g = Math.round(cap + (g - cap) * compress);
+      b = Math.round(cap + (b - cap) * compress);
+    }
+
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+  }
+}
+
+function blurOpaqueRgb(data, width, height, out) {
+  const total = width * height;
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    if (data[i + 3] < 128) continue;
+
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    let sr = 0;
+    let sg = 0;
+    let sb = 0;
+    let count = 0;
+
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+        const ni = (ny * width + nx) * BPP;
+        if (data[ni + 3] < 128) continue;
+        sr += data[ni];
+        sg += data[ni + 1];
+        sb += data[ni + 2];
+        count++;
+      }
+    }
+
+    if (count) {
+      out[i] = Math.round(sr / count);
+      out[i + 1] = Math.round(sg / count);
+      out[i + 2] = Math.round(sb / count);
+      out[i + 3] = data[i + 3];
+    }
+  }
+}
+
+function sharpenMetal(data, width, height, amount) {
+  const blurred = Buffer.alloc(data.length);
+  data.copy(blurred);
+  blurOpaqueRgb(data, width, height, blurred);
+
+  const total = width * height;
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    if (data[i + 3] < 128) continue;
+
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+
+    data[i] = Math.min(255, Math.max(0, Math.round(r + amount * (r - blurred[i]))));
+    data[i + 1] = Math.min(255, Math.max(0, Math.round(g + amount * (g - blurred[i + 1]))));
+    data[i + 2] = Math.min(
+      255,
+      Math.max(0, Math.round(b + amount * (b - blurred[i + 2])))
+    );
+  }
+}
+
+function straightenAlpha(data, width, height) {
+  const total = width * height;
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    const a = data[i + 3];
+    if (a <= 0) continue;
+    if (a >= 254) {
+      data[i + 3] = 255;
+      continue;
+    }
+
+    if (a < 32) {
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+      data[i + 3] = 0;
+      continue;
+    }
+
+    const aN = a / 255;
+    let r = Math.min(255, Math.max(0, Math.round((data[i] - (1 - aN) * TARGET[0]) / aN)));
+    let g = Math.min(
+      255,
+      Math.max(0, Math.round((data[i + 1] - (1 - aN) * TARGET[1]) / aN))
+    );
+    let b = Math.min(
+      255,
+      Math.max(0, Math.round((data[i + 2] - (1 - aN) * TARGET[2]) / aN))
+    );
+
+    if (!isColoredStone(r, g, b) && luminance([r, g, b]) < 36) {
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+      data[i + 3] = 0;
+      continue;
+    }
+
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+    data[i + 3] = 255;
+  }
+}
+
 function photographicFinish(data, width, height) {
   const total = width * height;
   for (let idx = 0; idx < total; idx++) {
@@ -478,7 +608,7 @@ const file = process.argv.find(function (arg) {
 });
 if (!file) {
   console.error(
-    "Usage: node scripts/fix-catalog-bg.js <png-path> [--cream] [--soften|--photographic] [--no-glare]"
+    "Usage: node scripts/fix-catalog-bg.js <png-path> [--cream] [--crisp|--soften|--photographic] [--no-glare]"
   );
   process.exit(1);
 }
@@ -486,14 +616,20 @@ if (!file) {
 const buf = fs.readFileSync(file);
 const { width, height, data } = decodePng(buf);
 floodReplaceBg(data, width, height);
-if (PHOTOGRAPHIC) {
+if (CRISP) {
   refineDarkPixels(data, width, height);
   removePureBlack(data);
+  crispMetalFinish(data);
+  straightenAlpha(data, width, height);
+} else if (PHOTOGRAPHIC) {
+  refineDarkPixels(data, width, height);
+  removePureBlack(data);
+  photographicFinish(data, width, height);
 } else {
   removePureBlack(data);
 }
-if (PHOTOGRAPHIC) photographicFinish(data, width, height);
 if (NO_GLARE) removeGlares(data);
-else if (SOFTEN_METAL && !PHOTOGRAPHIC) softenMetalHighlights(data);
+else if (SOFTEN_METAL && !PHOTOGRAPHIC && !CRISP) softenMetalHighlights(data);
 fs.writeFileSync(file, encodePng(width, height, data));
-console.log("Updated", file, PHOTOGRAPHIC ? "(photographic)" : "");
+const mode = CRISP ? "(crisp)" : PHOTOGRAPHIC ? "(photographic)" : "";
+console.log("Updated", file, mode);

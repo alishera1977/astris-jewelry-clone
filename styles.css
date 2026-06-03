@@ -554,7 +554,7 @@ ul {
   }
 
   .product-card--old-phalanx .product-card__img {
-    transform: scale(0.68);
+    transform: scale(0.62);
   }
 
   .product-card__meta {
@@ -969,7 +969,7 @@ ul {
 }
 
 .product-card--old-phalanx .product-card__img {
-  transform: scale(0.68);
+  transform: scale(0.62);
   transform-origin: center center;
 }
 
@@ -990,7 +990,7 @@ ul {
   }
 
   .product-card--old-phalanx .product-card__img {
-    transform: scale(0.68);
+    transform: scale(0.62);
   }
 }
 
@@ -1008,7 +1008,7 @@ ul {
 
 .product-card--old-phalanx .product-card__media:hover .product-card__img,
 .product-card--old-phalanx .product-card__media:focus-visible .product-card__img {
-  transform: scale(0.704);
+  transform: scale(0.642);
 }
 
 .product-card__media:focus-visible {
@@ -1755,7 +1755,7 @@ ul {
   }
 
   .product-card--old-phalanx .product-card__img {
-    transform: scale(0.68);
+    transform: scale(0.62);
   }
 
   .product-card__name {

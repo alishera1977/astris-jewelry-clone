@@ -241,6 +241,10 @@ function floodReplaceBg(data, width, height) {
       [Math.floor(width * 0.5), Math.floor(height * 0.73)],
       [Math.floor(width * 0.42), Math.floor(height * 0.5)],
       [Math.floor(width * 0.58), Math.floor(height * 0.5)],
+      [Math.floor(width * 0.5), Math.floor(height * 0.36)],
+      [Math.floor(width * 0.5), Math.floor(height * 0.4)],
+      [Math.floor(width * 0.5), Math.floor(height * 0.44)],
+      [Math.floor(width * 0.5), Math.floor(height * 0.48)],
     ];
     seeds.forEach(function (pt) {
       tryPush(pt[0], pt[1]);
@@ -631,6 +635,46 @@ function photographicFinish(data, width, height) {
   }
 }
 
+function clearTransparentRgb(data) {
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 10) {
+      data[i] = 0;
+      data[i + 1] = 0;
+      data[i + 2] = 0;
+    }
+  }
+}
+
+function balanceStudioMetal(data) {
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 128) continue;
+    let r = data[i];
+    let g = data[i + 1];
+    let b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+
+    const lum = luminance([r, g, b]);
+    const mx = Math.max(r, g, b);
+
+    if (mx < 42 && lum < 40) {
+      const lift = 0.55 + lum * 0.012;
+      r = Math.min(255, Math.round(r * lift + 10));
+      g = Math.min(255, Math.round(g * lift + 10));
+      b = Math.min(255, Math.round(b * lift + 10));
+    } else if (lum > 228) {
+      const cap = 214;
+      const compress = 0.55;
+      r = Math.round(cap + (r - cap) * compress);
+      g = Math.round(cap + (g - cap) * compress);
+      b = Math.round(cap + (b - cap) * compress);
+    }
+
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+  }
+}
+
 function removeGlares(data) {
   for (let i = 0; i < data.length; i += BPP) {
     if (data[i + 3] < 10) continue;
@@ -709,6 +753,8 @@ floodReplaceBg(data, width, height);
 if (isStudioBg) {
   expandStudioTransparency(data, width, height, cornerAvg);
   removeStudioFringe(data, width, height, cornerAvg);
+  balanceStudioMetal(data);
+  removeGlares(data);
 }
 if (!isStudioBg) {
   if (CRISP) {
@@ -721,11 +767,13 @@ if (!isStudioBg) {
     removePureBlack(data);
     photographicFinish(data, width, height);
   } else {
+    refineDarkPixels(data, width, height);
     removePureBlack(data);
   }
 }
 if (NO_GLARE) removeGlares(data);
 else if (SOFTEN_METAL && !PHOTOGRAPHIC && !CRISP) softenMetalHighlights(data);
+clearTransparentRgb(data);
 fs.writeFileSync(file, encodePng(width, height, data));
 const mode = isStudioBg
   ? "(studio)"

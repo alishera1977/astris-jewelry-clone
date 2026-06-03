@@ -635,6 +635,26 @@ function photographicFinish(data, width, height) {
   }
 }
 
+function clipSpecularGlints(data) {
+  for (let i = 0; i < data.length; i += BPP) {
+    if (data[i + 3] < 128) continue;
+    let r = data[i];
+    let g = data[i + 1];
+    let b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+    const mx = Math.max(r, g, b);
+    if (mx < 236) continue;
+    const cap = 232;
+    const compress = 0.42;
+    r = Math.round(cap + (r - cap) * compress);
+    g = Math.round(cap + (g - cap) * compress);
+    b = Math.round(cap + (b - cap) * compress);
+    data[i] = r;
+    data[i + 1] = g;
+    data[i + 2] = b;
+  }
+}
+
 function clearTransparentRgb(data) {
   for (let i = 0; i < data.length; i += BPP) {
     if (data[i + 3] < 10) {
@@ -768,6 +788,8 @@ if (!isStudioBg) {
     photographicFinish(data, width, height);
   } else {
     removePureBlack(data);
+    clipSpecularGlints(data);
+    removeGlares(data);
   }
 }
 if (NO_GLARE) removeGlares(data);

@@ -697,6 +697,97 @@ function defringeDarkMatte(data, width, height) {
   }
 }
 
+function isSolidMetalPixel(r, g, b) {
+  if (isColoredStone(r, g, b)) return true;
+  const lum = luminance([r, g, b]);
+  const s = spread([r, g, b]);
+  return lum < 168 || s > 26;
+}
+
+function isMetalPixel(r, g, b) {
+  if (isColoredStone(r, g, b)) return true;
+  const lum = luminance([r, g, b]);
+  const s = spread([r, g, b]);
+  return lum < 205 || s > 24;
+}
+
+function clearRingWindow(data, width, height) {
+  const total = width * height;
+  const visited = new Uint8Array(total);
+  const queue = [];
+  const seeds = [
+    [Math.floor(width * 0.5), Math.floor(height * 0.38)],
+    [Math.floor(width * 0.5), Math.floor(height * 0.42)],
+    [Math.floor(width * 0.5), Math.floor(height * 0.46)],
+    [Math.floor(width * 0.46), Math.floor(height * 0.42)],
+    [Math.floor(width * 0.54), Math.floor(height * 0.42)],
+  ];
+
+  function tryPush(x, y) {
+    if (x < 0 || y < 0 || x >= width || y >= height) return;
+    const idx = y * width + x;
+    if (visited[idx]) return;
+    const i = idx * BPP;
+    if (data[i + 3] < 20) return;
+    const rgb = [data[i], data[i + 1], data[i + 2]];
+    if (isColoredStone(rgb[0], rgb[1], rgb[2])) return;
+    const lum = luminance(rgb);
+    const s = spread(rgb);
+    if (lum < 118 || s > 34) return;
+    visited[idx] = 1;
+    queue.push(idx);
+  }
+
+  seeds.forEach(function (pt) {
+    tryPush(pt[0], pt[1]);
+  });
+
+  for (let head = 0; head < queue.length; head++) {
+    const idx = queue[head];
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    const i = idx * BPP;
+    data[i + 3] = 0;
+    tryPush(x - 1, y);
+    tryPush(x + 1, y);
+    tryPush(x, y - 1);
+    tryPush(x, y + 1);
+  }
+}
+
+function removeDetachedFloorShadow(data, width, height) {
+  const total = width * height;
+  let maxMetalY = 0;
+
+  for (let idx = 0; idx < total; idx++) {
+    const i = idx * BPP;
+    if (data[i + 3] < 128) continue;
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (!isSolidMetalPixel(r, g, b)) continue;
+    const y = (idx / width) | 0;
+    if (y > maxMetalY) maxMetalY = y;
+  }
+
+  const shadowStart = Math.min(height - 1, maxMetalY + Math.floor(height * 0.015));
+  for (let idx = 0; idx < total; idx++) {
+    const y = (idx / width) | 0;
+    if (y < shadowStart) continue;
+    const i = idx * BPP;
+    if (data[i + 3] < 20) continue;
+    const r = data[i];
+    const g = data[i + 1];
+    const b = data[i + 2];
+    if (isColoredStone(r, g, b)) continue;
+    const lum = luminance([r, g, b]);
+    const s = spread([r, g, b]);
+    if (lum >= 96 && lum <= 245 && s < 36) {
+      data[i + 3] = 0;
+    }
+  }
+}
+
 function clearTransparentRgb(data) {
   for (let i = 0; i < data.length; i += BPP) {
     if (data[i + 3] < 10) {
@@ -836,6 +927,8 @@ if (!isStudioBg) {
 }
 if (NO_GLARE) removeGlares(data);
 else if (SOFTEN_METAL && !PHOTOGRAPHIC && !CRISP) softenMetalHighlights(data);
+clearRingWindow(data, width, height);
+removeDetachedFloorShadow(data, width, height);
 clearTransparentRgb(data);
 fs.writeFileSync(file, encodePng(width, height, data));
 const mode = isStudioBg

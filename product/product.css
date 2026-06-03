@@ -72,29 +72,37 @@
   );
 }
 
+.product-detail-gallery__slide--video {
+  background: #f9f8f6;
+}
+
 .product-detail-gallery__video-blend {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: #f9f8f6;
 }
 
 .product-detail-gallery__video-blend .product-detail-video,
 .product-detail-gallery__slide--lifestyle .product-detail-gallery__img {
   display: block;
-  width: auto;
+  width: 100%;
   height: auto;
-  max-width: min(90%, 460px);
+  max-width: 100%;
   max-height: min(72vh, 580px);
   object-fit: contain;
   object-position: center;
 }
 
 .product-detail-gallery__video-blend .product-detail-video {
-  background: transparent;
+  background: #f9f8f6;
   filter: none;
   mix-blend-mode: multiply;
+}
+
+.product-detail-page--old-phalanx .product-detail-gallery__video-blend .product-detail-video {
+  mix-blend-mode: normal;
 }
 
 .product-detail-gallery__slide--primary .product-detail-gallery__img {
@@ -271,8 +279,13 @@
 
   .product-detail-gallery__video-blend .product-detail-video,
   .product-detail-gallery__slide--lifestyle .product-detail-gallery__img {
-    max-width: min(92%, 360px);
+    max-width: 100%;
     max-height: min(58vh, 500px);
+  }
+
+  .product-detail-media.product-detail-media--gallery .product-detail-video {
+    max-width: 100%;
+    width: 100%;
   }
 
   .product-detail-image,
@@ -334,8 +347,13 @@
 
   .product-detail-gallery__video-blend .product-detail-video,
   .product-detail-gallery__slide--lifestyle .product-detail-gallery__img {
-    max-width: min(94%, 340px);
+    max-width: 100%;
     max-height: min(54vh, 440px);
+  }
+
+  .product-detail-media.product-detail-media--gallery .product-detail-video {
+    max-width: 100%;
+    width: 100%;
   }
 
   .product-detail-image,

@@ -1,5 +1,5 @@
 (function () {
-  var MEDIA_ASSET_VERSION = "38";
+  var MEDIA_ASSET_VERSION = "40";
 
   function mediaSrc(relativePath) {
     return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;
@@ -218,6 +218,11 @@
   text(descEl, product.description || "");
   text(buttonEl, "ДОБАВИТЬ В КОРЗИНУ — " + product.price);
   document.title = product.name + " — ASTRIS";
+
+  var page = document.querySelector(".product-detail-page");
+  if (page) {
+    page.classList.add("product-detail-page--" + product.slug);
+  }
 
   if (buttonEl && window.ASTRIS_CART) {
     buttonEl.addEventListener("click", function () {

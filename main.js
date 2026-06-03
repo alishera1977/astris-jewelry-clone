@@ -251,7 +251,7 @@
   function buildProductCard(product, assetPrefix) {
     var prefix = assetPrefix || "";
     var article = document.createElement("article");
-    article.className = "product-card";
+    article.className = "product-card product-card--" + product.slug;
 
     var mediaLink = document.createElement("a");
     mediaLink.className = "product-card__media";

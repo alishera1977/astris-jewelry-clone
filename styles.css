@@ -549,6 +549,10 @@ ul {
     object-fit: contain;
   }
 
+  .product-card--old-chrysolite .product-card__img {
+    transform: scale(0.62);
+  }
+
   .product-card__meta {
     max-width: 100%;
   }
@@ -955,6 +959,11 @@ ul {
   filter: drop-shadow(0 18px 22px rgba(17, 17, 17, 0.06));
 }
 
+.product-card--old-chrysolite .product-card__img {
+  transform: scale(0.62);
+  transform-origin: center center;
+}
+
 .product-card video {
   mix-blend-mode: multiply;
   filter: none;
@@ -966,6 +975,10 @@ ul {
     max-width: 82%;
     max-height: 250px;
   }
+
+  .product-card--old-chrysolite .product-card__img {
+    transform: scale(0.62);
+  }
 }
 
 .product-card__media:hover .product-card__img,
@@ -973,6 +986,11 @@ ul {
 .product-card__media:hover video,
 .product-card__media:focus-visible video {
   transform: scale(1.035);
+}
+
+.product-card--old-chrysolite .product-card__media:hover .product-card__img,
+.product-card--old-chrysolite .product-card__media:focus-visible .product-card__img {
+  transform: scale(0.642);
 }
 
 .product-card__media:focus-visible {
@@ -1712,6 +1730,10 @@ ul {
   .product-card__img {
     max-width: 92%;
     max-height: 150px;
+  }
+
+  .product-card--old-chrysolite .product-card__img {
+    transform: scale(0.62);
   }
 
   .product-card__name {

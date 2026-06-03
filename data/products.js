@@ -96,6 +96,8 @@ window.PRODUCTS = [
     image: "assets/catalog-old-phalanx.png",
     imageAlt:
       "Кольцо «old» на фалангу — серебряное кольцо с чеканкой и розовым камнем.",
+    video: "videos/old-phalanx.mp4",
+    gallery: ["assets/old-phalanx-lifestyle.png"],
     description:
       "Фаланговое кольцо с фактурной чеканкой и розовым камнем в центре. Открытая форма и рельефная поверхность подчёркивают характер линии old.",
     material: "Серебро 925",

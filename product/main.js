@@ -1,5 +1,5 @@
 (function () {
-  var MEDIA_ASSET_VERSION = "15";
+  var MEDIA_ASSET_VERSION = "16";
 
   function mediaSrc(relativePath) {
     return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;
@@ -128,7 +128,7 @@
 
         var video = document.createElement("video");
         video.className = "product-detail-video";
-        video.src = "../../" + slide.src;
+        video.src = mediaSrc(slide.src);
         if (/\.mov$/i.test(slide.src)) {
           video.setAttribute("type", "video/quicktime");
         }

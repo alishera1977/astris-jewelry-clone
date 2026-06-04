@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Товар — ASTRIS</title>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../product.css" />
+  </head>
+  <body>
+    <header class="site-header site-header--detail is-on-light" id="site-header" aria-label="Шапка сайта">
+      <a href="../../" class="site-header__logo font-serif logo">ASTRIS</a>
+      <div class="site-header__actions">
+        <button type="button" class="icon-btn icon-btn--cart" id="cart-open" aria-label="Корзина">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 7h15l-1.5 9h-12L6 7z" />
+            <path d="M9 7V5a3 3 0 016 0v2" />
+          </svg>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </button>
+      </div>
+    </header>
+    <main class="product-detail-page">
+      <section class="product-detail-media" aria-label="Изображение изделия">
+        <img class="product-detail-image" src="../../assets/catalog-dragon-pink-pendant.png" alt="" width="1024" height="1024" />
+      </section>
+      <section class="product-detail-info" aria-label="Информация о товаре">
+        <p class="product-detail-eyebrow">— ЗНАКОВОЕ ИЗДЕЛИЕ</p>
+        <h1 class="product-detail-title">Кулон Dragon pink</h1>
+        <p class="product-detail-description"></p>
+        <dl class="product-detail-specs"></dl>
+        <button class="product-detail-button" type="button"></button>
+        <a class="product-detail-back" href="../../catalog/">← Назад в каталог</a>
+      </section>
+    </main>
+    <script src="../../data/products.js"></script>
+    <script src="../../data/cart.js"></script>
+    <script src="../main.js"></script>
+  </body>
+</html>

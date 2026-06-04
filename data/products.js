@@ -223,4 +223,20 @@ window.PRODUCTS = [
     stone: "Красный камень",
     edition: "Малые партии",
   },
+  {
+    slug: "dragon-pink-pendant",
+    name: "Кулон Dragon pink",
+    price: "12 800 ₽",
+    category: "Серебро 925 · розовый камень",
+    image: "assets/catalog-dragon-pink-pendant.png",
+    imageAlt:
+      "Кулон Dragon pink — серебряный кулон с чеканкой и круглым розовым камнем на цепи.",
+    video: "videos/dragon-pink-pendant.mp4",
+    gallery: ["assets/dragon-pink-pendant-lifestyle.png"],
+    description:
+      "Серебряный кулон с фактурной чеканкой и круглым розовым камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
+    material: "Серебро 925",
+    stone: "Розовый камень",
+    edition: "Малые партии",
+  },
 ];

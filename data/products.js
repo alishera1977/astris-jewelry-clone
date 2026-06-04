@@ -255,4 +255,20 @@ window.PRODUCTS = [
     stone: "Зелёный камень",
     edition: "Малые партии",
   },
+  {
+    slug: "game-pale-blue",
+    name: "Шарм Game Pale blue",
+    price: "13 200 ₽",
+    category: "Серебро 925 · голубой камень",
+    image: "assets/catalog-game-pale-blue.png",
+    imageAlt:
+      "Шарм Game Pale blue — матовый серебряный шарм с абстрактной формой и круглым голубым камнем на цепи.",
+    video: "videos/game-pale-blue.mp4",
+    gallery: ["assets/game-pale-blue-lifestyle.png"],
+    description:
+      "Матовый серебряный шарм с абстрактной объёмной формой и круглым голубым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
+    material: "Серебро 925",
+    stone: "Голубой камень",
+    edition: "Малые партии",
+  },
 ];

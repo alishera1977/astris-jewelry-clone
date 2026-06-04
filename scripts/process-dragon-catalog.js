@@ -4,9 +4,14 @@ const fs = require("fs");
 const zlib = require("zlib");
 
 const BPP = 4;
-const file = process.argv[2];
+const args = process.argv.slice(2);
+const NO_HOLE = args.includes("--no-hole");
+const STRICT = args.includes("--strict");
+const file = args.find((a) => !a.startsWith("-"));
 if (!file) {
-  console.error("Usage: node scripts/process-dragon-catalog.js <png-path>");
+  console.error(
+    "Usage: node scripts/process-dragon-catalog.js <png-path> [--no-hole] [--strict]"
+  );
   process.exit(1);
 }
 
@@ -157,6 +162,7 @@ function isColoredStone(r, g, b) {
   if (g > r + 20 && g > b + 12 && g > 90) return true;
   if (r > 90 && r > g + 15 && r > b + 15) return true;
   if (r > 120 && g > 70 && r > b + 8 && g > b) return true;
+  if (b > r + 8 && b > g + 5 && b > 65) return true;
   return false;
 }
 
@@ -170,6 +176,11 @@ function isEdgeBg(r, g, b) {
   const s = spread(r, g, b);
   if (l < 30) return true;
   if (r >= 252 && g >= 252 && b >= 252 && s <= 8) return true;
+  if (STRICT) {
+    if (r >= 248 && g >= 248 && b >= 248 && s <= 10) return true;
+    if (l >= 245 && s <= 12 && dist([r, g, b], cornerAvg) <= 8) return true;
+    return false;
+  }
   if (l >= 228 && s <= 14 && dist([r, g, b], cornerAvg) <= 18) return true;
   return false;
 }
@@ -217,39 +228,41 @@ while (head < queue.length) {
   tryEdge(x, y + 1);
 }
 
-const v2 = new Uint8Array(width * height);
-const q2 = [];
+if (!NO_HOLE) {
+  const v2 = new Uint8Array(width * height);
+  const q2 = [];
 
-function tryHole(x, y) {
-  if (x < 0 || y < 0 || x >= width || y >= height) return;
-  const idx = y * width + x;
-  if (v2[idx]) return;
-  const i = idx * BPP;
-  if (data[i + 3] < 20) return;
-  const rgb = [data[i], data[i + 1], data[i + 2]];
-  if (!isHoleWhite(...rgb)) return;
-  v2[idx] = 1;
-  q2.push(idx);
-}
+  function tryHole(x, y) {
+    if (x < 0 || y < 0 || x >= width || y >= height) return;
+    const idx = y * width + x;
+    if (v2[idx]) return;
+    const i = idx * BPP;
+    if (data[i + 3] < 20) return;
+    const rgb = [data[i], data[i + 1], data[i + 2]];
+    if (!isHoleWhite(...rgb)) return;
+    v2[idx] = 1;
+    q2.push(idx);
+  }
 
-[
-  [Math.floor(width / 2), Math.floor(height * 0.56)],
-  [Math.floor(width / 2), Math.floor(height * 0.6)],
-  [Math.floor(width / 2), Math.floor(height * 0.64)],
-  [Math.floor(width / 2), Math.floor(height * 0.68)],
-].forEach(([x, y]) => tryHole(x, y));
+  [
+    [Math.floor(width / 2), Math.floor(height * 0.56)],
+    [Math.floor(width / 2), Math.floor(height * 0.6)],
+    [Math.floor(width / 2), Math.floor(height * 0.64)],
+    [Math.floor(width / 2), Math.floor(height * 0.68)],
+  ].forEach(([x, y]) => tryHole(x, y));
 
-head = 0;
-while (head < q2.length) {
-  const idx = q2[head++];
-  const x = idx % width;
-  const y = (idx / width) | 0;
-  const i = idx * BPP;
-  data[i + 3] = 0;
-  tryHole(x - 1, y);
-  tryHole(x + 1, y);
-  tryHole(x, y - 1);
-  tryHole(x, y + 1);
+  head = 0;
+  while (head < q2.length) {
+    const idx = q2[head++];
+    const x = idx % width;
+    const y = (idx / width) | 0;
+    const i = idx * BPP;
+    data[i + 3] = 0;
+    tryHole(x - 1, y);
+    tryHole(x + 1, y);
+    tryHole(x, y - 1);
+    tryHole(x, y + 1);
+  }
 }
 
 let opaque = 0;

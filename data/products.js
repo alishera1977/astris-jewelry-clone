@@ -207,4 +207,20 @@ window.PRODUCTS = [
     edition: "Малые партии",
     size: "Под заказ",
   },
+  {
+    slug: "dragon-red-pendant",
+    name: "Кулон Dragon red",
+    price: "12 800 ₽",
+    category: "Серебро 925 · красный камень",
+    image: "assets/catalog-dragon-red-pendant.png",
+    imageAlt:
+      "Кулон Dragon red — серебряный кулон с чеканкой и круглым красным камнем на цепи.",
+    video: "videos/dragon-red-pendant.mp4",
+    gallery: ["assets/dragon-red-pendant-lifestyle.png"],
+    description:
+      "Серебряный кулон с фактурной чеканкой и круглым красным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
+    material: "Серебро 925",
+    stone: "Красный камень",
+    edition: "Малые партии",
+  },
 ];

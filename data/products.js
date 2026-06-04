@@ -30,7 +30,7 @@ window.PRODUCTS = [
   },
   {
     slug: "faith-signet",
-    name: "Кольцо Faith Signet",
+    name: "Кольцо Dragon Pale blue",
     price: "14 900 ₽",
     category: "Серебро 925 · голубой камень",
     image: "assets/catalog-faith-ring.png",

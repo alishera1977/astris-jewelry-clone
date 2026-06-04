@@ -271,4 +271,20 @@ window.PRODUCTS = [
     stone: "Голубой камень",
     edition: "Малые партии",
   },
+  {
+    slug: "game-green",
+    name: "Шарм Game green",
+    price: "13 200 ₽",
+    category: "Серебро 925 · зелёный камень",
+    image: "assets/catalog-game-green.png",
+    imageAlt:
+      "Шарм Game green — матовый серебряный шарм с абстрактной формой и круглым зелёным камнем на цепи.",
+    video: "videos/game-green.mp4",
+    gallery: ["assets/game-green-lifestyle.png"],
+    description:
+      "Матовый серебряный шарм с абстрактной объёмной формой и круглым зелёным камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
+    material: "Серебро 925",
+    stone: "Зелёный камень",
+    edition: "Малые партии",
+  },
 ];

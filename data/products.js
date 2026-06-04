@@ -239,4 +239,20 @@ window.PRODUCTS = [
     stone: "Розовый камень",
     edition: "Малые партии",
   },
+  {
+    slug: "game-pendant",
+    name: "Кулон Game",
+    price: "13 200 ₽",
+    category: "Серебро 925 · зелёный камень",
+    image: "assets/catalog-game-pendant.png",
+    imageAlt:
+      "Кулон Game — матовый серебряный кулон с абстрактной формой и круглым зелёным камнем на цепи.",
+    video: "videos/game-pendant.mp4",
+    gallery: ["assets/game-pendant-lifestyle.png"],
+    description:
+      "Матовый серебряный кулон с абстрактной объёмной формой и круглым зелёным камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
+    material: "Серебро 925",
+    stone: "Зелёный камень",
+    edition: "Малые партии",
+  },
 ];

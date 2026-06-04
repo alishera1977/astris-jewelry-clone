@@ -139,4 +139,19 @@ window.PRODUCTS = [
     edition: "Малые партии",
     size: "Под заказ",
   },
+  {
+    slug: "free-soul",
+    name: "Кулон Free Soul",
+    price: "13 200 ₽",
+    category: "Серебро 925 · подвеска",
+    image: "assets/catalog-free-soul.png",
+    imageAlt:
+      "Кулон Free Soul — полированная серебряная капля с гравировкой Soul Free на тонкой цепочке.",
+    video: "videos/free-soul.mp4",
+    gallery: ["assets/free-soul-lifestyle.png"],
+    description:
+      "Полированный серебряный кулон-капля с гравировкой Soul / Free на тонкой цепочке. Мягкий объём и чистая форма делают украшение личным знаком, который легко носить каждый день.",
+    material: "Серебро 925",
+    edition: "Малые партии",
+  },
 ];

@@ -1,5 +1,5 @@
 (function () {
-  var MEDIA_ASSET_VERSION = "70";
+  var MEDIA_ASSET_VERSION = "71";
 
   function mediaSrc(relativePath) {
     return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;
@@ -74,12 +74,26 @@
         link.setAttribute("aria-current", "page");
       }
       link.title = sibling.name;
+      link.setAttribute(
+        "aria-label",
+        (isCurrent ? "Текущий вариант: " : "") + sibling.name
+      );
 
-      var swatch = document.createElement("span");
-      swatch.className = "product-detail-variants__swatch";
-      swatch.style.backgroundColor = sibling.variantColor || "#c8c8c8";
-      swatch.setAttribute("aria-hidden", "true");
-      link.appendChild(swatch);
+      if (sibling.image) {
+        var thumb = document.createElement("span");
+        thumb.className = "product-detail-variants__thumb";
+
+        var img = document.createElement("img");
+        img.className = "product-detail-variants__img";
+        img.src = mediaSrc(sibling.image);
+        img.alt = "";
+        img.width = 128;
+        img.height = 128;
+        img.loading = "lazy";
+        img.decoding = "async";
+        thumb.appendChild(img);
+        link.appendChild(thumb);
+      }
 
       var name = document.createElement("span");
       name.className = "product-detail-variants__name";

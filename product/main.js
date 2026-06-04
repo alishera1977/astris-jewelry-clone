@@ -1,5 +1,5 @@
 (function () {
-  var MEDIA_ASSET_VERSION = "56";
+  var MEDIA_ASSET_VERSION = "57";
 
   function mediaSrc(relativePath) {
     return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;

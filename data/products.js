@@ -171,4 +171,21 @@ window.PRODUCTS = [
     edition: "Малые партии",
     size: "Под заказ",
   },
+  {
+    slug: "dragon-red",
+    name: "Кольцо Dragon Red",
+    price: "15 800 ₽",
+    category: "Серебро 925 · красный камень",
+    image: "assets/catalog-dragon-red.png",
+    imageAlt:
+      "Кольцо Dragon Red — серебряное кольцо с чеканкой и овальным красным камнем.",
+    video: "videos/dragon-red.mp4",
+    gallery: ["assets/dragon-red-lifestyle.png"],
+    description:
+      "Серебряное кольцо с фактурной чеканкой и овальным красным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
+    material: "Серебро 925",
+    stone: "Красный камень",
+    edition: "Малые партии",
+    size: "Под заказ",
+  },
 ];

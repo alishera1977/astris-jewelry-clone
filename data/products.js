@@ -130,6 +130,8 @@ window.PRODUCTS = [
     image: "assets/catalog-star-pink.png",
     imageAlt:
       "Кольцо Star Pink — матовое серебряное кольцо со звёздами и розовым камнем.",
+    video: "videos/star-pink.mp4",
+    gallery: ["assets/star-pink-lifestyle.png"],
     description:
       "Матовое серебряное кольцо с вырезными звёздами и розовым камнем. Лёгкий ритм полупрозрачных форм и точечных акцентов делает украшение живым и современным.",
     material: "Серебро 925",

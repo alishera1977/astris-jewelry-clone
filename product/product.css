@@ -219,6 +219,71 @@
   color: #111111;
 }
 
+.product-detail-variants {
+  margin: -18px 0 40px;
+  max-width: 620px;
+}
+
+.product-detail-variants__label {
+  margin: 0 0 14px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.product-detail-variants__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+
+.product-detail-variants__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 14px 6px 8px;
+  border: 1px solid rgba(17, 17, 17, 0.18);
+  background: rgba(255, 255, 255, 0.45);
+  color: #111111;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.product-detail-variants__option:hover {
+  border-color: rgba(17, 17, 17, 0.45);
+  background: #ffffff;
+}
+
+.product-detail-variants__option--active {
+  border-color: #111111;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #111111;
+  pointer-events: none;
+}
+
+.product-detail-variants__swatch {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.product-detail-variants__name {
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
 .product-detail-description {
   margin: 0 0 56px;
   max-width: 620px;

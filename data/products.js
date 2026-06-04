@@ -30,6 +30,8 @@ window.PRODUCTS = [
   },
   {
     slug: "faith-signet",
+    variantLabel: "Pale blue",
+    variantColor: "#7ec8d9",
     name: "Кольцо Dragon Pale blue",
     price: "14 900 ₽",
     category: "Серебро 925 · голубой камень",
@@ -45,6 +47,8 @@ window.PRODUCTS = [
   },
   {
     slug: "astris-drop",
+    variantLabel: "Pale blue",
+    variantColor: "#7ec8d9",
     name: "Кулон Dragon Pale blue",
     price: "12 800 ₽",
     category: "Серебро 925 · голубой камень",
@@ -158,6 +162,8 @@ window.PRODUCTS = [
   },
   {
     slug: "dragon-green",
+    variantLabel: "Green",
+    variantColor: "#4a8f55",
     name: "Кольцо Dragon Green",
     price: "15 800 ₽",
     category: "Серебро 925 · зелёный камень",
@@ -175,6 +181,8 @@ window.PRODUCTS = [
   },
   {
     slug: "dragon-red",
+    variantLabel: "Red",
+    variantColor: "#c41e3a",
     name: "Кольцо Dragon Red",
     price: "15 800 ₽",
     category: "Серебро 925 · красный камень",
@@ -192,6 +200,8 @@ window.PRODUCTS = [
   },
   {
     slug: "dragon-pink",
+    variantLabel: "pink",
+    variantColor: "#e8a4b8",
     name: "Кольцо Dragon pink",
     price: "15 800 ₽",
     category: "Серебро 925 · розовый камень",
@@ -209,6 +219,8 @@ window.PRODUCTS = [
   },
   {
     slug: "dragon-red-pendant",
+    variantLabel: "red",
+    variantColor: "#c41e3a",
     name: "Кулон Dragon red",
     price: "12 800 ₽",
     category: "Серебро 925 · красный камень",
@@ -225,6 +237,8 @@ window.PRODUCTS = [
   },
   {
     slug: "dragon-pink-pendant",
+    variantLabel: "pink",
+    variantColor: "#e8a4b8",
     name: "Кулон Dragon pink",
     price: "12 800 ₽",
     category: "Серебро 925 · розовый камень",
@@ -257,6 +271,8 @@ window.PRODUCTS = [
   },
   {
     slug: "game-pale-blue",
+    variantLabel: "Pale blue",
+    variantColor: "#7ec8d9",
     name: "Шарм Game Pale blue",
     price: "13 200 ₽",
     category: "Серебро 925 · голубой камень",
@@ -273,6 +289,8 @@ window.PRODUCTS = [
   },
   {
     slug: "game-green",
+    variantLabel: "green",
+    variantColor: "#4a8f55",
     name: "Шарм Game green",
     price: "13 200 ₽",
     category: "Серебро 925 · зелёный камень",
@@ -289,6 +307,8 @@ window.PRODUCTS = [
   },
   {
     slug: "game-red",
+    variantLabel: "red",
+    variantColor: "#c41e3a",
     name: "Шарм Game red",
     price: "13 200 ₽",
     category: "Серебро 925 · красный камень",
@@ -303,3 +323,18 @@ window.PRODUCTS = [
     edition: "Малые партии",
   },
 ];
+
+window.PRODUCT_VARIANT_GROUPS = {
+  "dragon-ring": {
+    label: "Кольца Dragon",
+    order: ["faith-signet", "dragon-green", "dragon-red", "dragon-pink"],
+  },
+  "dragon-pendant": {
+    label: "Кулоны Dragon",
+    order: ["astris-drop", "dragon-red-pendant", "dragon-pink-pendant"],
+  },
+  "game-charm": {
+    label: "Шармы Game",
+    order: ["game-pale-blue", "game-green", "game-red"],
+  },
+};

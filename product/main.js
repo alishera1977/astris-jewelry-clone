@@ -1,5 +1,5 @@
 (function () {
-  var MEDIA_ASSET_VERSION = "69";
+  var MEDIA_ASSET_VERSION = "70";
 
   function mediaSrc(relativePath) {
     return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;
@@ -23,6 +23,80 @@
     if (product.edition) rows.push(["Тираж", product.edition]);
     if (product.size) rows.push(["Размер", product.size]);
     return rows;
+  }
+
+  function findVariantGroup(slug) {
+    var groups = window.PRODUCT_VARIANT_GROUPS;
+    if (!groups) return null;
+    var keys = Object.keys(groups);
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (groups[key].order.indexOf(slug) !== -1) return groups[key];
+    }
+    return null;
+  }
+
+  function initProductVariants(product, infoSection) {
+    var group = findVariantGroup(product.slug);
+    if (!group || group.order.length < 2 || !infoSection) return;
+
+    var siblings = group.order
+      .map(function (s) {
+        return products.find(function (p) {
+          return p.slug === s;
+        });
+      })
+      .filter(Boolean);
+
+    if (siblings.length < 2) return;
+
+    var block = document.createElement("div");
+    block.className = "product-detail-variants";
+
+    var label = document.createElement("p");
+    label.className = "product-detail-variants__label";
+    label.textContent = group.label;
+    block.appendChild(label);
+
+    var list = document.createElement("div");
+    list.className = "product-detail-variants__list";
+    list.setAttribute("role", "list");
+
+    siblings.forEach(function (sibling) {
+      var isCurrent = sibling.slug === product.slug;
+      var link = document.createElement("a");
+      link.className =
+        "product-detail-variants__option" +
+        (isCurrent ? " product-detail-variants__option--active" : "");
+      link.href = "../" + sibling.slug + "/";
+      link.setAttribute("role", "listitem");
+      if (isCurrent) {
+        link.setAttribute("aria-current", "page");
+      }
+      link.title = sibling.name;
+
+      var swatch = document.createElement("span");
+      swatch.className = "product-detail-variants__swatch";
+      swatch.style.backgroundColor = sibling.variantColor || "#c8c8c8";
+      swatch.setAttribute("aria-hidden", "true");
+      link.appendChild(swatch);
+
+      var name = document.createElement("span");
+      name.className = "product-detail-variants__name";
+      name.textContent = sibling.variantLabel || sibling.stone || sibling.name;
+      link.appendChild(name);
+
+      list.appendChild(link);
+    });
+
+    block.appendChild(list);
+
+    var titleEl = infoSection.querySelector(".product-detail-title");
+    if (titleEl && titleEl.nextSibling) {
+      infoSection.insertBefore(block, titleEl.nextSibling);
+    } else {
+      infoSection.appendChild(block);
+    }
   }
 
   var products = window.PRODUCTS || [];
@@ -213,6 +287,9 @@
 
     setActiveIndex(0);
   }
+
+  var infoSection = document.querySelector(".product-detail-info");
+  initProductVariants(product, infoSection);
 
   text(titleEl, product.name);
   text(descEl, product.description || "");

@@ -154,4 +154,21 @@ window.PRODUCTS = [
     material: "Серебро 925",
     edition: "Малые партии",
   },
+  {
+    slug: "dragon-green",
+    name: "Кольцо Dragon Green",
+    price: "15 800 ₽",
+    category: "Серебро 925 · зелёный камень",
+    image: "assets/catalog-dragon-green.png",
+    imageAlt:
+      "Кольцо Dragon Green — серебряное кольцо с чеканкой и овальным зелёным камнем.",
+    video: "videos/dragon-green.mp4",
+    gallery: ["assets/dragon-green-lifestyle.png"],
+    description:
+      "Серебряное кольцо с фактурной чеканкой и овальным зелёным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
+    material: "Серебро 925",
+    stone: "Зелёный камень",
+    edition: "Малые партии",
+    size: "Под заказ",
+  },
 ];

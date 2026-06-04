@@ -125,6 +125,10 @@
   mix-blend-mode: normal;
 }
 
+.product-detail-page--dragon-pink .product-detail-gallery__video-blend .product-detail-video {
+  mix-blend-mode: normal;
+}
+
 .product-detail-gallery__slide--primary .product-detail-gallery__img {
   filter: drop-shadow(0 26px 32px rgba(17, 17, 17, 0.12));
 }

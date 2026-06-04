@@ -188,4 +188,21 @@ window.PRODUCTS = [
     edition: "Малые партии",
     size: "Под заказ",
   },
+  {
+    slug: "dragon-pink",
+    name: "Кольцо Dragon pink",
+    price: "15 800 ₽",
+    category: "Серебро 925 · розовый камень",
+    image: "assets/catalog-dragon-pink.png",
+    imageAlt:
+      "Кольцо Dragon pink — серебряное кольцо с чеканкой и овальным розовым камнем.",
+    video: "videos/dragon-pink.mp4",
+    gallery: ["assets/dragon-pink-lifestyle.png"],
+    description:
+      "Серебряное кольцо с фактурной чеканкой и овальным розовым камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
+    material: "Серебро 925",
+    stone: "Розовый камень",
+    edition: "Малые партии",
+    size: "Под заказ",
+  },
 ];

@@ -45,7 +45,7 @@ window.PRODUCTS = [
   },
   {
     slug: "astris-drop",
-    name: "Подвеска Astris Drop",
+    name: "Кулон Dragon Pale blue",
     price: "12 800 ₽",
     category: "Серебро 925 · подвеска",
     image: "assets/catalog-astris-drop.png",

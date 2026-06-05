@@ -1125,6 +1125,11 @@ ul {
     line-height: 1.08;
   }
 
+  .product-card__cat {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
   .product-card__price {
     font-size: 14px;
   }
@@ -1134,6 +1139,11 @@ ul {
   .product-card__name,
   .product-card h3 {
     font-size: 20px;
+  }
+
+  .product-card__cat {
+    font-size: 8px;
+    letter-spacing: 0.18em;
   }
 
   .product-card__price {

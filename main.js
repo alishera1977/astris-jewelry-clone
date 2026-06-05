@@ -248,6 +248,37 @@
     return label;
   }
 
+  function getProductJewelryType(product) {
+    var name = product.name || "";
+    if (/^Кольцо/i.test(name)) return "ring";
+    if (/^Кулон/i.test(name) || /^Шарм/i.test(name)) return "pendant";
+    if (/подвеск/i.test(name) || /подвеск/i.test(product.category || "")) {
+      return "pendant";
+    }
+    return "other";
+  }
+
+  function getCatalogFilter() {
+    var params = new URLSearchParams(window.location.search);
+    var filter = (params.get("filter") || "all").toLowerCase();
+    if (filter === "rings" || filter === "pendants") return filter;
+    return "all";
+  }
+
+  function productMatchesFilter(product, filter) {
+    if (filter === "all") return true;
+    var type = getProductJewelryType(product);
+    if (filter === "rings") return type === "ring";
+    if (filter === "pendants") return type === "pendant";
+    return true;
+  }
+
+  function getCatalogTitle(filter) {
+    if (filter === "rings") return "Кольца";
+    if (filter === "pendants") return "Подвески";
+    return "Весь каталог";
+  }
+
   function buildProductCard(product, assetPrefix) {
     var prefix = assetPrefix || "";
     var article = document.createElement("article");
@@ -304,8 +335,20 @@
   function initFullCatalogPage() {
     var grid = document.getElementById("catalog-grid");
     if (!grid || !window.PRODUCTS) return;
-    renderProductGrid(grid, window.PRODUCTS, "../");
-    document.title = "Каталог — ASTRIS";
+
+    var filter = getCatalogFilter();
+    var products = window.PRODUCTS.filter(function (product) {
+      return productMatchesFilter(product, filter);
+    });
+
+    renderProductGrid(grid, products, "../");
+
+    var titleEl = document.getElementById("catalog-title");
+    if (titleEl) {
+      titleEl.textContent = getCatalogTitle(filter);
+    }
+
+    document.title = getCatalogTitle(filter) + " — ASTRIS";
   }
 
   if (document.readyState === "loading") {

@@ -580,8 +580,8 @@ ul {
   .product-card h3 {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: 30px;
-    line-height: 1.05;
+    font-size: 26px;
+    line-height: 1.08;
     font-weight: 400;
     letter-spacing: -0.02em;
     min-height: 64px;
@@ -1797,7 +1797,8 @@ ul {
   }
 
   .product-card__name {
-    font-size: 30px;
+    font-size: 26px;
+    line-height: 1.08;
     margin: 0;
   }
 

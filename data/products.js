@@ -326,6 +326,23 @@ window.PRODUCTS = [
     stone: "Красный камень",
     edition: "Малые партии",
   },
+  {
+    slug: "game-orange",
+    variantLabel: "Orange",
+    variantColor: "#e8a04a",
+    name: "Шарм Game Orange",
+    price: "13 200 ₽",
+    category: "Серебро 925 · оранжевый камень",
+    image: "assets/catalog-game-orange.png",
+    imageAlt:
+      "Шарм Game Orange — матовый серебряный шарм с абстрактной формой и круглым оранжевым камнем на цепи.",
+    gallery: ["assets/game-orange-lifestyle.png"],
+    description:
+      "Матовый серебряный шарм с абстрактной объёмной формой и круглым оранжевым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
+    material: "Серебро 925",
+    stone: "Оранжевый камень",
+    edition: "Малые партии",
+  },
 ];
 
 window.PRODUCT_VARIANT_GROUPS = {
@@ -339,7 +356,7 @@ window.PRODUCT_VARIANT_GROUPS = {
   },
   "game-charm": {
     label: "Шарм Game",
-    order: ["game-pale-blue", "game-green", "game-red"],
+    order: ["game-pale-blue", "game-green", "game-orange", "game-red"],
   },
   "star-ring": {
     label: "Кольцо Star",

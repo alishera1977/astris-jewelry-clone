@@ -343,6 +343,24 @@ window.PRODUCTS = [
     stone: "Оранжевый камень",
     edition: "Малые партии",
   },
+  {
+    slug: "game-pink",
+    variantLabel: "pink",
+    variantColor: "#e8a4b8",
+    name: "Шарм Game pink",
+    price: "13 200 ₽",
+    category: "Серебро 925 · розовый камень",
+    image: "assets/catalog-game-pink.png",
+    imageAlt:
+      "Шарм Game pink — матовый серебряный шарм с абстрактной формой и круглым розовым камнем на цепи.",
+    video: "videos/game-pink.mp4",
+    gallery: ["assets/game-pink-lifestyle.png"],
+    description:
+      "Матовый серебряный шарм с абстрактной объёмной формой и круглым розовым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
+    material: "Серебро 925",
+    stone: "Розовый камень",
+    edition: "Малые партии",
+  },
 ];
 
 window.PRODUCT_VARIANT_GROUPS = {
@@ -356,7 +374,7 @@ window.PRODUCT_VARIANT_GROUPS = {
   },
   "game-charm": {
     label: "Шарм Game",
-    order: ["game-pale-blue", "game-green", "game-orange", "game-red"],
+    order: ["game-pale-blue", "game-green", "game-orange", "game-pink", "game-red"],
   },
   "star-ring": {
     label: "Кольцо Star",

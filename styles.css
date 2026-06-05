@@ -587,7 +587,7 @@ ul {
 
   .product-card__price,
   .product-price {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 300;
   }
 
@@ -1111,7 +1111,7 @@ ul {
   border-color: #111111;
 }
 
-@media (max-width: 899px) {
+@media (min-width: 769px) and (max-width: 899px) {
   .product-card__price {
     font-size: 17px;
   }

@@ -1,5 +1,5 @@
 (function () {
-  var MEDIA_ASSET_VERSION = "71";
+  var MEDIA_ASSET_VERSION = "72";
 
   function mediaSrc(relativePath) {
     return "../../" + relativePath + "?v=" + MEDIA_ASSET_VERSION;
@@ -31,14 +31,18 @@
     var keys = Object.keys(groups);
     for (var i = 0; i < keys.length; i++) {
       var key = keys[i];
-      if (groups[key].order.indexOf(slug) !== -1) return groups[key];
+      if (groups[key].order.indexOf(slug) !== -1) {
+        return { key: key, group: groups[key] };
+      }
     }
     return null;
   }
 
   function initProductVariants(product, infoSection) {
-    var group = findVariantGroup(product.slug);
-    if (!group || group.order.length < 2 || !infoSection) return;
+    var match = findVariantGroup(product.slug);
+    if (!match || match.group.order.length < 2 || !infoSection) return;
+    var groupKey = match.key;
+    var group = match.group;
 
     var siblings = group.order
       .map(function (s) {
@@ -51,7 +55,8 @@
     if (siblings.length < 2) return;
 
     var block = document.createElement("div");
-    block.className = "product-detail-variants";
+    block.className =
+      "product-detail-variants product-detail-variants--" + groupKey;
 
     var label = document.createElement("p");
     label.className = "product-detail-variants__label";

@@ -220,7 +220,7 @@
 }
 
 .product-detail-variants {
-  margin: -18px 0 40px;
+  margin: 0 0 40px;
   max-width: 620px;
 }
 
@@ -441,6 +441,20 @@
     font-size: clamp(40px, 12vw, 56px);
     line-height: 0.95;
     overflow-wrap: anywhere;
+    margin-bottom: 28px;
+  }
+
+  .product-detail-variants {
+    margin-bottom: 32px;
+  }
+
+  .product-detail-variants__option {
+    width: 72px;
+  }
+
+  .product-detail-variants__thumb {
+    width: 58px;
+    height: 58px;
   }
 
   .product-detail-description {

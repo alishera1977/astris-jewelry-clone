@@ -330,7 +330,7 @@ window.PRODUCT_VARIANT_GROUPS = {
     order: ["faith-signet", "dragon-green", "dragon-red", "dragon-pink"],
   },
   "dragon-pendant": {
-    label: "Кулоны Dragon",
+    label: "Кулон Dragon",
     order: ["astris-drop", "dragon-red-pendant", "dragon-pink-pendant"],
   },
   "game-charm": {

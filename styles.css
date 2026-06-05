@@ -571,8 +571,8 @@ ul {
   .product-title,
   .product-card h3 {
     font-family: var(--font-serif);
-    font-size: clamp(1.35rem, 5.5vw, 1.75rem);
-    line-height: 1.05;
+    font-size: 22px;
+    line-height: 1.08;
     font-weight: 400;
     letter-spacing: -0.02em;
     margin-bottom: 10px;
@@ -1041,7 +1041,7 @@ ul {
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 899px) {
+@media (min-width: 769px) and (max-width: 899px) {
   .product-card__name {
     font-size: 28px;
   }
@@ -1769,7 +1769,8 @@ ul {
   }
 
   .product-card__name {
-    font-size: clamp(1.25rem, 5vw, 1.65rem);
+    font-size: 20px;
+    line-height: 1.08;
     margin-bottom: 8px;
   }
 

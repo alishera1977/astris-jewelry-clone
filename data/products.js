@@ -223,7 +223,7 @@ window.PRODUCTS = [
   },
   {
     slug: "dragon-red-pendant",
-    variantLabel: "red",
+    variantLabel: "Red",
     variantColor: "#c41e3a",
     name: "Кулон Dragon red",
     price: "12 800 ₽",
@@ -293,7 +293,7 @@ window.PRODUCTS = [
   },
   {
     slug: "game-green",
-    variantLabel: "green",
+    variantLabel: "Green",
     variantColor: "#4a8f55",
     name: "Шарм Game green",
     price: "13 200 ₽",
@@ -311,7 +311,7 @@ window.PRODUCTS = [
   },
   {
     slug: "game-red",
-    variantLabel: "red",
+    variantLabel: "Red",
     variantColor: "#c41e3a",
     name: "Шарм Game red",
     price: "13 200 ₽",
@@ -338,7 +338,7 @@ window.PRODUCT_VARIANT_GROUPS = {
     order: ["astris-drop", "dragon-red-pendant", "dragon-pink-pendant"],
   },
   "game-charm": {
-    label: "Шармы Game",
+    label: "Шарм Game",
     order: ["game-pale-blue", "game-green", "game-red"],
   },
   "star-ring": {

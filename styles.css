@@ -1117,6 +1117,30 @@ ul {
   }
 }
 
+/* Каталог mobile — после базовых стилей карточки */
+@media (max-width: 768px) {
+  .product-card__name,
+  .product-card h3 {
+    font-size: 22px;
+    line-height: 1.08;
+  }
+
+  .product-card__price {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card__name,
+  .product-card h3 {
+    font-size: 20px;
+  }
+
+  .product-card__price {
+    font-size: 13px;
+  }
+}
+
 /* Ритуал распаковки — после каталога */
 .packaging-section {
   position: relative;
@@ -1775,7 +1799,7 @@ ul {
   }
 
   .product-card__price {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   .product-card__add {

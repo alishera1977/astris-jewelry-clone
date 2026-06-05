@@ -336,6 +336,7 @@ window.PRODUCTS = [
     image: "assets/catalog-game-orange.png",
     imageAlt:
       "Шарм Game Orange — матовый серебряный шарм с абстрактной формой и круглым оранжевым камнем на цепи.",
+    video: "videos/game-orange.mp4",
     gallery: ["assets/game-orange-lifestyle.png"],
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым оранжевым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",

@@ -284,16 +284,9 @@
     price.className = "product-card__price";
     price.textContent = product.price;
 
-    var addBtn = document.createElement("button");
-    addBtn.type = "button";
-    addBtn.className = "product-card__add";
-    addBtn.setAttribute("data-add-to-cart", product.slug);
-    addBtn.textContent = "Добавить в корзину";
-
     meta.appendChild(title);
     meta.appendChild(cat);
     meta.appendChild(price);
-    meta.appendChild(addBtn);
 
     article.appendChild(mediaLink);
     article.appendChild(meta);
@@ -306,7 +299,6 @@
     products.forEach(function (product) {
       container.appendChild(buildProductCard(product, assetPrefix));
     });
-    initCatalogAddButtons(container);
   }
 
   function initFullCatalogPage() {
@@ -316,39 +308,9 @@
     document.title = "Каталог — ASTRIS";
   }
 
-  function initCatalogAddButtons(root) {
-    if (!window.ASTRIS_CART || !window.PRODUCTS) return;
-
-    var scope = root || document;
-    scope.querySelectorAll("[data-add-to-cart]").forEach(function (btn) {
-      if (btn.dataset.cartBound) return;
-      btn.dataset.cartBound = "1";
-
-      var slug = btn.getAttribute("data-add-to-cart");
-      var product = window.PRODUCTS.find(function (entry) {
-        return entry.slug === slug;
-      });
-      if (!product) return;
-
-      btn.addEventListener("click", function () {
-        window.ASTRIS_CART.addItem(product);
-        btn.textContent = "Добавлено";
-        btn.classList.add("product-card__add--added");
-        window.setTimeout(function () {
-        btn.textContent = "Добавить в корзину";
-        btn.classList.remove("product-card__add--added");
-        }, 1800);
-      });
-    });
-  }
-
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      initCatalogAddButtons();
-      initFullCatalogPage();
-    });
+    document.addEventListener("DOMContentLoaded", initFullCatalogPage);
   } else {
-    initCatalogAddButtons();
     initFullCatalogPage();
   }
 })();

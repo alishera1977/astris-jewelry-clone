@@ -113,6 +113,8 @@ window.PRODUCTS = [
   },
   {
     slug: "star-orange",
+    variantLabel: "Orange",
+    variantColor: "#e8a04a",
     name: "Кольцо Star Orange",
     price: "17 000 ₽",
     category: "Серебро 925 · оранжевый камень",
@@ -130,6 +132,8 @@ window.PRODUCTS = [
   },
   {
     slug: "star-pink",
+    variantLabel: "Pink",
+    variantColor: "#e8a4b8",
     name: "Кольцо Star Pink",
     price: "17 000 ₽",
     category: "Серебро 925 · розовый камень",
@@ -336,5 +340,9 @@ window.PRODUCT_VARIANT_GROUPS = {
   "game-charm": {
     label: "Шармы Game",
     order: ["game-pale-blue", "game-green", "game-red"],
+  },
+  "star-ring": {
+    label: "Кольцо Star",
+    order: ["star-orange", "star-pink"],
   },
 };

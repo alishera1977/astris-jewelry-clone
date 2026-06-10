@@ -274,6 +274,23 @@ window.PRODUCTS = [
     edition: "Малые партии",
   },
   {
+    slug: "game-blue",
+    variantLabel: "Blue",
+    variantColor: "#2b5ea8",
+    name: "Шарм Game Blue",
+    price: "13 200 ₽",
+    category: "Серебро 925 · синий камень",
+    image: "assets/catalog-game-blue.png",
+    imageAlt:
+      "Шарм Game Blue — матовый серебряный шарм с абстрактной формой и круглым синим камнем на цепи.",
+    gallery: ["assets/game-blue-lifestyle.png"],
+    description:
+      "Матовый серебряный шарм с абстрактной объёмной формой и круглым синим камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
+    material: "Серебро 925",
+    stone: "Синий камень",
+    edition: "Малые партии",
+  },
+  {
     slug: "game-pale-blue",
     variantLabel: "Pale blue",
     variantColor: "#7ec8d9",
@@ -375,7 +392,7 @@ window.PRODUCT_VARIANT_GROUPS = {
   },
   "game-charm": {
     label: "Шарм Game",
-    order: ["game-pale-blue", "game-green", "game-orange", "game-pink", "game-red"],
+    order: ["game-pale-blue", "game-blue", "game-green", "game-orange", "game-pink", "game-red"],
   },
   "star-ring": {
     label: "Кольцо Star",

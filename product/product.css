@@ -149,6 +149,10 @@
   mix-blend-mode: normal;
 }
 
+.product-detail-page--game-blue .product-detail-gallery__video-blend .product-detail-video {
+  mix-blend-mode: normal;
+}
+
 .product-detail-page--game-green .product-detail-gallery__video-blend .product-detail-video {
   mix-blend-mode: normal;
 }

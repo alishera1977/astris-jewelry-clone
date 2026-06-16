@@ -3,7 +3,7 @@ window.PRODUCTS = [
   {
     slug: "fluid-signet",
     name: "Кольцо Fluid Signet",
-    price: "15 600 ₽",
+    price: "3 500 ₽",
     category: "Серебро 925",
     image: "assets/catalog-fluid-signet.png",
     video: "videos/fluid-signet.mp4",
@@ -17,7 +17,7 @@ window.PRODUCTS = [
   {
     slug: "shield",
     name: "Кольцо Shield",
-    price: "18 500 ₽",
+    price: "5 200 ₽",
     category: "Серебро 925",
     image: "assets/catalog-shield-ring.png",
     video: "videos/shield.mp4",
@@ -33,15 +33,15 @@ window.PRODUCTS = [
     variantLabel: "Pale blue",
     variantColor: "#7ec8d9",
     name: "Кольцо Dragon Pale blue",
-    price: "14 900 ₽",
-    category: "Серебро 925 · голубой камень",
+    price: "5 600 ₽",
+    category: "Серебро 925 · хризолит",
     image: "assets/catalog-faith-ring.png",
     video: "videos/faith-signet.mp4",
     gallery: ["assets/faith-signet-lifestyle.png"],
     description:
       "Фактурное сигнетное кольцо с камнем в центре композиции. Контраст чеканки и гладкой оправы делает форму глубже и выразительнее.",
     materials: "Серебро 925",
-    stone: "Голубой камень",
+    stone: "Хризолит",
     edition: "Малые партии",
     size: "Под заказ",
   },
@@ -50,23 +50,23 @@ window.PRODUCTS = [
     variantLabel: "Pale blue",
     variantColor: "#7ec8d9",
     name: "Кулон Dragon Pale blue",
-    price: "12 800 ₽",
-    category: "Серебро 925 · голубой камень",
+    price: "4 900 ₽",
+    category: "Серебро 925 · хризолит",
     image: "assets/catalog-astris-drop.png",
     imageAlt:
-      "Кулон Dragon Pale blue — серебряный кулон с чеканкой и круглым голубым камнем на цепи.",
+      "Кулон Dragon Pale blue — серебряный кулон с чеканкой и круглым хризолитом на цепи.",
     video: "videos/astris-drop.mp4",
     gallery: ["assets/astris-drop-lifestyle.png"],
     description:
-      "Серебряный кулон с фактурной чеканкой и круглым голубым камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
+      "Серебряный кулон с фактурной чеканкой и круглым хризолитом в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
     materials: "Серебро 925",
-    stone: "Голубой камень",
+    stone: "Хризолит",
     edition: "Малые партии",
   },
   {
     slug: "soul-free",
     name: "Кольцо Soul Free",
-    price: "16 400 ₽",
+    price: "3 500 ₽",
     category: "Серебро 925 · сигнет",
     image: "assets/catalog-strength-soul-free.png",
     video: "videos/soul-free.mp4",
@@ -80,8 +80,8 @@ window.PRODUCTS = [
   {
     slug: "old-chrysolite",
     name: "Кольцо «old» с хризолитом",
-    price: "17 200 ₽",
-    category: "Серебро 925 · хризолит",
+    price: "8 000 ₽",
+    category: "Серебро 925 · агат",
     image: "assets/catalog-old-chrysolite.png",
     imageAlt:
       "Кольцо «old» — серебряное кольцо с открытой рамой, чеканкой и двумя хризолитами.",
@@ -90,15 +90,15 @@ window.PRODUCTS = [
     description:
       "Открытая рама с фактурной чеканкой и двумя хризолитами по краям. Контраст гладкой внутренней поверхности и рельефа снаружи делает форму лёгкой и выразительной.",
     material: "Серебро 925",
-    stone: "Хризолит",
+    stone: "Агат",
     edition: "Малые партии",
     size: "Под заказ",
   },
   {
     slug: "old-phalanx",
     name: "Кольцо «old» на фалангу",
-    price: "16 800 ₽",
-    category: "Серебро 925 · розовый камень",
+    price: "8 000 ₽",
+    category: "Серебро 925 · розовый кварц",
     image: "assets/catalog-old-phalanx-ring.png",
     imageAlt:
       "Кольцо «old» на фалангу — серебряное кольцо с чеканкой и розовым камнем.",
@@ -107,7 +107,7 @@ window.PRODUCTS = [
     description:
       "Фаланговое кольцо с фактурной чеканкой и розовым камнем в центре. Открытая форма и рельефная поверхность подчёркивают характер линии old.",
     material: "Серебро 925",
-    stone: "Розовый камень",
+    stone: "Розовый кварц",
     edition: "Малые партии",
     size: "Под заказ",
   },
@@ -116,8 +116,8 @@ window.PRODUCTS = [
     variantLabel: "Orange",
     variantColor: "#e8a04a",
     name: "Кольцо Star Orange",
-    price: "17 000 ₽",
-    category: "Серебро 925 · оранжевый камень",
+    price: "5 500 ₽",
+    category: "Серебро 925 · фианиты",
     image: "assets/catalog-star-orange.png",
     imageAlt:
       "Кольцо Star Orange — матовое серебряное кольцо со звёздами и оранжевым камнем.",
@@ -126,7 +126,7 @@ window.PRODUCTS = [
     description:
       "Матовое серебряное кольцо с вырезными звёздами и оранжевым камнем. Лёгкий ритм полупрозрачных форм и точечных акцентов делает украшение живым и современным.",
     material: "Серебро 925",
-    stone: "Оранжевый камень",
+    stone: "Фианиты",
     edition: "Малые партии",
     size: "Под заказ",
   },
@@ -135,8 +135,8 @@ window.PRODUCTS = [
     variantLabel: "Pink",
     variantColor: "#e8a4b8",
     name: "Кольцо Star Pink",
-    price: "17 000 ₽",
-    category: "Серебро 925 · розовый камень",
+    price: "5 500 ₽",
+    category: "Серебро 925 · фианиты",
     image: "assets/catalog-star-pink.png",
     imageAlt:
       "Кольцо Star Pink — матовое серебряное кольцо со звёздами и розовым камнем.",
@@ -145,14 +145,14 @@ window.PRODUCTS = [
     description:
       "Матовое серебряное кольцо с вырезными звёздами и розовым камнем. Лёгкий ритм полупрозрачных форм и точечных акцентов делает украшение живым и современным.",
     material: "Серебро 925",
-    stone: "Розовый камень",
+    stone: "Фианиты",
     edition: "Малые партии",
     size: "Под заказ",
   },
   {
     slug: "free-soul",
     name: "Кулон Free Soul",
-    price: "13 200 ₽",
+    price: "4 300 ₽",
     category: "Серебро 925 · подвеска",
     image: "assets/catalog-free-soul.png",
     imageAlt:
@@ -169,8 +169,8 @@ window.PRODUCTS = [
     variantLabel: "Green",
     variantColor: "#4a8f55",
     name: "Кольцо Dragon Green",
-    price: "15 800 ₽",
-    category: "Серебро 925 · зелёный камень",
+    price: "5 600 ₽",
+    category: "Серебро 925 · агат",
     image: "assets/catalog-dragon-green.png",
     imageAlt:
       "Кольцо Dragon Green — серебряное кольцо с чеканкой и овальным зелёным камнем.",
@@ -179,7 +179,7 @@ window.PRODUCTS = [
     description:
       "Серебряное кольцо с фактурной чеканкой и овальным зелёным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
     material: "Серебро 925",
-    stone: "Зелёный камень",
+    stone: "Агат",
     edition: "Малые партии",
     size: "Под заказ",
   },
@@ -188,8 +188,8 @@ window.PRODUCTS = [
     variantLabel: "Red",
     variantColor: "#c41e3a",
     name: "Кольцо Dragon Red",
-    price: "15 800 ₽",
-    category: "Серебро 925 · красный камень",
+    price: "5 600 ₽",
+    category: "Серебро 925 · гранат",
     image: "assets/catalog-dragon-red.png",
     imageAlt:
       "Кольцо Dragon Red — серебряное кольцо с чеканкой и овальным красным камнем.",
@@ -198,7 +198,7 @@ window.PRODUCTS = [
     description:
       "Серебряное кольцо с фактурной чеканкой и овальным красным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
     material: "Серебро 925",
-    stone: "Красный камень",
+    stone: "Гранат",
     edition: "Малые партии",
     size: "Под заказ",
   },
@@ -207,8 +207,8 @@ window.PRODUCTS = [
     variantLabel: "pink",
     variantColor: "#e8a4b8",
     name: "Кольцо Dragon pink",
-    price: "15 800 ₽",
-    category: "Серебро 925 · розовый камень",
+    price: "5 600 ₽",
+    category: "Серебро 925 · розовый кварц",
     image: "assets/catalog-dragon-pink.png",
     imageAlt:
       "Кольцо Dragon pink — серебряное кольцо с чеканкой и овальным розовым камнем.",
@@ -217,7 +217,7 @@ window.PRODUCTS = [
     description:
       "Серебряное кольцо с фактурной чеканкой и овальным розовым камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
     material: "Серебро 925",
-    stone: "Розовый камень",
+    stone: "Розовый кварц",
     edition: "Малые партии",
     size: "Под заказ",
   },
@@ -226,8 +226,8 @@ window.PRODUCTS = [
     variantLabel: "Red",
     variantColor: "#c41e3a",
     name: "Кулон Dragon red",
-    price: "12 800 ₽",
-    category: "Серебро 925 · красный камень",
+    price: "4 900 ₽",
+    category: "Серебро 925 · гранат",
     image: "assets/catalog-dragon-red-pendant.png",
     imageAlt:
       "Кулон Dragon red — серебряный кулон с чеканкой и круглым красным камнем на цепи.",
@@ -236,7 +236,7 @@ window.PRODUCTS = [
     description:
       "Серебряный кулон с фактурной чеканкой и круглым красным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
     material: "Серебро 925",
-    stone: "Красный камень",
+    stone: "Гранат",
     edition: "Малые партии",
   },
   {
@@ -244,8 +244,8 @@ window.PRODUCTS = [
     variantLabel: "pink",
     variantColor: "#e8a4b8",
     name: "Кулон Dragon pink",
-    price: "12 800 ₽",
-    category: "Серебро 925 · розовый камень",
+    price: "4 900 ₽",
+    category: "Серебро 925 · розовый кварц",
     image: "assets/catalog-dragon-pink-pendant.png",
     imageAlt:
       "Кулон Dragon pink — серебряный кулон с чеканкой и круглым розовым камнем на цепи.",
@@ -254,14 +254,14 @@ window.PRODUCTS = [
     description:
       "Серебряный кулон с фактурной чеканкой и круглым розовым камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
     material: "Серебро 925",
-    stone: "Розовый камень",
+    stone: "Розовый кварц",
     edition: "Малые партии",
   },
   {
     slug: "game-pendant",
     name: "Кулон Game",
-    price: "13 200 ₽",
-    category: "Серебро 925 · зелёный камень",
+    price: "6 300 ₽",
+    category: "Серебро 925 · фианит зелёный",
     image: "assets/catalog-game-pendant.png",
     imageAlt:
       "Кулон Game — матовый серебряный кулон с абстрактной формой и круглым зелёным камнем на цепи.",
@@ -270,7 +270,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный кулон с абстрактной объёмной формой и круглым зелёным камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Зелёный камень",
+    stone: "Фианит зелёный",
     edition: "Малые партии",
   },
   {
@@ -278,8 +278,8 @@ window.PRODUCTS = [
     variantLabel: "Blue",
     variantColor: "#2b5ea8",
     name: "Шарм Game Blue",
-    price: "13 200 ₽",
-    category: "Серебро 925 · синий камень",
+    price: "4 300 ₽",
+    category: "Серебро 925 · фианит синий",
     image: "assets/catalog-game-blue.png",
     imageAlt:
       "Шарм Game Blue — матовый серебряный шарм с абстрактной формой и круглым синим камнем на цепи.",
@@ -287,7 +287,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым синим камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Синий камень",
+    stone: "Фианит синий",
     edition: "Малые партии",
   },
   {
@@ -295,8 +295,8 @@ window.PRODUCTS = [
     variantLabel: "Pale blue",
     variantColor: "#7ec8d9",
     name: "Шарм Game Pale blue",
-    price: "13 200 ₽",
-    category: "Серебро 925 · голубой камень",
+    price: "4 300 ₽",
+    category: "Серебро 925 · фианит голубой",
     image: "assets/catalog-game-pale-blue.png",
     imageAlt:
       "Шарм Game Pale blue — матовый серебряный шарм с абстрактной формой и круглым голубым камнем на цепи.",
@@ -305,7 +305,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым голубым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Голубой камень",
+    stone: "Фианит голубой",
     edition: "Малые партии",
   },
   {
@@ -313,8 +313,8 @@ window.PRODUCTS = [
     variantLabel: "Green",
     variantColor: "#4a8f55",
     name: "Шарм Game green",
-    price: "13 200 ₽",
-    category: "Серебро 925 · зелёный камень",
+    price: "4 300 ₽",
+    category: "Серебро 925 · фианит зелёный",
     image: "assets/catalog-game-green.png",
     imageAlt:
       "Шарм Game green — матовый серебряный шарм с абстрактной формой и круглым зелёным камнем на цепи.",
@@ -323,7 +323,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым зелёным камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Зелёный камень",
+    stone: "Фианит зелёный",
     edition: "Малые партии",
   },
   {
@@ -331,8 +331,8 @@ window.PRODUCTS = [
     variantLabel: "Red",
     variantColor: "#c41e3a",
     name: "Шарм Game red",
-    price: "13 200 ₽",
-    category: "Серебро 925 · красный камень",
+    price: "4 300 ₽",
+    category: "Серебро 925 · фианит красный",
     image: "assets/catalog-game-red.png",
     imageAlt:
       "Шарм Game red — матовый серебряный шарм с абстрактной формой и круглым красным камнем на цепи.",
@@ -340,7 +340,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым красным камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Красный камень",
+    stone: "Фианит красный",
     edition: "Малые партии",
   },
   {
@@ -348,8 +348,8 @@ window.PRODUCTS = [
     variantLabel: "Orange",
     variantColor: "#e8a04a",
     name: "Шарм Game Orange",
-    price: "13 200 ₽",
-    category: "Серебро 925 · оранжевый камень",
+    price: "4 300 ₽",
+    category: "Серебро 925 · фианит оранжевый",
     image: "assets/catalog-game-orange.png",
     imageAlt:
       "Шарм Game Orange — матовый серебряный шарм с абстрактной формой и круглым оранжевым камнем на цепи.",
@@ -358,7 +358,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым оранжевым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Оранжевый камень",
+    stone: "Фианит оранжевый",
     edition: "Малые партии",
   },
   {
@@ -366,8 +366,8 @@ window.PRODUCTS = [
     variantLabel: "pink",
     variantColor: "#e8a4b8",
     name: "Шарм Game pink",
-    price: "13 200 ₽",
-    category: "Серебро 925 · розовый камень",
+    price: "4 300 ₽",
+    category: "Серебро 925 · фианит розовый",
     image: "assets/catalog-game-pink.png",
     imageAlt:
       "Шарм Game pink — матовый серебряный шарм с абстрактной формой и круглым розовым камнем на цепи.",
@@ -376,7 +376,7 @@ window.PRODUCTS = [
     description:
       "Матовый серебряный шарм с абстрактной объёмной формой и круглым розовым камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",
     material: "Серебро 925",
-    stone: "Розовый камень",
+    stone: "Фианит розовый",
     edition: "Малые партии",
   },
 ];

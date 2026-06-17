@@ -1463,6 +1463,21 @@ ul {
   display: none;
 }
 
+body.is-menu-open .site-header,
+body.is-menu-open .header {
+  position: fixed !important;
+  z-index: 85 !important;
+  color: var(--hero-text);
+}
+
+body.is-menu-open .site-header.is-on-light,
+body.is-menu-open .site-header.is-on-light .site-header__actions,
+body.is-menu-open .site-header .site-header__actions,
+body.is-menu-open .site-header .logo,
+body.is-menu-open .site-header__logo {
+  color: var(--hero-text);
+}
+
 .menu-overlay__panel {
   max-width: 28rem;
   margin: 0 auto;

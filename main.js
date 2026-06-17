@@ -57,6 +57,7 @@
   function openMenu() {
     if (!menu || !openBtn) return;
     menu.hidden = false;
+    document.body.classList.add("is-menu-open");
     document.body.style.overflow = "hidden";
     openBtn.setAttribute("aria-expanded", "true");
     untrap = trapFocus(menu);
@@ -65,6 +66,7 @@
   function closeMenu() {
     if (!menu || !openBtn) return;
     menu.hidden = true;
+    document.body.classList.remove("is-menu-open");
     document.body.style.overflow = "";
     openBtn.setAttribute("aria-expanded", "false");
     if (untrap) {
@@ -72,6 +74,7 @@
       untrap = null;
     }
     openBtn.focus({ preventScroll: true });
+    updateHeaderFromScroll();
   }
 
   if (openBtn && menu) {

@@ -338,7 +338,7 @@ ul {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 40;
+    z-index: 90;
     padding-top: max(24px, env(safe-area-inset-top, 0px));
     padding-right: max(28px, env(safe-area-inset-right, 0px));
     padding-bottom: 24px;
@@ -1542,7 +1542,22 @@ body.is-menu-open .site-header.is-on-light ~ .menu-overlay .menu-overlay__close 
 
 .site-header--detail {
   position: fixed;
-  z-index: 40;
+  z-index: 90;
+  background: rgba(249, 248, 246, 0.96);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--dark);
+}
+
+.site-header--detail .site-header__actions,
+.site-header--detail .site-header__logo,
+.site-header--detail .logo {
+  color: var(--dark);
+}
+
+.site-header--detail .icon-btn {
+  color: var(--dark);
+  opacity: 1;
 }
 
 .icon-btn--cart {

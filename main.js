@@ -11,6 +11,13 @@
   }
 
   function updateHeaderFromScroll() {
+    if (!header) return;
+
+    if (document.querySelector(".catalog-page") || header.classList.contains("site-header--detail")) {
+      setHeaderTheme(true);
+      return;
+    }
+
     var y = window.scrollY + header.offsetHeight * 0.5;
     var onLight = false;
     sections.forEach(function (el) {

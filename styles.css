@@ -367,8 +367,8 @@ ul {
 
   .home-hero {
     position: relative;
-    height: 620px;
-    min-height: 620px;
+    height: 720px;
+    min-height: 720px;
     overflow: hidden;
     background-color: #dcd8d3 !important;
     background-image: url("images/necklace-hero-mobile.png?v=1") !important;
@@ -471,13 +471,13 @@ ul {
 
   .brand-typography-section {
     min-height: auto;
-    padding: 36px 24px 28px;
+    padding: 100px 24px;
     background: #e9e6e2;
   }
 
   .brand-typography-section__grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 48px;
     transform: none;
   }
 
@@ -498,7 +498,7 @@ ul {
   }
 
   .catalog__inner {
-    padding: 16px 24px 32px;
+    padding: 28px 24px 32px;
   }
 
   .catalog__eyebrow {
@@ -1771,8 +1771,8 @@ body.is-menu-open .site-header.is-on-light ~ .menu-overlay .menu-overlay__close 
   }
 
   .home-hero {
-    height: min(600px, 92svh);
-    min-height: min(600px, 92svh);
+    height: min(720px, 100svh);
+    min-height: min(720px, 100svh);
   }
 
   .home-hero__logo,
@@ -1792,11 +1792,11 @@ body.is-menu-open .site-header.is-on-light ~ .menu-overlay .menu-overlay__close 
   }
 
   .brand-typography-section {
-    padding: 28px 24px 20px;
+    padding: 80px 24px;
   }
 
   .catalog__inner {
-    padding: 12px 24px 28px;
+    padding: 24px 24px 28px;
   }
 
   .catalog__title {
@@ -1957,61 +1957,5 @@ body.is-menu-open .site-header.is-on-light ~ .menu-overlay .menu-overlay__close 
   .packaging-section__hero--mobile,
   .packaging-section__caption--mobile {
     display: none !important;
-  }
-}
-
-/* Главная mobile — после базовых стилей секций */
-@media (max-width: 768px) {
-  .home-hero {
-    height: 580px;
-    min-height: 580px;
-  }
-
-  .brand-typography-section {
-    min-height: auto;
-    padding: 32px 24px 20px;
-    background: #e9e6e2;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-
-  .brand-typography-section__grid {
-    width: 100%;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    transform: none;
-  }
-
-  .brand-typography-section__text--left,
-  .brand-typography-section__text--center,
-  .brand-typography-section__text--right {
-    text-align: left;
-    max-width: 100%;
-    justify-self: start;
-    transform: none;
-  }
-
-  #catalog .catalog__inner {
-    padding-top: 12px;
-    padding-bottom: 32px;
-  }
-}
-
-@media (max-width: 480px) {
-  .home-hero {
-    height: min(540px, 86svh);
-    min-height: min(540px, 86svh);
-  }
-
-  .brand-typography-section {
-    padding: 24px 24px 12px;
-  }
-
-  .brand-typography-section__grid {
-    gap: 16px;
-  }
-
-  #catalog .catalog__inner {
-    padding-top: 8px;
   }
 }

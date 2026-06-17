@@ -260,9 +260,9 @@ ul {
   height: 44px;
   padding: 0 26px;
   box-sizing: border-box;
-  border: 1px solid rgba(17, 17, 17, 0.38);
-  background: transparent;
-  color: rgba(17, 17, 17, 0.76);
+  border: 1px solid #1c1c1c;
+  background: #1c1c1c;
+  color: rgba(215, 211, 205, 0.94);
   font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   font-weight: 300;
@@ -279,7 +279,7 @@ ul {
 
 .home-hero__cta:hover {
   background: #111111;
-  color: #cfc7c2;
+  color: #e8e4df;
   border-color: #111111;
   transform: translate(10px, -16px);
 }

@@ -55,7 +55,6 @@ window.PRODUCTS = [
     image: "assets/catalog-astris-drop.png",
     imageAlt:
       "Кулон Dragon Pale blue — серебряный кулон с чеканкой и круглым хризолитом на цепи.",
-    video: "videos/astris-drop.mp4",
     gallery: ["assets/astris-drop-lifestyle.png"],
     description:
       "Серебряный кулон с фактурной чеканкой и круглым хризолитом в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
@@ -231,7 +230,6 @@ window.PRODUCTS = [
     image: "assets/catalog-dragon-red-pendant.png",
     imageAlt:
       "Кулон Dragon red — серебряный кулон с чеканкой и круглым красным камнем на цепи.",
-    video: "videos/dragon-red-pendant.mp4",
     gallery: ["assets/dragon-red-pendant-lifestyle.png"],
     description:
       "Серебряный кулон с фактурной чеканкой и круглым красным камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
@@ -249,7 +247,6 @@ window.PRODUCTS = [
     image: "assets/catalog-dragon-pink-pendant.png",
     imageAlt:
       "Кулон Dragon pink — серебряный кулон с чеканкой и круглым розовым камнем на цепи.",
-    video: "videos/dragon-pink-pendant.mp4",
     gallery: ["assets/dragon-pink-pendant-lifestyle.png"],
     description:
       "Серебряный кулон с фактурной чеканкой и круглым розовым камнем в центре. Контраст рельефной поверхности и гладкой оправы делает форму выразительной и живой.",
@@ -265,7 +262,6 @@ window.PRODUCTS = [
     image: "assets/catalog-game-pendant.png",
     imageAlt:
       "Кулон Game — матовый серебряный кулон с абстрактной формой и круглым зелёным камнем на цепи.",
-    video: "videos/game-pendant.mp4",
     gallery: ["assets/game-pendant-lifestyle.png"],
     description:
       "Матовый серебряный кулон с абстрактной объёмной формой и круглым зелёным камнем в центре. Спокойная сатиновая поверхность и чистая геометрия делают украшение современным и лаконичным.",

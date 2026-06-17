@@ -367,8 +367,8 @@ ul {
 
   .home-hero {
     position: relative;
-    height: 720px;
-    min-height: 720px;
+    height: 620px;
+    min-height: 620px;
     overflow: hidden;
     background-color: #dcd8d3 !important;
     background-image: url("images/necklace-hero-mobile.png?v=1") !important;

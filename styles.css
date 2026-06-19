@@ -167,6 +167,16 @@ ul {
   gap: 0.9rem;
 }
 
+.packaging-section__hero--mobile,
+.packaging-section__caption--mobile {
+  display: none;
+}
+
+.packaging-section__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .icon-btn {
   display: grid;
   place-items: center;
@@ -315,7 +325,7 @@ ul {
   h2,
   h3,
   .catalog__title,
-  .packaging-section__caption,
+  .packaging-section__title,
   .product-card__name,
   .site-footer__logo {
     overflow-wrap: anywhere;
@@ -1141,55 +1151,166 @@ ul {
   }
 }
 
-/* Упаковка — единый макет как на mobile */
+/* Упаковка */
 .packaging-section {
-  background: #f8f7f4;
-  padding: 28px 20px 32px;
-  color: var(--dark);
+  position: relative;
+  background: #c8c0ba;
+  padding: 130px 48px 90px;
+  color: #111111;
 }
 
-.packaging-section__inner {
-  max-width: min(100%, 22.5rem);
+.packaging-section__top {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  max-width: 1280px;
   margin: 0 auto;
+  margin-top: -34px;
+  margin-bottom: 86px;
+}
+
+.packaging-section__heading {
+  display: block;
 }
 
 .packaging-section__label {
-  margin: 0 0 0.875rem;
-  padding: 0;
-  width: 100%;
+  position: absolute;
+  top: 36px;
+  left: 48px;
+  margin: 0;
   font-family: var(--font-sans);
-  font-size: 0.68rem;
-  font-weight: 400;
+  font-size: 11px;
   line-height: 1;
+  font-weight: 300;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  text-align: center;
   color: rgba(17, 17, 17, 0.42);
 }
 
-.packaging-section__hero {
-  margin: 0 0 0.875rem;
-  padding: 0;
-  width: 100%;
+.packaging-section__text {
+  max-width: 1120px;
+  margin: 26px 0 0;
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 1.35vw, 22px);
+  line-height: 1.28;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: rgba(17, 17, 17, 0.66);
 }
 
-.packaging-section__hero-img {
+.packaging-section__gallery.packaging-carousel {
+  position: relative;
+  margin-top: 0;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.packaging-carousel__viewport {
+  overflow: hidden;
+  height: 620px;
+  outline: none;
+}
+
+@media (max-width: 1023px) {
+  .packaging-carousel__viewport {
+    height: min(520px, 58vh);
+  }
+}
+
+.packaging-carousel__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .packaging-carousel__track {
+    transition-duration: 0.01ms;
+  }
+}
+
+.packaging-carousel__slide {
+  flex: 0 0 auto;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.packaging-section__image {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  object-fit: contain;
-  object-position: center;
 }
 
-.packaging-section__caption {
+.packaging-carousel__btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  min-width: 44px;
+  min-height: 44px;
   margin: 0;
   padding: 0;
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.5;
-  font-weight: 300;
-  text-align: center;
-  color: rgba(17, 17, 17, 0.66);
+  border: none;
+  background: transparent;
+  color: rgba(17, 17, 17, 0.42);
+  cursor: pointer;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.packaging-carousel__btn:hover {
+  color: rgba(17, 17, 17, 0.78);
+}
+
+.packaging-carousel__btn:focus-visible {
+  outline: 1px solid rgba(17, 17, 17, 0.35);
+  outline-offset: 3px;
+}
+
+.packaging-carousel__btn--prev {
+  left: 2px;
+}
+
+.packaging-carousel__btn--next {
+  right: 2px;
+}
+
+.packaging-carousel__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.packaging-carousel__dot {
+  width: 7px;
+  height: 7px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(17, 17, 17, 0.38);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.packaging-carousel__dot--active {
+  background: #111111;
+  border-color: #111111;
+}
+
+.packaging-carousel__dot:focus-visible {
+  outline: 1px solid rgba(17, 17, 17, 0.45);
+  outline-offset: 2px;
 }
 
 .quote {
@@ -1751,5 +1872,86 @@ body.is-menu-open .site-header.is-on-light ~ .menu-overlay .menu-overlay__close 
   .menu-overlay {
     padding-left: max(24px, env(safe-area-inset-left, 0px));
     padding-right: max(24px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Упаковка mobile — после базовых стилей секции */
+@media (max-width: 768px) {
+  .packaging-section {
+    background: #f8f7f4;
+    padding: 28px 20px 32px;
+    color: var(--dark);
+  }
+
+  .packaging-section__top {
+    display: block;
+    margin: 0 0 12px;
+    max-width: none;
+  }
+
+  .packaging-section__heading {
+    display: block;
+  }
+
+  .packaging-section__label {
+    position: static;
+    top: auto;
+    left: auto;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(17, 17, 17, 0.42);
+  }
+
+  .packaging-section__text--desktop {
+    display: none !important;
+  }
+
+  .packaging-section__gallery--desktop {
+    display: none !important;
+  }
+
+  .packaging-section__hero--mobile {
+    display: block;
+    margin: 0 0 16px;
+    padding: 0;
+  }
+
+  .packaging-section__hero-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+    border-radius: 0;
+    filter: none;
+  }
+
+  .packaging-section__caption--mobile {
+    display: block;
+    margin: 0;
+    padding: 0 12px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: rgba(17, 17, 17, 0.66);
+  }
+}
+
+@media (min-width: 769px) {
+  .packaging-section__hero--mobile,
+  .packaging-section__caption--mobile {
+    display: none !important;
   }
 }

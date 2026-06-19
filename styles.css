@@ -1446,6 +1446,26 @@ ul {
   color: var(--hero-soft);
 }
 
+.site-footer--compact {
+  padding-top: 2rem;
+}
+
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+.site-footer__legal a {
+  color: var(--hero-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer__legal a:hover {
+  color: var(--hero-text);
+}
+
 .menu-overlay {
   position: fixed;
   top: calc(var(--header-h) + env(safe-area-inset-top, 0px));

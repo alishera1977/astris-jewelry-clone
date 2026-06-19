@@ -1492,11 +1492,6 @@ body.is-menu-open .header {
   z-index: 95 !important;
 }
 
-body.is-menu-open #menu-open {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .menu-overlay__panel {
   max-width: 28rem;
   margin: 0 auto;
@@ -1504,10 +1499,10 @@ body.is-menu-open #menu-open {
 }
 
 .menu-overlay__close {
-  position: fixed;
-  top: max(1.1rem, env(safe-area-inset-top, 0px));
-  right: max(1.5rem, env(safe-area-inset-right, 0px));
-  z-index: 96;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
   color: var(--hero-text);
 }
 

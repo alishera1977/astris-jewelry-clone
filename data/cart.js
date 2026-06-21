@@ -86,8 +86,21 @@
     writeCart(items);
   }
 
+  function siteRootPrefix() {
+    var path = window.location.pathname;
+    if (path.indexOf("/product/") !== -1) return "../../";
+    if (path.indexOf("/catalog/") !== -1) return "../";
+    if (path.indexOf("/legal/") !== -1) return "../../";
+    if (path.indexOf("/checkout/") !== -1) return "../";
+    return "";
+  }
+
   function assetPrefix() {
-    return window.location.pathname.indexOf("/product/") !== -1 ? "../../" : "";
+    return siteRootPrefix();
+  }
+
+  function checkoutUrl() {
+    return siteRootPrefix() + "checkout/";
   }
 
   function ensureCartPanel() {
@@ -288,7 +301,9 @@
 
       var checkoutBtn = target.closest("#cart-checkout");
       if (checkoutBtn) {
-        alert("Спасибо! Мы свяжемся с вами для оформления заказа.");
+        if (!readCart().length) return;
+        window.location.href = checkoutUrl();
+        return;
       }
     });
 

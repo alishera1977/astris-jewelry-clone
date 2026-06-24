@@ -275,9 +275,19 @@
   var CATALOG_ASSET_VERSION = "80";
 
   function productCategoryLabel(product) {
-    if (product.category) return product.category;
-    var label = product.material || product.materials || "Серебро 925";
-    if (product.stone) label += " · " + product.stone.toLowerCase();
+    var label = "silver";
+    var suffix = "";
+
+    if (product.stone) {
+      suffix = product.stone.toLowerCase();
+    } else if (product.category) {
+      var parts = product.category.split("·");
+      if (parts.length > 1) {
+        suffix = parts.slice(1).join("·").trim().toLowerCase();
+      }
+    }
+
+    if (suffix) label += " · " + suffix;
     return label;
   }
 
@@ -340,15 +350,14 @@
     titleLink.textContent = product.name;
     title.appendChild(titleLink);
 
-    var cat = document.createElement("p");
-    cat.className = "product-card__cat";
-    cat.textContent = productCategoryLabel(product);
-
     var price = document.createElement("p");
     price.className = "product-card__price";
     price.textContent = product.price;
 
     meta.appendChild(title);
+    var cat = document.createElement("p");
+    cat.className = "product-card__cat";
+    cat.textContent = productCategoryLabel(product);
     meta.appendChild(cat);
     meta.appendChild(price);
 

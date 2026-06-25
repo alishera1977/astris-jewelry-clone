@@ -97,6 +97,13 @@
   font-size: 1rem;
 }
 
+.checkout-summary__note {
+  margin: 0.75rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
 .checkout-form {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,6 @@
 (function () {
+  var ORDERS_KEY = "astris-orders";
+
   function formatPrice(value) {
     return value.toLocaleString("ru-RU") + " ₽";
   }
@@ -62,7 +64,17 @@
     }
     if (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Оплатить заказ";
+      submitBtn.textContent = "Отправить заказ";
+    }
+  }
+
+  function saveOrder(order) {
+    try {
+      var orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || "[]");
+      orders.push(order);
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+    } catch (e) {
+      /* ignore storage errors */
     }
   }
 
@@ -100,38 +112,25 @@
 
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Переход к оплате…";
+      submitBtn.textContent = "Отправка…";
     }
     showError("");
 
-    fetch("/api/create-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        items: cart.getItems(),
-        customer: customer,
-        total: cart.getTotal(),
-      }),
-    })
-      .then(function (res) {
-        return res.json().then(function (data) {
-          return { ok: res.ok, data: data };
-        });
-      })
-      .then(function (result) {
-        if (result.ok && result.data.confirmationUrl) {
-          window.location.href = result.data.confirmationUrl;
-          return;
-        }
+    var order = {
+      id: "order-" + Date.now(),
+      createdAt: new Date().toISOString(),
+      items: cart.getItems(),
+      total: cart.getTotal(),
+      customer: customer,
+    };
 
-        var message =
-          (result.data && result.data.message) ||
-          "Не удалось перейти к оплате. Напишите на contact@astrisjewelry.ru";
-        showError(message);
-      })
-      .catch(function () {
-        showError("Ошибка сети. Попробуйте ещё раз или напишите на contact@astrisjewelry.ru");
-      });
+    saveOrder(order);
+
+    if (cart.clear) {
+      cart.clear();
+    }
+
+    window.location.href = "success/";
   }
 
   if (document.readyState === "loading") {

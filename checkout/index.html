@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Оформление заказа — ASTRIS" />
     <title>Оформление заказа — ASTRIS</title>
-    <link rel="stylesheet" href="../styles.css?v=94" />
+    <link rel="stylesheet" href="../styles.css?v=95" />
     <link rel="stylesheet" href="checkout.css" />
   </head>
   <body>
@@ -36,15 +36,19 @@
     <main class="checkout-page" id="checkout-root">
       <div class="checkout-page__inner">
         <h1 class="checkout-page__title font-serif">Оформление заказа</h1>
-        <p class="checkout-page__lead">Заполните данные и перейдите к оплате банковской картой.</p>
+        <p class="checkout-page__lead">
+          Заполните контактные данные и адрес доставки. После отправки заказа мы свяжемся с вами
+          для подтверждения и расчёта доставки СДЭК.
+        </p>
 
         <section class="checkout-summary" aria-label="Ваш заказ">
           <h2 class="checkout-summary__title">Ваш заказ</h2>
           <ul class="checkout-summary__list" id="checkout-items"></ul>
           <p class="checkout-summary__total">
-            <span>Итого</span>
+            <span>Итого за изделия</span>
             <strong id="checkout-total">0 ₽</strong>
           </p>
+          <p class="checkout-summary__note">Стоимость доставки рассчитывается отдельно и уточняется при подтверждении заказа.</p>
         </section>
 
         <form class="checkout-form" id="checkout-form" novalidate>
@@ -54,7 +58,7 @@
           </div>
           <div class="checkout-field">
             <label for="checkout-phone">Телефон *</label>
-            <input id="checkout-phone" name="phone" type="tel" autocomplete="tel" required placeholder="+7" />
+            <input id="checkout-phone" name="phone" type="tel" autocomplete="tel" required />
           </div>
           <div class="checkout-field">
             <label for="checkout-email">E-mail *</label>
@@ -65,7 +69,7 @@
             <input id="checkout-city" name="city" type="text" autocomplete="address-level2" required />
           </div>
           <div class="checkout-field">
-            <label for="checkout-address">Адрес доставки *</label>
+            <label for="checkout-address">Адрес доставки или пункт выдачи СДЭК *</label>
             <textarea id="checkout-address" name="address" autocomplete="street-address" required></textarea>
           </div>
           <div class="checkout-field">
@@ -80,15 +84,16 @@
                 Я согласен с
                 <a href="../legal/offer/" target="_blank" rel="noopener">публичной офертой</a>,
                 <a href="../legal/privacy/" target="_blank" rel="noopener">политикой конфиденциальности</a>,
-                условиями <a href="../legal/delivery/" target="_blank" rel="noopener">доставки</a>
-                и <a href="../legal/returns/" target="_blank" rel="noopener">возврата</a>.
+                условиями <a href="../legal/delivery/" target="_blank" rel="noopener">доставки</a>,
+                <a href="../legal/payment/" target="_blank" rel="noopener">оплаты</a>
+                и <a href="../legal/returns/" target="_blank" rel="noopener">возврата и обмена</a>.
               </span>
             </label>
           </div>
 
           <p class="checkout-error" id="checkout-error" hidden role="alert"></p>
 
-          <button type="submit" class="checkout-submit" id="checkout-submit">Оплатить заказ</button>
+          <button type="submit" class="checkout-submit" id="checkout-submit">Отправить заказ</button>
         </form>
 
         <a class="checkout-back" href="../catalog/">← Вернуться в каталог</a>
@@ -98,18 +103,20 @@
     <footer class="info-footer">
       <div class="info-footer__inner">
         <nav class="info-footer__links" aria-label="Информация">
-          <a href="../legal/privacy/">Политика конфиденциальности</a>
-          <a href="../legal/offer/">Публичная оферта</a>
+          <a href="../legal/contacts/">Контакты</a>
           <a href="../legal/delivery/">Доставка</a>
-          <a href="../legal/returns/">Возврат</a>
+          <a href="../legal/payment/">Оплата</a>
+          <a href="../legal/returns/">Возврат и обмен</a>
+          <a href="../legal/offer/">Публичная оферта</a>
+          <a href="../legal/privacy/">Политика конфиденциальности</a>
           <a href="../legal/requisites/">Реквизиты</a>
         </nav>
         <p class="info-footer__copy">© 2025 ASTRIS · ИП ИВАНОВА П. · ИНН 312337403830</p>
       </div>
     </footer>
 
-    <script src="../data/cart.js?v=89"></script>
-    <script src="../main.js?v=91"></script>
-    <script src="main.js?v=1"></script>
+    <script src="../data/cart.js?v=90"></script>
+    <script src="../main.js?v=95"></script>
+    <script src="main.js?v=2"></script>
   </body>
 </html>

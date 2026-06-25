@@ -86,6 +86,10 @@
     writeCart(items);
   }
 
+  function clearCart() {
+    writeCart([]);
+  }
+
   function siteRootPrefix() {
     var path = window.location.pathname;
     if (path.indexOf("/product/") !== -1) return "../../";
@@ -330,6 +334,7 @@
     addItem: addItem,
     removeItem: removeItem,
     updateQuantity: updateQuantity,
+    clear: clearCart,
     getCount: getCount,
     getItems: readCart,
     getTotal: getTotal,

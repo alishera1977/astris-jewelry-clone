@@ -1,8 +1,12 @@
 .checkout-page {
-  min-height: calc(100vh - var(--header-h));
+  min-height: 100vh;
+  box-sizing: border-box;
   background: #f9f8f6;
-  padding: clamp(2rem, 5vw, 3rem) max(1.25rem, env(safe-area-inset-left, 0px))
-    clamp(3rem, 8vw, 4rem) max(1.25rem, env(safe-area-inset-right, 0px));
+  padding: calc(var(--header-stack) + clamp(1.25rem, 4vw, 2rem))
+    max(1.25rem, env(safe-area-inset-right, 0px))
+    clamp(3rem, 8vw, 4rem)
+    max(1.25rem, env(safe-area-inset-left, 0px));
+  overflow-x: clip;
 }
 
 .checkout-page__inner {
@@ -22,8 +26,9 @@
 
 .checkout-page__title {
   font-size: clamp(2rem, 5vw, 2.5rem);
-  line-height: 1.1;
+  line-height: 1.2;
   margin: 0 0 0.5rem;
+  padding-top: 0.05em;
   grid-column: 1 / -1;
 }
 
@@ -235,7 +240,10 @@
   max-width: 36rem;
   margin: 0 auto;
   text-align: center;
-  padding: 3rem 1rem 4rem;
+  padding: calc(var(--header-stack) + 3rem) max(1.25rem, env(safe-area-inset-right, 0px)) 4rem
+    max(1.25rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
 }
 
 .checkout-success__title {

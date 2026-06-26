@@ -34,6 +34,7 @@
   --font-serif: "Cormorant Garamond", serif;
   --font-sans: "Montserrat", sans-serif;
   --header-h: 4.25rem;
+  --header-stack: calc(var(--header-h) + env(safe-area-inset-top, 0px));
 }
 
 .logo {
@@ -831,9 +832,10 @@ ul {
 }
 
 .catalog-page {
-  padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  padding-top: var(--header-stack);
   min-height: 100vh;
   background: #f9f8f6;
+  box-sizing: border-box;
 }
 
 .catalog-page .catalog__inner {

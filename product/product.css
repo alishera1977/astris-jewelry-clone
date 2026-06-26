@@ -378,7 +378,7 @@
   .product-detail-page {
     grid-template-columns: 1fr;
     min-height: auto;
-    padding-top: var(--header-h);
+    padding-top: var(--header-stack);
     max-width: 100%;
     overflow-x: hidden;
   }

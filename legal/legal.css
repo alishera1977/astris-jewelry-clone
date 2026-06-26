@@ -1,13 +1,18 @@
 .info-page {
-  min-height: calc(100vh - var(--header-h));
+  min-height: 100vh;
+  box-sizing: border-box;
   background: #f9f8f6;
-  padding: clamp(2.5rem, 6vw, 4rem) max(1.5rem, env(safe-area-inset-left, 0px))
-    clamp(3rem, 8vw, 5rem) max(1.5rem, env(safe-area-inset-right, 0px));
+  padding: calc(var(--header-stack) + clamp(1.5rem, 4vw, 2.5rem))
+    max(1.25rem, env(safe-area-inset-right, 0px))
+    clamp(3rem, 8vw, 5rem)
+    max(1.25rem, env(safe-area-inset-left, 0px));
+  overflow-x: clip;
 }
 
 .info-page__inner {
   max-width: 42rem;
   margin: 0 auto;
+  overflow-wrap: anywhere;
 }
 
 .info-page__eyebrow {
@@ -20,8 +25,9 @@
 
 .info-page__title {
   font-size: clamp(2rem, 5vw, 2.75rem);
-  line-height: 1.1;
-  margin-bottom: 1.75rem;
+  line-height: 1.2;
+  margin: 0 0 1.75rem;
+  padding-top: 0.05em;
   color: var(--fg);
 }
 
@@ -29,6 +35,7 @@
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--dark);
+  overflow-wrap: anywhere;
 }
 
 .info-page__content h2 {

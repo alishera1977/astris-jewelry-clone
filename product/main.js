@@ -17,6 +17,7 @@
 
   function buildSpecs(product) {
     var rows = [];
+    if (product.materialDetail) rows.push(["Материал", product.materialDetail]);
     if (product.stone) rows.push(["Камень", product.stone]);
     if (product.edition) rows.push(["Тираж", product.edition]);
     if (product.size) rows.push(["Размер", product.size]);

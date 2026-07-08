@@ -275,7 +275,7 @@
   var CATALOG_ASSET_VERSION = "80";
 
   function productCategoryLabel(product) {
-    var label = "silver";
+    var label = "металлический сплав";
     var suffix = "";
 
     if (product.stone) {

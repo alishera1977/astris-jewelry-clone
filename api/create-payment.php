@@ -21,38 +21,57 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   exit;
 }
 
-$configFile = __DIR__ . '/yookassa-config.php';
-if (!is_file($configFile)) {
+function astris_load_payment_config() {
+  $candidates = array(
+    __DIR__ . '/keys.php',
+    __DIR__ . '/yookassa-config.php',
+  );
+
+  foreach ($candidates as $configFile) {
+    if (!is_file($configFile)) {
+      continue;
+    }
+    $config = include $configFile;
+    if (!is_array($config)) {
+      continue;
+    }
+    $shopId = isset($config['shop_id']) ? trim((string) $config['shop_id']) : '';
+    $secretKey = isset($config['secret_key']) ? trim((string) $config['secret_key']) : '';
+    $siteUrl = isset($config['site_url']) ? rtrim((string) $config['site_url'], '/') : 'https://www.astrisjewelry.ru';
+    return array(
+      'file' => basename($configFile),
+      'shop_id' => $shopId,
+      'secret_key' => $secretKey,
+      'site_url' => $siteUrl !== '' ? $siteUrl : 'https://www.astrisjewelry.ru',
+    );
+  }
+
+  return null;
+}
+
+$loaded = astris_load_payment_config();
+if ($loaded === null) {
   http_response_code(503);
-  echo json_encode([
+  echo json_encode(array(
     'error' => 'payment_config_missing',
-    'message' => 'На сервере нет файла api/yookassa-config.php. Загрузите его в папку api.',
-  ]);
+    'message' => 'На сервере нет api/keys.php (или yookassa-config.php). Создайте файл в папке api.',
+  ));
   exit;
 }
 
-$config = require $configFile;
-if (!is_array($config)) {
-  http_response_code(503);
-  echo json_encode([
-    'error' => 'payment_config_invalid',
-    'message' => 'Файл api/yookassa-config.php повреждён. Замените его содержимым из инструкции.',
-  ]);
-  exit;
-}
-
-$shopId = isset($config['shop_id']) ? trim((string) $config['shop_id']) : '';
-$secretKey = isset($config['secret_key']) ? trim((string) $config['secret_key']) : '';
-$siteUrl = isset($config['site_url']) ? rtrim((string) $config['site_url'], '/') : 'https://www.astrisjewelry.ru';
+$shopId = $loaded['shop_id'];
+$secretKey = $loaded['secret_key'];
+$siteUrl = $loaded['site_url'];
 
 if ($shopId === '' || $secretKey === '') {
   http_response_code(503);
-  echo json_encode([
+  echo json_encode(array(
     'error' => 'payment_credentials_empty',
-    'message' => 'В api/yookassa-config.php пустой shop_id или secret_key. Заполните оба значения.',
+    'message' => 'В ' . $loaded['file'] . ' пустой shop_id или secret_key. Заполните оба значения и сохраните файл.',
+    'config_file' => $loaded['file'],
     'has_shop_id' => $shopId !== '',
     'has_secret_key' => $secretKey !== '',
-  ]);
+  ));
   exit;
 }
 

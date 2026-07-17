@@ -1,12 +1,11 @@
-# Deny direct access to payment secrets
-<Files "yookassa-config.php">
+# Protect secret files from direct browser access
+<FilesMatch "^(yookassa-config|keys)\.php$">
   Require all denied
-</Files>
+</FilesMatch>
 
-# Apache 2.2 fallback (Beget may use older rules)
 <IfModule !mod_authz_core.c>
-  <Files "yookassa-config.php">
+  <FilesMatch "^(yookassa-config|keys)\.php$">
     Order allow,deny
     Deny from all
-  </Files>
+  </FilesMatch>
 </IfModule>

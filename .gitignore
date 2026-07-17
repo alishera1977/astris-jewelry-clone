@@ -1,0 +1,7 @@
+.env
+.env.local
+.env.*.local
+api/yookassa-config.php
+.DS_Store
+node_modules/
+.vercel

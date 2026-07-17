@@ -1,5 +1,9 @@
 (function () {
   var ORDERS_KEY = "astris-orders";
+  var PAYMENT_ENDPOINTS = [
+    "/api/create-payment.php",
+    "/api/create-payment",
+  ];
 
   function formatPrice(value) {
     return value.toLocaleString("ru-RU") + " ₽";
@@ -64,7 +68,7 @@
     }
     if (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Отправить заказ";
+      submitBtn.textContent = "Перейти к оплате";
     }
   }
 
@@ -76,6 +80,45 @@
     } catch (e) {
       /* ignore storage errors */
     }
+  }
+
+  function createPayment(payload) {
+    var lastError = null;
+
+    function tryEndpoint(index) {
+      if (index >= PAYMENT_ENDPOINTS.length) {
+        return Promise.reject(lastError || new Error("payment_failed"));
+      }
+
+      return fetch(PAYMENT_ENDPOINTS[index], {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          if (response.ok && data.confirmationUrl) {
+            return data;
+          }
+
+          if (
+            response.status === 404 ||
+            response.status === 405 ||
+            response.status === 501
+          ) {
+            lastError = data;
+            return tryEndpoint(index + 1);
+          }
+
+          var err = new Error(
+            (data && data.message) || "Не удалось создать платёж"
+          );
+          err.data = data;
+          throw err;
+        });
+      });
+    }
+
+    return tryEndpoint(0);
   }
 
   function onSubmit(e) {
@@ -112,25 +155,50 @@
 
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Отправка…";
+      submitBtn.textContent = "Создание платежа…";
     }
     showError("");
 
+    var items = cart.getItems();
+    var total = cart.getTotal();
     var order = {
       id: "order-" + Date.now(),
       createdAt: new Date().toISOString(),
-      items: cart.getItems(),
-      total: cart.getTotal(),
+      items: items,
+      total: total,
       customer: customer,
     };
 
-    saveOrder(order);
-
-    if (cart.clear) {
-      cart.clear();
-    }
-
-    window.location.href = "success/";
+    createPayment({
+      items: items.map(function (item) {
+        return {
+          name: item.name,
+          price: item.priceValue || item.price,
+          quantity: item.quantity,
+        };
+      }),
+      total: total,
+      customer: customer,
+    })
+      .then(function (data) {
+        order.paymentId = data.paymentId || "";
+        saveOrder(order);
+        if (cart.clear) {
+          cart.clear();
+        }
+        window.location.href = data.confirmationUrl;
+      })
+      .catch(function (err) {
+        var message =
+          (err && err.message) ||
+          "Не удалось перейти к оплате. Попробуйте позже или напишите на contact@astrisjewelry.ru";
+        if (err && err.data && err.data.error === "payment_not_configured") {
+          message =
+            err.data.message ||
+            "Онлайн-оплата ещё настраивается. Напишите на contact@astrisjewelry.ru";
+        }
+        showError(message);
+      });
   }
 
   if (document.readyState === "loading") {

@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/api/create-payment.php",
+      "destination": "/api/create-payment"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",

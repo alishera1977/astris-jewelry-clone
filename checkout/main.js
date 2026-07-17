@@ -192,9 +192,10 @@
         var message =
           (err && err.message) ||
           "Не удалось перейти к оплате. Попробуйте позже или напишите на contact@astrisjewelry.ru";
-        if (err && err.data && err.data.error === "payment_not_configured") {
+        if (err && err.data && err.data.message) {
+          message = err.data.message;
+        } else if (err && err.data && err.data.error === "payment_not_configured") {
           message =
-            err.data.message ||
             "Онлайн-оплата ещё настраивается. Напишите на contact@astrisjewelry.ru";
         }
         showError(message);

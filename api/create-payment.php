@@ -25,13 +25,22 @@ $configFile = __DIR__ . '/yookassa-config.php';
 if (!is_file($configFile)) {
   http_response_code(503);
   echo json_encode([
-    'error' => 'payment_not_configured',
-    'message' => 'Платёжная система настраивается. Напишите на contact@astrisjewelry.ru',
+    'error' => 'payment_config_missing',
+    'message' => 'На сервере нет файла api/yookassa-config.php. Загрузите его в папку api.',
   ]);
   exit;
 }
 
 $config = require $configFile;
+if (!is_array($config)) {
+  http_response_code(503);
+  echo json_encode([
+    'error' => 'payment_config_invalid',
+    'message' => 'Файл api/yookassa-config.php повреждён. Замените его содержимым из инструкции.',
+  ]);
+  exit;
+}
+
 $shopId = isset($config['shop_id']) ? trim((string) $config['shop_id']) : '';
 $secretKey = isset($config['secret_key']) ? trim((string) $config['secret_key']) : '';
 $siteUrl = isset($config['site_url']) ? rtrim((string) $config['site_url'], '/') : 'https://www.astrisjewelry.ru';
@@ -39,8 +48,10 @@ $siteUrl = isset($config['site_url']) ? rtrim((string) $config['site_url'], '/')
 if ($shopId === '' || $secretKey === '') {
   http_response_code(503);
   echo json_encode([
-    'error' => 'payment_not_configured',
-    'message' => 'Платёжная система настраивается. Напишите на contact@astrisjewelry.ru',
+    'error' => 'payment_credentials_empty',
+    'message' => 'В api/yookassa-config.php пустой shop_id или secret_key. Заполните оба значения.',
+    'has_shop_id' => $shopId !== '',
+    'has_secret_key' => $secretKey !== '',
   ]);
   exit;
 }

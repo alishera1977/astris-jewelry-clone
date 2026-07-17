@@ -2,6 +2,14 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
+function astris_substr($value, $start, $length) {
+  $value = (string) $value;
+  if (function_exists('mb_substr')) {
+    return mb_substr($value, $start, $length, 'UTF-8');
+  }
+  return substr($value, $start, $length);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
   http_response_code(204);
   exit;
@@ -75,7 +83,7 @@ $description = 'Заказ ASTRIS: ' . implode(', ', $names);
 if (count($items) > 3) {
   $description .= ' и ещё ' . (count($items) - 3);
 }
-$description = mb_substr($description, 0, 128);
+$description = astris_substr($description, 0, 128);
 
 $idempotenceKey = sprintf(
   '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -101,12 +109,12 @@ $payload = [
   ],
   'description' => $description,
   'metadata' => [
-    'customer_name' => mb_substr($name, 0, 100),
-    'customer_phone' => mb_substr($phone, 0, 32),
-    'customer_email' => mb_substr($email, 0, 100),
-    'customer_city' => mb_substr(isset($customer['city']) ? (string) $customer['city'] : '', 0, 100),
-    'customer_address' => mb_substr(isset($customer['address']) ? (string) $customer['address'] : '', 0, 200),
-    'customer_comment' => mb_substr(isset($customer['comment']) ? (string) $customer['comment'] : '', 0, 200),
+    'customer_name' => astris_substr($name, 0, 100),
+    'customer_phone' => astris_substr($phone, 0, 32),
+    'customer_email' => astris_substr($email, 0, 100),
+    'customer_city' => astris_substr(isset($customer['city']) ? (string) $customer['city'] : '', 0, 100),
+    'customer_address' => astris_substr(isset($customer['address']) ? (string) $customer['address'] : '', 0, 200),
+    'customer_comment' => astris_substr(isset($customer['comment']) ? (string) $customer['comment'] : '', 0, 200),
   ],
   'receipt' => [
     'customer' => [
@@ -123,7 +131,7 @@ $payload = [
       }
       $amount = number_format($priceNum, 2, '.', '');
       return [
-        'description' => mb_substr(isset($item['name']) ? (string) $item['name'] : 'Товар ASTRIS', 0, 128),
+        'description' => astris_substr(isset($item['name']) ? (string) $item['name'] : 'Товар ASTRIS', 0, 128),
         'quantity' => (string) $qty,
         'amount' => [
           'value' => $amount,
